@@ -2,12 +2,12 @@ from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from app.models import db, Recipe, Ingredient
 from .auth_routes import validation_errors_to_error_messages
-
+from ..forms.create_recipe_form import CreateRecipeForm, EditRecipeForm
 
 recipe_routes = Blueprint('album', __name__)
 
 
-#Return all albums
+#Return all recipes
 @recipe_routes.route('/')
 def get_all_recipes():
     all_recipes = Recipe.query.all()
@@ -23,105 +23,188 @@ def get_all_recipes():
 
     return output
 
-# #return single albums
-# @recipe_routes.route('/<int:albumId>')
-# def get_single_album(albumId):
-#     single_album = db.session.query(Album).get(int(albumId))
+#return single recipe
+@recipe_routes.route('/<int:recipeId>')
+def get_single_recipe(recipeId):
+    single_recipe = db.session.query(Recipe).get(int(recipeId))
 
-#     #pull photo info out albums
-#     photoInfo = []
-#     for photo in single_album.photos:
-#         tempPhoto = photo.to_dict()
-#         tempPhoto.pop("user")
-#         tempPhoto.pop("comments")
-#         tempPhoto.pop("albums")
-#         tempPhoto.pop("tags")
-#         photoInfo.append(tempPhoto)
+    #pull ingredients info out albums
+    ingredientInfo = []
+    for ingredient in single_recipe.ingredients:
+        tempIngredient = ingredient.to_dict()
+        tempIngredient.pop("recipe")
+        tempIngredient.pop("recipe_id")
+        ingredientInfo.append(tempIngredient)
 
-#     return {
-#         "id": single_album.id,
-#         "album_name" : single_album.album_name,
-#         "photos": photoInfo
-#     }
+    #pull author info
+    tempAuthor = single_recipe.author.to_dict() 
+    print("===========================>", tempAuthor)
 
-# @recipe_routes.route('/', methods=["POST"])
-# @login_required
-# def create_album():
-#   user_id = current_user.id
-#   form = CreateAlbumForm()
-#   form['csrf_token'].data = request.cookies['csrf_token']
+    return {
+        "id": single_recipe.id,
+        "title" : single_recipe.title,
+        "description": single_recipe.description,
+        "author_id": single_recipe.author_id,
+        "timeToComplete": single_recipe.timeToComplete,
+        "previewImage": single_recipe.previewImage,
+        "instructions": single_recipe.instructions,
+        "createdAt": single_recipe.createdAt,
+        "author": tempAuthor,        
+        "ingredients": ingredientInfo
+    }
+
+#Create a recipe
+@recipe_routes.route('/', methods=["POST"])
+@login_required
+def create_recipe():
+  user_id = current_user.id
+  form = CreateRecipeForm()
+  form['csrf_token'].data = request.cookies['csrf_token']
+
+  if form.validate_on_submit():
+    data = form.data
+
+    newRecipe = Recipe(
+        title=data["title"],
+        description=data["description"],
+        timeToComplete=data["timeToComplete"],
+        previewImage=data["previewImage"],
+        instructions=data["instructions"],
+        author_id = user_id
+    )   
+
+    db.session.add(newRecipe)
+    db.session.commit()
+
+    return {
+        "id": newRecipe.id,
+        "title" : newRecipe.title,
+        "description": newRecipe.description,
+        "author_id": newRecipe.author_id,
+        "timeToComplete": newRecipe.timeToComplete,
+        "previewImage": newRecipe.previewImage,
+        "instructions": newRecipe.instructions,
+        "createdAt": newRecipe.createdAt,
+    }
+  return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+#Update a recipe
+@recipe_routes.route('/<int:recipeId>', methods=['PUT'])
+@login_required
+def update_to_album(recipeId):
+    #Check if current user is owner of recipe
+    data = request.get_json()
+    
+    #find recipe
+    edit_Recipe = db.session.query(Recipe).get(recipeId)
+
+    if edit_Recipe.author_id != current_user.id:
+        return {'errors': ['Unauthorized']}, 401
+
+    form = EditRecipeForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        data = form.data
+
+        edit_Recipe.title = data["title"]
+        edit_Recipe.description = data["description"]
+        edit_Recipe.timeToComplete = data["timeToComplete"]
+        edit_Recipe.previewImage = data["previewImage"]
+        edit_Recipe.instructions = data['instructions']
+        
+        db.session.commit()
+
+        return {
+            "id": edit_Recipe.id,
+            "author_id": edit_Recipe.author_id,
+            "title": data["title"],
+            "description": data["description"],
+            "timeToComplete": data["timeToComplete"],
+            "previewImage": data["previewImage"],
+            "instructions": data["instructions"],
+            "createdAt": edit_Recipe.createdAt
+        }
+
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+#Delete a recipe
+@recipe_routes.route('/<int:recipeId>', methods=["DELETE"])
+@login_required
+def delete_recipe(recipeId):
+    recipe = db.session.query(Recipe).get(recipeId)
+
+    if recipe is None:
+        return {
+            "message": "Recipe couldn't be found",
+            "statusCode": 404
+        }, 404
+
+    if recipe.author_id != current_user.id:
+        return {'errors': ['Unauthorized']}, 401
+
+    if recipe is not None:
+        db.session.delete(recipe)
+        db.session.commit()
+        return {
+            "message": "Successfully deleted",
+            "statusCode": 200
+        }, 200
+
+#add an ingredient(s) to a recipe
+
+@recipe_routes.route('/<int:recipeId>/ingredients', methods=['POST'])
+@login_required
+def add_ingredient(recipeId):
+    recipe = Recipe.query.get(recipeId)
+
+    if recipe is None:
+      return {
+        "message": "Recipe couldn't be found",
+        "statusCode": 404
+      }, 404
+
+    if recipe.author_id != current_user.id:
+        return {'errors': ['Unauthorized']}, 401
+
+    data = request.get_json()
+    result = []
+    errors = []
+    for ingredient in data["Ingredients"]:
+        #validations
+        if(len(ingredient["name"]) < 3 or len(ingredient["name"]) > 50):
+            print('======================>',ingredient["name"])
+            if("Name must be between 3 and 100 characters long" not in errors):
+                errors.append("Name must be between 3 and 100 characters long")
+        if(ingredient["quantity"] < 0):
+            if("Quantity must be greater than 0" not in errors):
+                errors.append("Quantity must be greater than 0")
+        if(len(ingredient["unit"]) == 0):
+            if("Unit is required" not in errors):
+                errors.append("Unit is required")
+
+    if len(errors)>0:
+        return {'errors': errors}, 401
+
+    for ingredient in data["Ingredients"]:
+        #validations
+        newIngredient = Ingredient(
+            name = ingredient["name"],
+            quantity = ingredient["quantity"],
+            unit = ingredient["unit"],
+            recipe_id = recipeId
+        )
+
+        db.session.add(newIngredient)
+        recipe.ingredients.append(newIngredient)
+        db.session.commit()
+        result.append({
+            "id": recipe.ingredients[len(recipe.ingredients)-1].id,
+            "quantity": newIngredient.quantity,
+            "name": newIngredient.name,
+            "unit": newIngredient.unit
+        })
 
 
-#   if form.validate_on_submit():
-#     data = form.data
-
-#     newAlbum = Album(
-#         album_name= data["album_name"],
-#         user_id = current_user.id
-#     )
-
-#     db.session.add(newAlbum)
-#     db.session.commit()
-
-#     allAlbums = Album.query.all()
-
-#     return {
-#         "id": allAlbums[len(allAlbums)-1].id,
-#         "album_name": newAlbum.album_name,
-#         "photos": [],
-#         "user_id":user_id
-#     }
-#   return {'errors': validation_errors_to_error_messages(form.errors)}, 401
-
-# @recipe_routes.route('/<int:albumId>', methods=['PUT'])
-# @login_required
-# def add_photo_to_album(albumId):
-#     #Check if current user is owner of album and owner of photoId
-#     data = request.get_json()
-#     photoId = data["photoId"]
-
-#     singlePhoto = db.session.query(Photo).get(photoId)
-#     singleAlbum = db.session.query(Album).get(albumId)
-
-#     if singlePhoto is None:
-#         return {
-#             "message": "Photo couldn't be found",
-#             "statusCode": 404
-#         }, 404
-
-#     if singleAlbum.user_id != current_user.id:
-#         return {'errors': ['Unauthorized']}, 401
-
-#     if current_user.id != singlePhoto.user_id:
-#         return {'errors': ['Unauthorized']}, 401
-
-#     #execute update
-#     singleAlbum.photos.append(singlePhoto)
-#     db.session.commit()
-
-#     return {
-#         "message": "successfully added"
-#     }
-
-
-# @recipe_routes.route('/<int:albumId>', methods=["DELETE"])
-# @login_required
-# def delete_album(albumId):
-#     album = db.session.query(Album).get(albumId)
-
-#     if album is None:
-#         return {
-#             "message": "Comment couldn't be found",
-#             "statusCode": 404
-#         }, 404
-
-#     if album.user_id != current_user.id:
-#         return {'errors': ['Unauthorized']}, 401
-
-#     if album is not None:
-#         db.session.delete(album)
-#         db.session.commit()
-#         return {
-#             "message": "Successfully deleted",
-#             "statusCode": 200
-#         }, 200
+    return {
+        "Ingredients": result
+    }
