@@ -114,7 +114,6 @@ def update_to_album(recipeId):
         
         db.session.commit()
 
-
         return {
             "id": edit_Recipe.id,
             "author_id": edit_Recipe.author_id,
@@ -125,8 +124,6 @@ def update_to_album(recipeId):
             "instructions": data["instructions"],
             "createdAt": edit_Recipe.createdAt
         }
-
-    db.session.commit()
 
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
@@ -152,3 +149,62 @@ def delete_recipe(recipeId):
             "message": "Successfully deleted",
             "statusCode": 200
         }, 200
+
+#add an ingredient(s) to a recipe
+
+@recipe_routes.route('/<int:recipeId>/ingredients', methods=['POST'])
+@login_required
+def add_ingredient(recipeId):
+    recipe = Recipe.query.get(recipeId)
+
+    if recipe is None:
+      return {
+        "message": "Recipe couldn't be found",
+        "statusCode": 404
+      }, 404
+
+    if recipe.author_id != current_user.id:
+        return {'errors': ['Unauthorized']}, 401
+
+    data = request.get_json()
+    result = []
+    errors = []
+    for ingredient in data["Ingredients"]:
+        #validations
+        if(len(ingredient["name"]) < 3 or len(ingredient["name"]) > 50):
+            print('======================>',ingredient["name"])
+            if("Name must be between 3 and 100 characters long" not in errors):
+                errors.append("Name must be between 3 and 100 characters long")
+        if(ingredient["quantity"] < 0):
+            if("Quantity must be greater than 0" not in errors):
+                errors.append("Quantity must be greater than 0")
+        if(len(ingredient["unit"]) == 0):
+            if("Unit is required" not in errors):
+                errors.append("Unit is required")
+
+    if len(errors)>0:
+        return {'errors': errors}, 401
+
+    for ingredient in data["Ingredients"]:
+        #validations
+        newIngredient = Ingredient(
+            name = ingredient["name"],
+            quantity = ingredient["quantity"],
+            unit = ingredient["unit"],
+            recipe_id = recipeId
+        )
+
+        db.session.add(newIngredient)
+        recipe.ingredients.append(newIngredient)
+        db.session.commit()
+        result.append({
+            "id": recipe.ingredients[len(recipe.ingredients)-1].id,
+            "quantity": newIngredient.quantity,
+            "name": newIngredient.name,
+            "unit": newIngredient.unit
+        })
+
+
+    return {
+        "Ingredients": result
+    }
