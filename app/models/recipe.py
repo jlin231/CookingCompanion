@@ -20,7 +20,7 @@ class Recipe(db.Model):
     createdAt = db.Column(db.DateTime, nullable=False, default=today)
 
     author = db.relationship("User", back_populates="recipes")
-    ingredients = db.relationship("Ingredient", back_popualtes="recipe")
+    ingredients = db.relationship("Ingredient", cascade="all, delete-orphan", back_populates="recipe")
 
 
     def to_dict(self):
