@@ -20,8 +20,8 @@ class Ingredient(db.Model):
         return {
             'id': self.id,
             'name': self.name,
-            'quantity,': self.quantity,
-            'unit,': self.unit,
+            'quantity': self.quantity,
+            'unit': self.unit,
             'recipe_id': self.recipe_id,
             'recipe': self.recipe
         }

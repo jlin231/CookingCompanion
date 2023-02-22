@@ -6,10 +6,13 @@ import LoginFormPage from "./components/LoginFormPage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import SplashPage from "./components/SplashPage";
+import SingleRecipePage from "./components/SingleRecipePage";
+import CreateRecipePage from "./components/CreateRecipePage";
 
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
+
   useEffect(() => {
     dispatch(authenticate()).then(() => setIsLoaded(true));
   }, [dispatch]);
@@ -19,14 +22,20 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
-          <Route path="/">
-            <SplashPage />
+          <Route path="/create/recipes">
+            <CreateRecipePage />
+          </Route>
+          <Route path="/recipes/:recipeId">
+            <SingleRecipePage />
           </Route>
           <Route path="/login" >
             <LoginFormPage />
           </Route>
           <Route path="/signup">
             <SignupFormPage />
+          </Route>
+          <Route path="/">
+            <SplashPage />
           </Route>
         </Switch>
       )}
