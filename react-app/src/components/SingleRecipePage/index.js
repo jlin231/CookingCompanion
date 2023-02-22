@@ -21,6 +21,15 @@ const SingleRecipePage = () => {
         return null
     }
 
+    const handleEdit = () => {
+        history.push(`/recipes/${recipeId}/edit`)
+    }
+
+    const handleDelete = () => {
+
+    }
+
+
     return (
         <div>
             <div className="Top-Info-Container">
@@ -28,6 +37,8 @@ const SingleRecipePage = () => {
             </div>
             <div>{singleRecipe.title}</div>
             <div>{singleRecipe.description}</div>
+            <div onClick={handleEdit}>Edit Recipe</div>
+            <div onClick={handleDelete}>Delete Recipe</div>
         </div>
     )
 }

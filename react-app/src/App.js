@@ -8,6 +8,7 @@ import Navigation from "./components/Navigation";
 import SplashPage from "./components/SplashPage";
 import SingleRecipePage from "./components/SingleRecipePage";
 import CreateRecipePage from "./components/CreateRecipePage";
+import EditRecipePage from "./components/EditRecipePage";
 
 function App() {
   const dispatch = useDispatch();
@@ -24,6 +25,9 @@ function App() {
         <Switch>
           <Route path="/create/recipes">
             <CreateRecipePage />
+          </Route>
+          <Route path="/recipes/:recipeId/edit">
+            <EditRecipePage />
           </Route>
           <Route path="/recipes/:recipeId">
             <SingleRecipePage />

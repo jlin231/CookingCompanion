@@ -49,7 +49,7 @@ export const thunkGetSingleRecipe = (recipeId) => async (dispatch) => {
     if (response.ok) {
         const data = await response.json();
         dispatch(getSingleRecipe(data));
-        return null;
+        return data;
     } else if (response.status < 500) {
         const data = await response.json();
         if (data.errors) {
@@ -61,6 +61,26 @@ export const thunkGetSingleRecipe = (recipeId) => async (dispatch) => {
 export const thunkCreateRecipe = (body) => async (dispatch) => {
     const response = await fetch(`/api/recipes/`, {
         method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            ...body
+        }),
+    });
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(createSingleRecipe(data));
+        return data;
+    } else if (response.status < 500) {
+        const data = await response.json();
+        throw new Error(JSON.stringify(data));
+    }
+};
+
+export const thunkEditRecipe = (body) => async (dispatch) => {
+    const response = await fetch(`/api/recipes/`, {
+        method: "PUT",
         headers: {
             "Content-Type": "application/json",
         },
