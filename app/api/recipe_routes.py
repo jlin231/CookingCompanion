@@ -3,6 +3,7 @@ from flask_login import login_required, current_user
 from app.models import db, Recipe, Ingredient
 from .auth_routes import validation_errors_to_error_messages
 from ..forms.create_recipe_form import CreateRecipeForm, EditRecipeForm
+from ..forms.create_ingredient_form import EditIngredientForm
 
 recipe_routes = Blueprint('album', __name__)
 
@@ -208,3 +209,76 @@ def add_ingredient(recipeId):
     return {
         "Ingredients": result
     }
+
+#Update ingredient 
+
+@recipe_routes.route('/<int:recipeId>/ingredients/<int:ingredientId>', methods=["PUT"])
+@login_required
+def update_ingredient(recipeId, ingredientId):
+    #find recipe and ingredient
+    print("===================> route hit")
+    edit_recipe = db.session.query(Recipe).get(int(recipeId))
+    edit_ingredient = db.session.query(Ingredient).get(int(ingredientId))
+
+    if not edit_recipe:
+        return {"message": "Recipe couldn't be found"}, 404
+
+    if not edit_ingredient:
+        return {"message": "Ingredient couldn't be found"}, 404
+ 
+    if edit_recipe.author_id != current_user.id:
+        return {'errors': ['Unauthorized']}, 401
+
+    if(edit_ingredient.recipe_id != recipeId):
+        return {"message": "Ingredient does not belong to that recipe"}, 404
+
+
+    form = EditIngredientForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        data = form.data
+
+        print('====================>',data)
+
+        edit_ingredient.name = data["name"] 
+        edit_ingredient.quantity = data["quantity"] 
+        edit_ingredient.unit = data["unit"] 
+        print(edit_ingredient.to_dict())
+        db.session.commit()
+
+
+        return {
+            "id": edit_ingredient.id,
+            "name": edit_ingredient.name,
+            "quantity": edit_ingredient.quantity,
+            "unit": edit_ingredient.unit,
+        }
+    #Error handling
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+#Delete ingredient from recipe
+@recipe_routes.route('/<int:recipeId>/ingredients/<int:ingredientId>', methods=['DELETE'])
+@login_required
+def delete_ingredient(recipeId, ingredientId):
+    recipe = db.session.query(Recipe).get(int(recipeId))
+    delete_ingredient = db.session.query(Ingredient).get(int(ingredientId))
+
+    if not recipe:
+        return {"message": "Recipe couldn't be found"}, 404
+
+    if not delete_ingredient:
+        return {"message": "Ingredient couldn't be found"}, 404
+ 
+    if recipe.author_id != current_user.id:
+        return {'errors': ['Unauthorized']}, 401
+
+    if(delete_ingredient.recipe_id != recipeId):
+        return {"message": "Ingredient does not belong to that recipe"}, 404
+
+    db.session.delete(delete_ingredient)    
+    db.session.commit()
+
+    return {
+        "message": "Successfully deleted",
+        "statusCode": 200
+    }, 200
