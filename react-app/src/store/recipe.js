@@ -17,7 +17,7 @@ const createSingleRecipe = (data) => ({
     payload: data
 });
 
-const initialState = { singleRecipe: null, allRecipes: null };
+const initialState = { singleRecipe: {}, allRecipes: {} };
 
 
 export const thunkGetAllRecipe = () => async (dispatch) => {
@@ -27,7 +27,6 @@ export const thunkGetAllRecipe = () => async (dispatch) => {
             "Content-Type": "application/json",
         }
     });
-    console.log('thunkhit')
     if (response.ok) {
         const data = await response.json();
         dispatch(getAllRecipes(data));
@@ -60,7 +59,7 @@ export const thunkGetSingleRecipe = (recipeId) => async (dispatch) => {
 };
 
 export const thunkCreateRecipe = (body) => async (dispatch) => {
-    const response = await fetch(`/api/recipes/${1}`, {
+    const response = await fetch(`/api/recipes/`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -72,15 +71,12 @@ export const thunkCreateRecipe = (body) => async (dispatch) => {
     if (response.ok) {
         const data = await response.json();
         dispatch(createSingleRecipe(data));
-        return null;
+        return data;
     } else if (response.status < 500) {
         const data = await response.json();
-        if (data.errors) {
-            return data.errors;
-        }
+        throw new Error(JSON.stringify(data));
     }
 };
-
 
 export default function recipeReducer(state = initialState, action) {
     let newState;
@@ -97,7 +93,9 @@ export default function recipeReducer(state = initialState, action) {
             return newState;
         case CREATE_SINGLE_RECIPE:
             newState = Object.assign({}, state);
+            console.log(newState)
             newState.allRecipes[action.payload.id] = action.payload;
+            console.log(newState)
             return newState;
         default:
             return state;

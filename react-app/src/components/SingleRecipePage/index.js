@@ -11,7 +11,7 @@ const SingleRecipePage = () => {
     const history = useHistory();
     const [loadedPage, setLoadedPage] = useState(false);
 
-    let { recipeId } = useParams() 
+    let { recipeId } = useParams()
 
     useEffect(() => {
         dispatch(thunkGetSingleRecipe(recipeId)).then(() => setLoadedPage(true));
@@ -26,6 +26,8 @@ const SingleRecipePage = () => {
             <div className="Top-Info-Container">
                 <img className="splashImage" src={`${singleRecipe.previewImage}`} alt="" />
             </div>
+            <div>{singleRecipe.title}</div>
+            <div>{singleRecipe.description}</div>
         </div>
     )
 }

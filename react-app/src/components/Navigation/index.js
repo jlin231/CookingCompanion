@@ -26,6 +26,11 @@ function Navigation({ isLoaded }) {
 			</div>
 			<div className="rightNav">
 				{isLoaded && sessionUser.user && (
+					<NavLink exact to='/create/recipes'>
+						Create a Recipe
+					</NavLink>
+				)}
+				{isLoaded && sessionUser.user && (
 					<ProfileButton user={sessionUser.user} />
 				)}
 				{!sessionUser.user && (

@@ -63,16 +63,12 @@ const CreateRecipePage = () => {
         e.preventDefault();
         setErrors([]);
 
-        console.log('arr', instructionInputArr)
-
         let instructions = ""
-
-        instructionInputArr.forEach((instruction)=>{
-            instructions = instructions.concat(instruction.value,";")
+        instructionInputArr.forEach((instruction) => {
+            instructions = instructions.concat(instruction.value, ";")
         })
-        console.log(instructions)
         const body = {
-            title, 
+            title,
             description,
             previewImage,
             timeToComplete,
@@ -81,22 +77,31 @@ const CreateRecipePage = () => {
         };
 
         try {
-            const res = await dispatch(thunkCreateRecipe);
-            // const data = await res.json();
-          } catch (error) {
-            console.log(error)
-            // let errorObject = JSON.parse(error.message);
-            // const result = errorObject.errors.map((error) => {
-            //   return error.split(": ")[1];
-            // });
-            // if (errorObject) setErrors(result);
-          }
-    };
+            const res = await dispatch(thunkCreateRecipe(body))
+            console.log('res=================<', res)
 
+            history.push(`/recipes/${res.id}`)
+
+            // const data = await res.json();
+        } catch (error) {
+            let errorObject = JSON.parse(error.message);
+            const result = errorObject.errors.map((error) => {
+                return error.split(": ")[1];
+            });
+            if (errorObject) setErrors(result);
+        }
+    };
 
     return (
         <div>
             <form onSubmit={handleSubmit} className="Global-ModalForm-Container">
+                <ul className="Global-Errors-UL">
+                    {errors.map((error, idx) => (
+                        <li key={idx} className="Global-Errors-LI">
+                            {error}
+                        </li>
+                    ))}
+                </ul>
                 <label for="title" className="Global-Modal-Label">
                     <input
                         type="text"
@@ -119,7 +124,7 @@ const CreateRecipePage = () => {
                 </label>
                 <label for="timeToComplete" className="Global-Modal-Label">
                     <input
-                        type="text"
+                        type="number"
                         value={timeToComplete}
                         onChange={(e) => setTimeToComplete(e.target.value)}
                         required
@@ -143,11 +148,11 @@ const CreateRecipePage = () => {
                         <button onClick={addInput}>+</button>
                         {
                             (instructionInputArr.length !== 1) ? <button onClick={removeInput}>-</button>
-                            : null
+                                : null
                         }
                         {instructionInputArr.map((item, i) => {
                             return (
-                                <div>
+                                <div key={i}>
                                     {i + 1}.
                                     <input
                                         onChange={handleInstructionChange}
