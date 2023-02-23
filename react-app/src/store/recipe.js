@@ -2,6 +2,7 @@ const GET_ALL_RECIPES = "recipe/GET_ALL_RECIPES";
 const GET_SINGLE_RECIPE = "recipe/GET_SINGLE_RECIPE";
 const CREATE_SINGLE_RECIPE = "recipe/CREATE_SINGLE_RECIPE";
 const EDIT_SINGLE_RECIPE = "recipe/EDIT_SINGLE_RECIPE";
+const DELETE_SINGLE_RECIPE = "recipe/DELETE_SINGLE_RECIPE";
 
 const getAllRecipes = (data) => ({
     type: GET_ALL_RECIPES,
@@ -21,6 +22,11 @@ const createSingleRecipe = (data) => ({
 const editSingleRecipe = (data) => ({
     type: EDIT_SINGLE_RECIPE,
     payload: data
+});
+
+const deleteSingleRecipe = (recipeId) => ({
+    type: DELETE_SINGLE_RECIPE,
+    payload: recipeId
 });
 
 const initialState = { singleRecipe: {}, allRecipes: {} };
@@ -104,6 +110,24 @@ export const thunkEditRecipe = (body, recipeId) => async (dispatch) => {
     }
 };
 
+export const thunkDeleteRecipe = (recipeId) => async (dispatch) => {
+    const response = await fetch(`/api/recipes/${recipeId}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+        }
+    });
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(deleteSingleRecipe(recipeId));
+        return data;
+    } else if (response.status < 500) {
+        const data = await response.json();
+        throw new Error(JSON.stringify(data));
+    }
+};
+
+
 export default function recipeReducer(state = initialState, action) {
     let newState;
     switch (action.type) {
@@ -126,6 +150,10 @@ export default function recipeReducer(state = initialState, action) {
         case EDIT_SINGLE_RECIPE:
             newState = Object.assign({}, state);
             newState.allRecipes[action.payload.id] = action.payload;
+            return newState;
+        case DELETE_SINGLE_RECIPE:
+            newState = Object.assign({}, state);
+            delete newState.allRecipes[action.payload]
             return newState;
         default:
             return state;
