@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import "./SingleRecipePage.css";
 import { useEffect, useState } from "react";
 import { NavLink, useHistory, useParams } from "react-router-dom";
-import { thunkGetSingleRecipe } from "../../store/recipe";
+import { thunkDeleteRecipe, thunkGetSingleRecipe } from "../../store/recipe";
 
 const SingleRecipePage = () => {
     const sessionUser = useSelector((state) => state.session.user);
@@ -26,9 +26,9 @@ const SingleRecipePage = () => {
     }
 
     const handleDelete = () => {
-
+        dispatch(thunkDeleteRecipe(recipeId))
+        history.push('/recipes')
     }
-
 
     return (
         <div>
@@ -37,8 +37,13 @@ const SingleRecipePage = () => {
             </div>
             <div>{singleRecipe.title}</div>
             <div>{singleRecipe.description}</div>
-            <div onClick={handleEdit}>Edit Recipe</div>
-            <div onClick={handleDelete}>Delete Recipe</div>
+            {
+                (sessionUser && singleRecipe.author_id === sessionUser.id) ?
+                    <div>
+                        <div onClick={handleEdit}>Edit Recipe</div>
+                        <div onClick={handleDelete}>Delete Recipe</div>
+                    </div> : null
+            }
         </div>
     )
 }
