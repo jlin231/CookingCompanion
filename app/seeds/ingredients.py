@@ -20,7 +20,6 @@ i9 = Ingredient(
     name='milk chocolate', quantity=12, unit='ounces', recipe_id=3)
 i10 = Ingredient(
     name='baking soda', quantity=1, unit='tsp', recipe_id=3)
-
 i11 = Ingredient(
     name='milk', quantity=0.66, unit='cup', recipe_id=2)
 i12 = Ingredient(

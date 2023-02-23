@@ -27,11 +27,11 @@ class Recipe(db.Model):
         return {
             'id': self.id,
             'title': self.title,
-            'description,': self.description,
-            'author_id,': self.author_id,
-            'timeToComplete,': self.timeToComplete,
-            'previewImage,': self.previewImage,
-            'instructions,': self.instructions,
+            'description': self.description,
+            'author_id': self.author_id,
+            'timeToComplete': self.timeToComplete,
+            'previewImage': self.previewImage,
+            'instructions': self.instructions,
             'createdAt': self.createdAt,
             'author': self.author,
             'ingredients': self.ingredients
