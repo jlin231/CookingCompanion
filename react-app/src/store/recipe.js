@@ -1,6 +1,7 @@
 const GET_ALL_RECIPES = "recipe/GET_ALL_RECIPES";
 const GET_SINGLE_RECIPE = "recipe/GET_SINGLE_RECIPE";
 const CREATE_SINGLE_RECIPE = "recipe/CREATE_SINGLE_RECIPE";
+const EDIT_SINGLE_RECIPE = "recipe/EDIT_SINGLE_RECIPE";
 
 const getAllRecipes = (data) => ({
     type: GET_ALL_RECIPES,
@@ -14,6 +15,11 @@ const getSingleRecipe = (data) => ({
 
 const createSingleRecipe = (data) => ({
     type: CREATE_SINGLE_RECIPE,
+    payload: data
+});
+
+const editSingleRecipe = (data) => ({
+    type: EDIT_SINGLE_RECIPE,
     payload: data
 });
 
@@ -78,8 +84,8 @@ export const thunkCreateRecipe = (body) => async (dispatch) => {
     }
 };
 
-export const thunkEditRecipe = (body) => async (dispatch) => {
-    const response = await fetch(`/api/recipes/`, {
+export const thunkEditRecipe = (body, recipeId) => async (dispatch) => {
+    const response = await fetch(`/api/recipes/${recipeId}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
@@ -90,7 +96,7 @@ export const thunkEditRecipe = (body) => async (dispatch) => {
     });
     if (response.ok) {
         const data = await response.json();
-        dispatch(createSingleRecipe(data));
+        dispatch(editSingleRecipe(data));
         return data;
     } else if (response.status < 500) {
         const data = await response.json();
@@ -116,6 +122,10 @@ export default function recipeReducer(state = initialState, action) {
             console.log(newState)
             newState.allRecipes[action.payload.id] = action.payload;
             console.log(newState)
+            return newState;
+        case EDIT_SINGLE_RECIPE:
+            newState = Object.assign({}, state);
+            newState.allRecipes[action.payload.id] = action.payload;
             return newState;
         default:
             return state;

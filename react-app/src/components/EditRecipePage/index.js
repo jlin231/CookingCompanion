@@ -9,10 +9,10 @@ const EditRecipePage = () => {
     const singleRecipe = useSelector((state) => state.recipes.singleRecipe)
     const [loadedPage, setLoadedPage] = useState(false);
 
-    const [title, setTitle] = useState("");
-    const [description, setDescription] = useState("");
-    const [timeToComplete, setTimeToComplete] = useState("");
-    const [previewImage, setPreviewImage] = useState("");
+    const [title, setTitle] = useState(singleRecipe.title);
+    const [description, setDescription] = useState(singleRecipe.description);
+    const [timeToComplete, setTimeToComplete] = useState(singleRecipe.timeToComplete);
+    const [previewImage, setPreviewImage] = useState(singleRecipe.previewImage);
     const [errors, setErrors] = useState([]);
 
     const dispatch = useDispatch();
@@ -25,7 +25,6 @@ const EditRecipePage = () => {
     //load singleRecipe
     useEffect(() => {
         dispatch(thunkGetSingleRecipe(recipeId)).then((res) => {
-            console.log('res', res)
             setLoadedPage(true)
             let result = []
             console.log(res.instructions)
@@ -38,13 +37,17 @@ const EditRecipePage = () => {
                 })
             })
             setInstructionInputArr(result)
+            setTitle(res.title)
+            setDescription(res.description)
+            setTimeToComplete(res.timeToComplete)
+            setPreviewImage(res.previewImage)
         })
         return () => {
             setLoadedPage(false);
         }
     }, [dispatch])
 
-    if (!loadedPage) {
+    if (!loadedPage && !singleRecipe) {
         console.log("loadedPagecomparater hits")
         return null;
     }
@@ -101,10 +104,10 @@ const EditRecipePage = () => {
         };
 
         try {
-            const res = await dispatch(thunkEditRecipe(body))
-            console.log('res=================<', res)
+            const res = await dispatch(thunkEditRecipe(body, recipeId))
 
-            history.push(`/recipes/${res.id}`)
+
+            history.push(`/recipes/${recipeId}`)
 
             // const data = await res.json();
         } catch (error) {
