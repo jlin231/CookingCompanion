@@ -9,6 +9,7 @@ import SplashPage from "./components/SplashPage";
 import SingleRecipePage from "./components/SingleRecipePage";
 import CreateRecipePage from "./components/CreateRecipePage";
 import EditRecipePage from "./components/EditRecipePage";
+import AllRecipePage from "./components/AllRecipesPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -23,6 +24,9 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
+          <Route path="/recipes/explore">
+            <AllRecipePage />
+          </Route>
           <Route path="/create/recipes">
             <CreateRecipePage />
           </Route>
