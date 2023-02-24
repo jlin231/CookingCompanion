@@ -18,7 +18,7 @@ def get_all_recipes():
 
     for recipe in all_recipes:
         tempRecipe = recipe.to_dict()
-        tempRecipe.pop("author")
+        tempRecipe["author"] = tempRecipe["author"].to_dict()
         tempRecipe.pop("ingredients")
         output["Recipes"].append(tempRecipe)
 

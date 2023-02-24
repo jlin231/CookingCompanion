@@ -23,6 +23,11 @@ function Navigation({ isLoaded }) {
 						<div>Wow</div>
 					</NavLink>
 				</div>
+				<div className="ExploreButton-Holder">
+					<NavLink exact to="/recipes/explore">
+						<div>Explore</div>
+					</NavLink>
+				</div>
 			</div>
 			<div className="rightNav">
 				{isLoaded && sessionUser.user && (

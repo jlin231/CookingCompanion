@@ -17,8 +17,16 @@ const SplashPage = () => {
         dispatch(thunkGetAllRecipe()).then(() => setLoadedPage(true));
     }, [dispatch]);
 
-    if (!loadedPage) {
+    if (!loadedPage || !allRecipes) {
         return null
+    }
+
+    //make a new set of arrays, with arrays with 2 recipes in them
+    const recipeValues = Object.values(allRecipes)
+
+    let recipeArray = []
+    for (let i = 0; i < recipeValues.length; i = i + 2) {
+        recipeArray.push(recipeValues.slice(i, i + 2))
     }
 
     return (
@@ -26,21 +34,35 @@ const SplashPage = () => {
             <div className="SplashPage-Container">
                 <img className="splashImage" src="https://static01.nyt.com/images/2022/01/05/dining/04KINGCAKEREX/merlin_199582518_c01765ae-60d5-494c-be98-a64ef03b51fc-threeByTwoMediumAt2X.jpg" alt="" />
             </div>
-            {
-                Object.values(allRecipes).map((recipe) => {
-                    return (
-                        <NavLink exact to={`/recipes/${recipe.id}`} key={recipe.id}>
-                            <div>
-                                <div>{recipe.id}</div>
-                                <div>{recipe.title}</div>
-                                <div>{recipe.description}</div>
-                                <div>{recipe.timeToComplete}</div>
-                                <div>{recipe.previewImage}</div>
-                            </div>
-                        </NavLink>
-                    )
-                })
-            }
+            <div className="lowerDiv">
+                <div className="navLinkContainer">
+                    <NavLink exact to='/recipes/explore' className="whatToCookDiv">
+                        <div className="whatToCookText">What to Cook This Week</div>
+                    </NavLink>
+                </div>
+
+                {
+                    recipeArray.map((array) => {
+                        return (<div className="splashRecipeContainer">
+                            {array.map((recipe) => {
+                                return (
+                                    <NavLink exact to={`/recipes/${recipe.id}`} key={recipe.id} className="splashNavLink">
+                                        <div className="splashRecipeCard">
+                                            <div className="recipeCardImageContainer">
+                                                <img className="splashRecipeCardImage" src={recipe.previewImage} />
+                                            </div>
+                                            <div className="recipeCardText">
+                                                <div className="titleCardDiv">{recipe.title}</div>
+                                                <div className="authorCardDiv">By {recipe.author.username}</div>
+                                            </div>
+                                        </div>
+                                    </NavLink>
+                                )
+                            })}
+                        </div>)
+                    })
+                }
+            </div>
         </>
     )
 }

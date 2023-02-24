@@ -1,5 +1,14 @@
 .SplashPage-Container {
-    width: 100%
+    width: 100%;
+
+}
+
+.lowerDiv {
+    padding-top: 20px;
+    background-color: rgb(242, 243, 239);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .splashImage {
@@ -7,3 +16,78 @@
     height: 80vh;
     object-fit: cover;
 }
+
+.splashRecipeContainer {
+    display: flex;
+    justify-content: center;
+
+}
+
+.navLinkContainer {
+    display: flex;
+    justify-content: center;
+    border-bottom: 7px solid black;
+    padding-bottom: 20px;
+    width: 980px;
+    margin-bottom: 50px;
+}
+
+.whatToCookDiv {
+    display: flex;
+    justify-content: center;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 38px;
+    font-weight: 900;
+    text-decoration: none;
+    color: black;
+}
+
+.whatToCookText:hover {
+    text-decoration: underline;
+}
+
+
+
+.splashRecipeCard {
+    max-width: 488px;
+    max-height: 488px;
+    height: 400px;
+    width: 480px;
+    background-color: white;
+    margin: 0px 10px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+}
+
+.splashRecipeCardImage {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.recipeCardImageContainer {
+    width: 100%;
+    height: 80%;
+
+}
+
+.recipeCardText {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.titleCardDiv {
+    font-size: 24px;
+    font-weight: 400;
+}
+
+.splashNavLink {
+    text-decoration: none;
+    color: black;
+}
+
+.authorCardDiv {}
