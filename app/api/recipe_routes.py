@@ -61,7 +61,7 @@ def create_recipe():
   user_id = current_user.id
   form = CreateRecipeForm()
   form['csrf_token'].data = request.cookies['csrf_token']
-
+    
   if form.validate_on_submit():
     data = form.data
 

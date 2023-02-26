@@ -17,7 +17,6 @@ const CreateRecipePage = () => {
     ];
 
     const [instructionInputArr, setInstructionInputArr] = useState(initArr)
-    const [ingredientInputArr, setIngredientInputArr] = useState(initArr)
 
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
@@ -67,6 +66,7 @@ const CreateRecipePage = () => {
         instructionInputArr.forEach((instruction) => {
             instructions = instructions.concat(instruction.value, ";")
         })
+        console.log(instructions)
         const body = {
             title,
             description,

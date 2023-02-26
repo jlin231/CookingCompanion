@@ -12,11 +12,9 @@
     margin: 10px;
     display: flex;
     flex-direction: column;
-
-    
 }
 
-.recipeCardDiv:hover{
+.recipeCardDiv:hover {
     box-shadow: 0px 0px 5px 2px grey;
 }
 
@@ -35,17 +33,17 @@
     width: 100%;
 }
 
-.textContainer{
+.textContainer {
     background-color: white;
-    height: 30%; 
+    height: 35%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    
+
 }
 
 .recipeCardImg {
-    height: 70%;
+    height: 65%;
     width: 100%;
     object-fit: cover;
 }
@@ -53,13 +51,22 @@
 .recipeCardTextDivUpper {
     display: flex;
     flex-direction: column;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
-.recipeCardTextDivLower{
-
+.recipeCardTextDivLower {
+    padding: 10px;
+    font-size: 12px;
+    color: rgb(118, 118, 118);
 }
 
 .cardTextTitle {
     font-size: 17px;
     font-weight: 700;
+}
+
+.cardTextAuthor {
+    font-size: 13px;
 }

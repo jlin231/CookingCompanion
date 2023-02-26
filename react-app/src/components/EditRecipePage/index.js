@@ -64,7 +64,8 @@ const EditRecipePage = () => {
         console.log(instructionInputArr)
     }
 
-    const addInput = () => {
+    const addInput = (e) => {
+        e.preventDefault();
         setInstructionInputArr(s => {
             const lastId = s[s.length - 1].id;
             return [
@@ -77,7 +78,8 @@ const EditRecipePage = () => {
         })
     }
 
-    const removeInput = () => {
+    const removeInput = (e) => {
+        e.preventDefault();
         setInstructionInputArr(s => {
             let newS = [...s];
             newS.pop()
@@ -120,8 +122,9 @@ const EditRecipePage = () => {
     };
 
     return (
-        <div>
-            <form onSubmit={handleSubmit} className="Global-ModalForm-Container">
+        <div className="outerMostDivEdit">
+            <div className="editRecipeHeader">Edit Recipe</div>
+            <form onSubmit={handleSubmit} className="Global-ModalForm-Container2">
                 <ul className="Global-Errors-UL">
                     {errors.map((error, idx) => (
                         <li key={idx} className="Global-Errors-LI">
@@ -155,7 +158,7 @@ const EditRecipePage = () => {
                         value={timeToComplete}
                         onChange={(e) => setTimeToComplete(e.target.value)}
                         required
-                        placeholder="timeToComplete"
+                        placeholder="Minutes to Complete"
                         className="Global-Modal-input"
                     />
                 </label>
@@ -165,18 +168,22 @@ const EditRecipePage = () => {
                         value={previewImage}
                         onChange={(e) => setPreviewImage(e.target.value)}
                         required
-                        placeholder="previewImage"
+                        placeholder="Preview Image URL"
                         className="Global-Modal-input"
                     />
                 </label>
                 {
                     <div className="instructionFormDiv">
-                        Add Instructions Here
-                        <button onClick={addInput}>+</button>
-                        {
-                            (instructionInputArr.length !== 1) ? <button onClick={removeInput}>-</button>
-                                : null
-                        }
+                        <div>
+                            Add Instructions Here
+                        </div>
+                        <div className="instructionButtonContainer">
+                            <button onClick={(e) => addInput(e)}>+</button>
+                            {
+                                (instructionInputArr.length !== 1) ? <button onClick={(e) => removeInput(e)}>-</button>
+                                    : null
+                            }
+                        </div>
                         {instructionInputArr.map((item, i) => {
                             return (
                                 <div key={i}>
@@ -194,7 +201,7 @@ const EditRecipePage = () => {
                         })}
                     </div>
                 }
-                <button type="submit" className="Global-SubmitButton">
+                <button type="submit" className="SubmitButtonEdit">
                     Submit
                 </button>
             </form>

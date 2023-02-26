@@ -21,6 +21,11 @@ const SingleRecipePage = () => {
         return null
     }
 
+    //process instructions
+    const instructionSplit = singleRecipe.instructions.split(';');
+    instructionSplit.pop()
+
+
     const handleEdit = () => {
         history.push(`/recipes/${recipeId}/edit`)
     }
@@ -33,10 +38,62 @@ const SingleRecipePage = () => {
     return (
         <div>
             <div className="Top-Info-Container">
-                <img className="splashImage" src={`${singleRecipe.previewImage}`} alt="" />
+                <div className="left-Info-Container bottomBorder">
+                    <div className="titleSingleRecipe">{singleRecipe.title}</div>
+                    <div className="authorSingleRecipe">Recipe from {singleRecipe.author.username}</div>
+                </div>
+                <div className="right-Info-Container " >
+                    <img className="splashImageSingle" src={`${singleRecipe.previewImage}`} alt="" />
+                </div>
             </div>
-            <div>{singleRecipe.title}</div>
-            <div>{singleRecipe.description}</div>
+            <div className="Info-Container2">
+                <div className="left-Info-Container2">
+                    <div className="left-Info-left-Div">
+                        <div className="left-Info-left-left-Div">
+                            <div className="textSingleRecipeLower">Time </div>
+                            {/* <div className="textSingleRecipeLower">Rating</div> */}
+                        </div>
+                        <div className="left-Info-left-right-Div">
+                            <div className="textSingleRecipeLower">{singleRecipe.timeToComplete} minutes</div>
+                            {/* <div>Rating to Come</div> */}
+
+                        </div>
+                    </div>
+                    <div className="buttonContainer">
+                        <div className="updateButton" onClick={handleEdit}>Update Recipe</div>
+                        <div className="updateButton" onClick={handleDelete}>Delete Recipe</div>
+                    </div>
+                </div>
+                <div className="right-Info-Container">
+                    <div className="authorSingleDescription">{singleRecipe.description}</div>
+                    <div className="authorText"> —{singleRecipe.author.username}</div>
+                </div>
+            </div>
+            <div className="Top-Info-Container3">
+                <div className="left-Info-Container3 topBorder">
+                    <div className="infoHeading">INGREDIENTS</div>
+                    {
+                        singleRecipe.ingredients.map((ingredient) => {
+                            return (
+                                <div className="ingredient">{ingredient["quantity"]} {ingredient.unit} {ingredient.name}</div>
+                            )
+                        })
+                    }
+                </div>
+                <div className="right-Info-Container topBorder" >
+                    <div className="infoHeading">PREPARATION</div>
+                    {
+                        instructionSplit.map((instruction, index) => {
+                            return (
+                                <>
+                                    <div className="step">Step {index+1}</div>
+                                    <div className="instruction">{`${instruction}`}</div>
+                                </>
+                            )
+                        })
+                    }
+                </div>
+            </div>
             {
                 (sessionUser && singleRecipe.author_id === sessionUser.id) ?
                     <div>
@@ -44,6 +101,7 @@ const SingleRecipePage = () => {
                         <div onClick={handleDelete}>Delete Recipe</div>
                     </div> : null
             }
+
         </div>
     )
 }

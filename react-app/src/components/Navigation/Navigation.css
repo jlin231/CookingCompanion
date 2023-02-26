@@ -11,6 +11,7 @@
   flex-direction: row;
   justify-content: space-between;
   border-bottom: 1px solid lightgray;
+  align-items: center;
 }
 
 .rightNav {
@@ -21,4 +22,68 @@
 .leftNav {
   display: flex;
   flex-direction: row;
+  align-items: center;
+}
+
+.homeNavLink {
+  height: 20px;
+}
+
+.homeImg {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-left: 10px;
+  height: 35px;
+}
+
+.ExploreButton-Holder {
+  text-decoration: none;
+  color: black;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-left: 10px;
+}
+
+.CreateButton-Holder{
+  text-decoration: none;
+  color: black;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-right: 10px;
+}
+
+.navLinkCreate {
+  text-decoration: none;
+  font-size: 19px;
+  color: rgb(102, 102, 102);
+}
+
+.Login-Signup-Holder {
+  flex: display;
+  flex-direction: row;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+.login {
+  margin-right: 10px;
+  width: 65px;
+  color: rgb(102, 102, 102);
+  background-color: transparent;
+  border: none;
+  font-size: 19px;
+}
+
+.signup {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 10px;
+  margin-right: 10px;
+  font-size: 19px;
+  color: rgb(102, 102, 102);
+}
+
+.navLinkExplore {
+  text-decoration: none;
+  font-size: 19px;
+  color: rgb(102, 102, 102);
 }
