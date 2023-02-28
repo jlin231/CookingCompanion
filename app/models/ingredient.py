@@ -25,3 +25,4 @@ class Ingredient(db.Model):
             'recipe_id': self.recipe_id,
             'recipe': self.recipe
         }
+    

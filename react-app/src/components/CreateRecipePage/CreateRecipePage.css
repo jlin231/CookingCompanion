@@ -1,5 +1,134 @@
 .instructionFormDiv {
     display: flex;
     flex-direction: column;
-    width: 50%; 
+
+    width: 50vw;
+    min-width: 600px;
+    max-width: 900px;
+}
+
+.Global-Errors-LI {
+    color: red;
+}
+
+.Global-Errors-UL {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: red;
+    flex-direction: column;
+    margin: 0px 0px;
+}
+
+.Global-Form-Image-Container {
+    display: flex;
+    justify-content: center;
+}
+
+.Global-Form-Container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.Global-Logo {
+    width: 19%;
+}
+
+.Global-SubmitButton {
+    background-color: rgb(255, 49, 49);
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    border-color: transparent;
+    border-radius: 3px;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    width: 50vw;
+    min-width: 600px;
+    max-width: 900px;
+    margin-top: 15px;
+}
+
+
+.Global-Form-input {
+    padding: 13px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.Global-Form-Header {
+    margin: 0px 0px;
+}
+
+.Global-Form-Label {
+    width: 50vw;
+    min-width: 600px;
+    display: flex;
+    max-width: 900px
+}
+
+.Login-Demo {
+    padding-top: 19px;
+    font-size: 14px;
+    cursor: pointer;
+    color: rgb(255, 49, 49);
+}
+
+.Global-Form-Button-Holder {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.Global-Input-Text {
+    padding: 13px;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+
+}
+
+.Global-Ingredient-Add-Button {
+    width: 30px;
+    height: 30px;
+    border-radius: 20px;
+    border: 1px solid transparent;
+    margin-left: 10px;
+    color: white;
+    background-color: red;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    padding: 10px;
+}
+
+.Global-Form-Button-Header {
+    font-size: 30px;
+    font-weight: 600;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.Global-Input-Container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 50vw;
+    min-width: 600px;
+    max-width: 900px;
+}
+
+.Global-Header-Container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 50vw;
+    min-width: 600px;
+    max-width: 900px;
 }

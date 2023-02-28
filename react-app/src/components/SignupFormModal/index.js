@@ -31,50 +31,54 @@ function SignupFormModal() {
 
 	return (
 		<>
-			<h1>Sign Up</h1>
-			<form onSubmit={handleSubmit}>
-				<ul>
+			<h1 className="Global-Modal-Header">Sign Up</h1>
+			<form className="Global-ModalForm-Container" onSubmit={handleSubmit}>
+				<ul className="Global-Errors-UL">
 					{errors.map((error, idx) => (
 						<li key={idx}>{error}</li>
 					))}
 				</ul>
-				<label>
-					Email
+				<label className="Global-Modal-Label">
 					<input
 						type="text"
 						value={email}
+						className="Global-Modal-input"
 						onChange={(e) => setEmail(e.target.value)}
 						required
+						placeholder="Email address"
 					/>
 				</label>
-				<label>
-					Username
+				<label className="Global-Modal-Label">
 					<input
 						type="text"
 						value={username}
+						className="Global-Modal-input"
 						onChange={(e) => setUsername(e.target.value)}
 						required
+						placeholder="Username"
 					/>
 				</label>
-				<label>
-					Password
+				<label className="Global-Modal-Label">
 					<input
 						type="password"
 						value={password}
+						className="Global-Modal-input"
 						onChange={(e) => setPassword(e.target.value)}
 						required
+						placeholder="Password"
 					/>
 				</label>
-				<label>
-					Confirm Password
+				<label className="Global-Modal-Label">
 					<input
 						type="password"
 						value={confirmPassword}
+						className="Global-Modal-input"
 						onChange={(e) => setConfirmPassword(e.target.value)}
 						required
+						placeholder="Confirm Password"
 					/>
 				</label>
-				<button type="submit">Sign Up</button>
+				<button type="submit" className="Global-SubmitButton">Sign Up</button>
 			</form>
 		</>
 	);

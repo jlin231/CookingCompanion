@@ -19,21 +19,23 @@ function Navigation({ isLoaded }) {
 		<div className="Navbar">
 			<div className="leftNav">
 				<div className="HomeButton-Holder">
-					<NavLink exact to="/">
-						<div>Wow</div>
+					<NavLink exact to="/" className="homeNavLink">
+						<img src={process.env.PUBLIC_URL + "/cookingCompanion.png"} className="homeImg" />
 					</NavLink>
 				</div>
 				<div className="ExploreButton-Holder">
-					<NavLink exact to="/recipes/explore">
+					<NavLink exact to="/recipes/explore" className="navLinkExplore">
 						<div>Explore</div>
 					</NavLink>
 				</div>
 			</div>
 			<div className="rightNav">
 				{isLoaded && sessionUser.user && (
-					<NavLink exact to='/create/recipes'>
-						Create a Recipe
-					</NavLink>
+					<div className="CreateButton-Holder">
+						<NavLink exact to='/create/recipes' className="navLinkCreate">
+							<div>Create a Recipe</div>
+						</NavLink>
+					</div>
 				)}
 				{isLoaded && sessionUser.user && (
 					<ProfileButton user={sessionUser.user} />

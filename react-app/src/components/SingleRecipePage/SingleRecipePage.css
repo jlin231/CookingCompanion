@@ -1,0 +1,179 @@
+.Top-Info-Container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 480px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    margin-top: 30px;
+}
+
+.left-Info-Container {
+    width: 410px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.right-Info-Container {
+    width: 710px;
+    height: 100%;
+    margin-left: 40px;
+}
+
+.splashImageSingle {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
+
+.titleSingleRecipe {
+    font-size: 48px;
+    font-weight: 100;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.authorSingleRecipe {
+    font-size: 16px;
+    font-weight: 700;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    margin-top: 15px;
+    margin-left: 1px;
+}
+
+.Info-Container2 {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+
+}
+
+.authorSingleDescription {
+    font-size: 20px;
+    font-weight: 300;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    line-height: 28px;
+}
+
+.authorText {
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.left-Info-Container2 {
+    width: 410px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.bottomBorder {
+    border-bottom: 1px grey solid;
+}
+
+.left-Info-left-Div {
+    display: flex;
+
+}
+
+.left-Info-left-left-Div {
+    margin-right: 15px;
+    font-weight: 700;
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.textSingleRecipeLower {
+    margin-bottom: 30px;
+}
+
+.buttonContainer {
+    display: flex;
+
+}
+
+.updateButton {
+    display: flex;
+    align-items: center;
+    background-color: red;
+    color: white;
+    padding: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.Top-Info-Container3 {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 480px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    margin-top: 30px;
+    margin-bottom: 150px;
+}
+
+.topBorder {
+    border-top: 6px black solid;
+    padding-top: 10px;
+}
+
+.left-Info-Container3 {
+    width: 410px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.infoHeading {
+    font-size: 18px;
+    font-weight: 700;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.step {
+    font-size: 18px;
+    font-weight: 700;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-bottom: 10px;
+}
+
+.instruction {
+    font-size: 19px;
+    font-weight: 400;
+    margin-bottom: 20px;
+}
+
+.ingredient {
+    margin-bottom: 20px;
+}
+
+.addIngredientsButton {
+    font-family: 'Times New Roman', Times, serif;
+    display: flex;
+    align-items: center;
+    background-color: red;
+    color: white;
+    padding: 5px 10px;
+    margin-right: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: 200;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.ingredientButtonHolder {
+    display: flex;
+    flex-direction: column;
+}

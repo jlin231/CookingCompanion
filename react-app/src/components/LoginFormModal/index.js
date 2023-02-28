@@ -3,6 +3,8 @@ import { login } from "../../store/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import "./LoginForm.css";
+import { useHistory } from "react-router-dom";
+
 
 function LoginFormModal() {
   const dispatch = useDispatch();
@@ -10,6 +12,7 @@ function LoginFormModal() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
+  const history = useHistory()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,39 +20,51 @@ function LoginFormModal() {
     if (data) {
       setErrors(data);
     } else {
-        closeModal()
+      closeModal()
     }
   };
 
+  const demoLogin = () => {
+    dispatch(login("demo@aa.io", "password"));
+    closeModal();
+    return history.push("/recipes/explore");
+  };
+
+
   return (
     <>
-      <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
-        <ul>
+      <h1 className="Global-Modal-Header">Log In</h1>
+      <form onSubmit={handleSubmit} className="Global-ModalForm-Container">
+        <ul className="Global-Errors-UL">
           {errors.map((error, idx) => (
-            <li key={idx}>{error}</li>
+            <li key={idx} className="Global-Errors-LI">{error}</li>
           ))}
         </ul>
-        <label>
-          Email
+        <label className="Global-Modal-Label">
           <input
             type="text"
             value={email}
+            className="Global-Modal-input"
             onChange={(e) => setEmail(e.target.value)}
             required
+            placeholder="Email address"
           />
         </label>
-        <label>
-          Password
+        <label className="Global-Modal-Label">
           <input
             type="password"
             value={password}
+            className="Global-Modal-input"
             onChange={(e) => setPassword(e.target.value)}
             required
+            placeholder="Password"
           />
-        </label>
-        <button type="submit">Log In</button>
+        </label >
+        <button type="submit" className="Global-SubmitButton">Log In</button>
       </form>
+      <div onClick={demoLogin} className="Login-Demo">
+        Try demo
+      </div>
     </>
   );
 }

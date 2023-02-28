@@ -64,7 +64,8 @@ const EditRecipePage = () => {
         console.log(instructionInputArr)
     }
 
-    const addInput = () => {
+    const addInput = (e) => {
+        e.preventDefault();
         setInstructionInputArr(s => {
             const lastId = s[s.length - 1].id;
             return [
@@ -77,7 +78,8 @@ const EditRecipePage = () => {
         })
     }
 
-    const removeInput = () => {
+    const removeInput = (e) => {
+        e.preventDefault();
         setInstructionInputArr(s => {
             let newS = [...s];
             newS.pop()
@@ -120,8 +122,11 @@ const EditRecipePage = () => {
     };
 
     return (
-        <div>
-            <form onSubmit={handleSubmit} className="Global-ModalForm-Container">
+        <div className="outerMostDivEdit">
+            <form onSubmit={handleSubmit} className="Global-Form-Container">
+                <div className="Global-Header-Container">
+                    <div className="Global-Form-Button-Header">Edit Recipe</div>
+                </div>
                 <ul className="Global-Errors-UL">
                     {errors.map((error, idx) => (
                         <li key={idx} className="Global-Errors-LI">
@@ -129,71 +134,75 @@ const EditRecipePage = () => {
                         </li>
                     ))}
                 </ul>
-                <label for="title" className="Global-Modal-Label">
+                <label for="title" className="Global-Form-Label">
                     <input
                         type="text"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                         required
                         placeholder="Title"
-                        className="Global-Modal-input"
+                        className="Global-Form-input"
                     />
                 </label>
-                <label for="description" className="Global-Modal-Label">
+                <label for="description" className="Global-Form-Label">
                     <textarea
                         type="text"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         required
                         placeholder="Description"
-                        className="Global-Modal-input"
+                        className="Global-Form-input"
                     ></textarea>
                 </label>
-                <label for="timeToComplete" className="Global-Modal-Label">
+                <label for="timeToComplete" className="Global-Form-Label">
                     <input
                         type="number"
                         value={timeToComplete}
                         onChange={(e) => setTimeToComplete(e.target.value)}
                         required
-                        placeholder="timeToComplete"
-                        className="Global-Modal-input"
+                        placeholder="Minutes to Complete"
+                        className="Global-Form-input"
                     />
                 </label>
-                <label for="previewImage" className="Global-Modal-Label">
+                <label for="previewImage" className="Global-Form-Label">
                     <input
                         type="text"
                         value={previewImage}
                         onChange={(e) => setPreviewImage(e.target.value)}
                         required
-                        placeholder="previewImage"
-                        className="Global-Modal-input"
+                        placeholder="Preview Image URL"
+                        className="Global-Form-input"
                     />
                 </label>
-                {
-                    <div className="instructionFormDiv">
-                        Add Instructions Here
-                        <button onClick={addInput}>+</button>
+                <div className="instructionFormDiv">
+                    <div className="Global-Form-Button-Holder">
+
+                        <div className="Global-Form-Button-Header">Add Instructions Here</div>
+
+                        <button onClick={(e) => addInput(e)} className="Global-Ingredient-Add-Button"><i class="fa-solid fa-plus add-and-subtract-Icon"></i></button>
                         {
-                            (instructionInputArr.length !== 1) ? <button onClick={removeInput}>-</button>
+                            (instructionInputArr.length !== 1) ? <button onClick={(e) => removeInput(e)} className="Global-Ingredient-Add-Button"><i class="fa-solid fa-minus add-and-subtract-Icon"></i></button>
                                 : null
                         }
-                        {instructionInputArr.map((item, i) => {
-                            return (
-                                <div key={i}>
-                                    {i + 1}.
-                                    <input
-                                        onChange={handleInstructionChange}
-                                        value={item.value}
-                                        id={i}
-                                        required
-                                        type="text"
-                                    />
-                                </div>
-
-                            );
-                        })}
                     </div>
-                }
+
+                </div>
+                {instructionInputArr.map((item, i) => {
+                    return (
+                        <div key={i} className="Global-Input-Container">
+                            <div> {i + 1}.</div>
+                            <input
+                                onChange={handleInstructionChange}
+                                value={item.value}
+                                id={i}
+                                required
+                                type="text"
+                                placeholder="Instruction"
+                                className="Global-Input-Text"
+                            />
+                        </div>
+                    );
+                })}
                 <button type="submit" className="Global-SubmitButton">
                     Submit
                 </button>
