@@ -31,7 +31,7 @@ const SplashPage = () => {
     return (
         <>
             <div className="SplashPage-Container">
-                <img className="splashImage" src="https://static01.nyt.com/images/2022/01/05/dining/04KINGCAKEREX/merlin_199582518_c01765ae-60d5-494c-be98-a64ef03b51fc-threeByTwoMediumAt2X.jpg" alt="" />
+                <img className="splashImage" src="https://burst.shopifycdn.com/photos/flatlay-iron-skillet-with-meat-and-other-food.jpg?width=1200&format=pjpg&exif=1&iptc=1" alt="" />
             </div>
             <div className="lowerDiv">
                 <div className="navLinkContainer">

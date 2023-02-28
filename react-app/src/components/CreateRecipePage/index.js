@@ -117,14 +117,14 @@ const CreateRecipePage = () => {
                         className="Global-Form-input"
                     />
                 </label>
-                <label for="description" className="Global-Form-Label">
+                <label for="description" className="Global-Form-Label ">
                     <textarea
                         type="text"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         required
                         placeholder="Description"
-                        className="Global-Form-input"
+                        className="Global-Form-input Global-Form-Text-Area-Description"
                     ></textarea>
                 </label>
                 <label for="timeToComplete" className="Global-Form-Label">
