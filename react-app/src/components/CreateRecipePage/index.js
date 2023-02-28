@@ -98,7 +98,7 @@ const CreateRecipePage = () => {
         <div>
             <form onSubmit={handleSubmit} className="Global-Form-Container">
                 <div className="Global-Header-Container">
-                    <div className="Global-Form-Button-Header">Add Instructions Here</div>
+                    <div className="Global-Form-Button-Header">Create Recipe</div>
                 </div>
                 <ul className="Global-Errors-UL">
                     {errors.map((error, idx) => (
@@ -150,7 +150,7 @@ const CreateRecipePage = () => {
                 {
                     <div className="instructionFormDiv">
                         <div className="Global-Form-Button-Holder">
-                            <div className="Global-Form-Button-Header">Add Instructions Here</div>
+                            <div className="Global-Form-Button-Header">Add Instructions</div>
                             <button onClick={(e) => addInput(e)} className="Global-Ingredient-Add-Button"><i class="fa-solid fa-plus add-and-subtract-Icon"></i></button>
                             {
                                 (instructionInputArr.length !== 1) ? <button onClick={(e) => removeInput(e)} className="Global-Ingredient-Add-Button"><i class="fa-solid fa-minus add-and-subtract-Icon"></i></button>
@@ -160,7 +160,7 @@ const CreateRecipePage = () => {
                         {instructionInputArr.map((item, i) => {
                             return (
                                 <div key={i} className="Global-Input-Container">
-                                    <div> {i + 1}.</div>
+                                    <div className="index"> {i + 1}.</div>
                                     <input
                                         onChange={handleInstructionChange}
                                         value={item.value}

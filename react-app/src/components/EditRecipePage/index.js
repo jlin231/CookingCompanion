@@ -190,7 +190,7 @@ const EditRecipePage = () => {
                 {instructionInputArr.map((item, i) => {
                     return (
                         <div key={i} className="Global-Input-Container">
-                            <div> {i + 1}.</div>
+                            <div className="index"> {i + 1}.</div>
                             <input
                                 onChange={handleInstructionChange}
                                 value={item.value}
