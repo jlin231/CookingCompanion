@@ -151,7 +151,7 @@ const EditRecipePage = () => {
                         onChange={(e) => setDescription(e.target.value)}
                         required
                         placeholder="Description"
-                        className="Global-Form-input"
+                        className="Global-Form-input Global-Form-Text-Area-Description"
                     ></textarea>
                 </label>
                 <label for="timeToComplete" className="Global-Form-Label">
@@ -177,7 +177,7 @@ const EditRecipePage = () => {
                 <div className="instructionFormDiv">
                     <div className="Global-Form-Button-Holder">
 
-                        <div className="Global-Form-Button-Header">Add Instructions Here</div>
+                        <div className="Global-Form-Button-Header">Edit Instructions Here</div>
 
                         <button onClick={(e) => addInput(e)} className="Global-Ingredient-Add-Button"><i class="fa-solid fa-plus add-and-subtract-Icon"></i></button>
                         {
@@ -191,15 +191,15 @@ const EditRecipePage = () => {
                     return (
                         <div key={i} className="Global-Input-Container">
                             <div className="index"> {i + 1}.</div>
-                            <input
+                            <textarea
                                 onChange={handleInstructionChange}
                                 value={item.value}
                                 id={i}
                                 required
                                 type="text"
                                 placeholder="Instruction"
-                                className="Global-Input-Text"
-                            />
+                                className="Global-Input-Text Global-Form-Text-Area-Instruction">
+                            </textarea>
                         </div>
                     );
                 })}
