@@ -151,7 +151,7 @@ def delete_recipe(recipeId):
             "statusCode": 200
         }, 200
 
-#add an ingredient(s) to a recipe
+#Add an ingredient(s) to a recipe
 
 @recipe_routes.route('/<int:recipeId>/ingredients', methods=['POST'])
 @login_required
@@ -170,6 +170,7 @@ def add_ingredient(recipeId):
     data = request.get_json()
     result = []
     errors = []
+    print(data, '================>data')
     for ingredient in data["Ingredients"]:
         #validations
         if(len(ingredient["name"]) < 3 or len(ingredient["name"]) > 50):
@@ -210,7 +211,7 @@ def add_ingredient(recipeId):
         "Ingredients": result
     }
 
-#Update ingredient 
+#Update ingredient
 
 @recipe_routes.route('/<int:recipeId>/ingredients/<int:ingredientId>', methods=["PUT"])
 @login_required
@@ -255,6 +256,67 @@ def update_ingredient(recipeId, ingredientId):
         }
     #Error handling
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+#Update/Remove ingredients via list 
+
+@recipe_routes.route('/<int:recipeId>/ingredients', methods=["PUT"])
+@login_required
+def update_ingredient_list(recipeId):
+    #find recipe and ingredient
+    print("===================> route hit")
+    edit_recipe = db.session.query(Recipe).get(int(recipeId))
+    
+    if not edit_recipe:
+        return {"message": "Recipe couldn't be found"}, 404
+
+    if edit_recipe.author_id != current_user.id:
+        return {'errors': ['Unauthorized']}, 401
+
+    data = request.get_json()
+    #error handling, make sure quantity is positive
+    #find ingredients that aren't in the request body and delete them from database
+    #Normalize ingredients from the recipe
+    request_ingredients = {}
+    for ingredient in data["Ingredients"]:
+        if(ingredient["quantity"] <= 0):
+            return {"errors": ["Quantity must be greater than 0"]}, 404
+        request_ingredients[ingredient["id"]] = ingredient
+
+    print(request_ingredients, 'request_ingredients=====================>')
+    
+    #Check each ingredient associated with recipe and if ingredient id is not found in request ingredients, delete the ingredient from database
+    for recipe_ingredient in edit_recipe.ingredients:
+        # print('request_ingredients[recipe_ingredient.id]======================>', request_ingredients[recipe_ingredient.id])
+        if(recipe_ingredient.id not in request_ingredients):
+            db.session.delete(recipe_ingredient)
+            db.session.commit()
+        else:
+            recipe_ingredient.name = request_ingredients[recipe_ingredient.id]["name"]
+            recipe_ingredient.quantity = request_ingredients[recipe_ingredient.id]["quantity"]
+            recipe_ingredient.unit = request_ingredients[recipe_ingredient.id]["unit"]
+    
+    db.session.commit()
+
+
+
+    # for ingredient in data["Ingredients"]:
+        
+    #     edit_ingredient = db.session.query(Ingredient).get(int(ingredient.id))
+
+
+    #     edit_ingredient.name = ingredient["name"] 
+    #     edit_ingredient.quantity = ingredient["quantity"] 
+    #     edit_ingredient.unit = ingredient["unit"] 
+    #     print(edit_ingredient.to_dict())
+    #     db.session.commit()
+
+
+    return {
+        "message": "successfully edited"
+    }
+    #Error handling
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
 
 #Delete ingredient from recipe
 @recipe_routes.route('/<int:recipeId>/ingredients/<int:ingredientId>', methods=['DELETE'])

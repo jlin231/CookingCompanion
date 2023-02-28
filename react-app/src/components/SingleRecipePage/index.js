@@ -35,6 +35,14 @@ const SingleRecipePage = () => {
         history.push('/recipes')
     }
 
+    const handleAddIngredients = () => {
+        history.push(`/recipes/${recipeId}/ingredients`)
+    }
+
+    const handleEditDeleteIngredients = () => {
+        history.push(`/recipes/${recipeId}/ingredients/edit`)
+    }
+
     return (
         <div>
             <div className="Top-Info-Container">
@@ -60,8 +68,12 @@ const SingleRecipePage = () => {
                         </div>
                     </div>
                     <div className="buttonContainer">
-                        <div className="updateButton" onClick={handleEdit}>Update Recipe</div>
-                        <div className="updateButton" onClick={handleDelete}>Delete Recipe</div>
+                        {(sessionUser && singleRecipe.author_id === sessionUser.id) ?
+                            <>
+                                <div className="updateButton" onClick={handleEdit}>Update Recipe</div>
+                                <div className="updateButton" onClick={handleDelete}>Delete Recipe</div>
+                            </> : null
+                        }
                     </div>
                 </div>
                 <div className="right-Info-Container">
@@ -71,7 +83,16 @@ const SingleRecipePage = () => {
             </div>
             <div className="Top-Info-Container3">
                 <div className="left-Info-Container3 topBorder">
-                    <div className="infoHeading">INGREDIENTS</div>
+                    <div className="infoHeading">
+                        <div>INGREDIENTS</div>
+                        {(sessionUser && singleRecipe.author_id === sessionUser.id) ?
+                            <div className="ingredientButtonHolder">
+                                <div className="addIngredientsButton" onClick={handleAddIngredients}>Add Ingredients</div>
+                                <div className="addIngredientsButton" onClick={handleEditDeleteIngredients}>Edit/Delete Ingredients</div>
+                            </div>
+                            : null
+                        }
+                    </div>
                     {
                         singleRecipe.ingredients.map((ingredient) => {
                             return (
@@ -85,23 +106,15 @@ const SingleRecipePage = () => {
                     {
                         instructionSplit.map((instruction, index) => {
                             return (
-                                <>
-                                    <div className="step">Step {index+1}</div>
+                                <div key={index}>
+                                    <div className="step">Step {index + 1}</div>
                                     <div className="instruction">{`${instruction}`}</div>
-                                </>
+                                </div>
                             )
                         })
                     }
                 </div>
             </div>
-            {
-                (sessionUser && singleRecipe.author_id === sessionUser.id) ?
-                    <div>
-                        <div onClick={handleEdit}>Edit Recipe</div>
-                        <div onClick={handleDelete}>Delete Recipe</div>
-                    </div> : null
-            }
-
         </div>
     )
 }

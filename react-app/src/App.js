@@ -10,6 +10,8 @@ import SingleRecipePage from "./components/SingleRecipePage";
 import CreateRecipePage from "./components/CreateRecipePage";
 import EditRecipePage from "./components/EditRecipePage";
 import AllRecipePage from "./components/AllRecipesPage";
+import AddIngredientsPage from "./components/AddIngredientsPage";
+import EditDeleteIngredientsPage from "./components/EditDeleteIngredientsPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -27,14 +29,20 @@ function App() {
           <Route path="/recipes/explore">
             <AllRecipePage />
           </Route>
-          <Route path="/create/recipes">
-            <CreateRecipePage />
+          <Route path="/recipes/:recipeId/ingredients/edit">
+            <EditDeleteIngredientsPage />
+          </Route>
+          <Route path="/recipes/:recipeId/ingredients">
+            <AddIngredientsPage />
           </Route>
           <Route path="/recipes/:recipeId/edit">
             <EditRecipePage />
           </Route>
           <Route path="/recipes/:recipeId">
             <SingleRecipePage />
+          </Route>
+          <Route path="/create/recipes">
+            <CreateRecipePage />
           </Route>
           <Route path="/login" >
             <LoginFormPage />

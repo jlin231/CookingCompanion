@@ -3,6 +3,8 @@ const GET_SINGLE_RECIPE = "recipe/GET_SINGLE_RECIPE";
 const CREATE_SINGLE_RECIPE = "recipe/CREATE_SINGLE_RECIPE";
 const EDIT_SINGLE_RECIPE = "recipe/EDIT_SINGLE_RECIPE";
 const DELETE_SINGLE_RECIPE = "recipe/DELETE_SINGLE_RECIPE";
+const ADD_INGREDIENTS = "ingredient/ADD_INGREDIENTS";
+const EDIT_DELETE_INGREDIENTS = "ingredient/EDIT_DELETE_INGREDIENTS"
 
 const getAllRecipes = (data) => ({
     type: GET_ALL_RECIPES,
@@ -28,6 +30,16 @@ const deleteSingleRecipe = (recipeId) => ({
     type: DELETE_SINGLE_RECIPE,
     payload: recipeId
 });
+
+const addIngredientToRecipe = (data) => ({
+    type: ADD_INGREDIENTS,
+    payload: data
+})
+
+const editDeleteIngredientsToRecipe = (data) => ({
+    type: EDIT_DELETE_INGREDIENTS,
+    payload: data
+})
 
 const initialState = { singleRecipe: {}, allRecipes: {} };
 
@@ -128,6 +140,52 @@ export const thunkDeleteRecipe = (recipeId) => async (dispatch) => {
 };
 
 
+export const thunkAddIngredients = (body, recipeId) => async (dispatch) => {
+    console.log(body, "body")
+
+    const response = await fetch(`/api/recipes/${recipeId}/ingredients`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            "Ingredients": body
+        })
+    });
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(addIngredientToRecipe(recipeId));
+        return data;
+    } else if (response.status < 500) {
+        const data = await response.json();
+        throw new Error(JSON.stringify(data));
+    }
+}
+
+export const thunkEditDeleteIngredients = (body, recipeId) => async (dispatch) => {
+    console.log(body, "body")
+
+    const response = await fetch(`/api/recipes/${recipeId}/ingredients`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            "Ingredients": body
+        })
+    });
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(editDeleteIngredientsToRecipe(recipeId));
+        return data;
+    } else if (response.status < 500) {
+        const data = await response.json();
+        throw new Error(JSON.stringify(data));
+    }
+}
+
+
+
 export default function recipeReducer(state = initialState, action) {
     let newState;
     switch (action.type) {
@@ -154,6 +212,12 @@ export default function recipeReducer(state = initialState, action) {
         case DELETE_SINGLE_RECIPE:
             newState = Object.assign({}, state);
             delete newState.allRecipes[action.payload]
+            return newState;
+        case ADD_INGREDIENTS:
+            newState = Object.assign({}, state);
+            return newState;
+        case EDIT_DELETE_INGREDIENTS:
+            newState = Object.assign({}, state);
             return newState;
         default:
             return state;

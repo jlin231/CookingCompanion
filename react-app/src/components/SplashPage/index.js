@@ -11,7 +11,6 @@ const SplashPage = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const [loadedPage, setLoadedPage] = useState(false);
-    // if (sessionUser) return <Redirect to="/photos" />;
 
     useEffect(() => {
         dispatch(thunkGetAllRecipe()).then(() => setLoadedPage(true));

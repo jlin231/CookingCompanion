@@ -133,7 +133,11 @@
     font-size: 18px;
     font-weight: 700;
     font-family: Georgia, 'Times New Roman', Times, serif;
-    margin-bottom: 25px;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .step {
@@ -151,4 +155,25 @@
 
 .ingredient {
     margin-bottom: 20px;
+}
+
+.addIngredientsButton {
+    font-family: 'Times New Roman', Times, serif;
+    display: flex;
+    align-items: center;
+    background-color: red;
+    color: white;
+    padding: 5px 10px;
+    margin-right: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: 200;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.ingredientButtonHolder {
+    display: flex;
+    flex-direction: column;
 }

@@ -123,8 +123,10 @@ const EditRecipePage = () => {
 
     return (
         <div className="outerMostDivEdit">
-            <div className="editRecipeHeader">Edit Recipe</div>
-            <form onSubmit={handleSubmit} className="Global-ModalForm-Container2">
+            <form onSubmit={handleSubmit} className="Global-Form-Container">
+                <div className="Global-Header-Container">
+                    <div className="Global-Form-Button-Header">Edit Recipe</div>
+                </div>
                 <ul className="Global-Errors-UL">
                     {errors.map((error, idx) => (
                         <li key={idx} className="Global-Errors-LI">
@@ -132,76 +134,76 @@ const EditRecipePage = () => {
                         </li>
                     ))}
                 </ul>
-                <label for="title" className="Global-Modal-Label">
+                <label for="title" className="Global-Form-Label">
                     <input
                         type="text"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                         required
                         placeholder="Title"
-                        className="Global-Modal-input"
+                        className="Global-Form-input"
                     />
                 </label>
-                <label for="description" className="Global-Modal-Label">
+                <label for="description" className="Global-Form-Label">
                     <textarea
                         type="text"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         required
                         placeholder="Description"
-                        className="Global-Modal-input"
+                        className="Global-Form-input"
                     ></textarea>
                 </label>
-                <label for="timeToComplete" className="Global-Modal-Label">
+                <label for="timeToComplete" className="Global-Form-Label">
                     <input
                         type="number"
                         value={timeToComplete}
                         onChange={(e) => setTimeToComplete(e.target.value)}
                         required
                         placeholder="Minutes to Complete"
-                        className="Global-Modal-input"
+                        className="Global-Form-input"
                     />
                 </label>
-                <label for="previewImage" className="Global-Modal-Label">
+                <label for="previewImage" className="Global-Form-Label">
                     <input
                         type="text"
                         value={previewImage}
                         onChange={(e) => setPreviewImage(e.target.value)}
                         required
                         placeholder="Preview Image URL"
-                        className="Global-Modal-input"
+                        className="Global-Form-input"
                     />
                 </label>
-                {
-                    <div className="instructionFormDiv">
-                        <div>
-                            Add Instructions Here
-                        </div>
-                        <div className="instructionButtonContainer">
-                            <button onClick={(e) => addInput(e)}>+</button>
-                            {
-                                (instructionInputArr.length !== 1) ? <button onClick={(e) => removeInput(e)}>-</button>
-                                    : null
-                            }
-                        </div>
-                        {instructionInputArr.map((item, i) => {
-                            return (
-                                <div key={i}>
-                                    {i + 1}.
-                                    <input
-                                        onChange={handleInstructionChange}
-                                        value={item.value}
-                                        id={i}
-                                        required
-                                        type="text"
-                                    />
-                                </div>
+                <div className="instructionFormDiv">
+                    <div className="Global-Form-Button-Holder">
 
-                            );
-                        })}
+                        <div className="Global-Form-Button-Header">Add Instructions Here</div>
+
+                        <button onClick={(e) => addInput(e)} className="Global-Ingredient-Add-Button"><i class="fa-solid fa-plus add-and-subtract-Icon"></i></button>
+                        {
+                            (instructionInputArr.length !== 1) ? <button onClick={(e) => removeInput(e)} className="Global-Ingredient-Add-Button"><i class="fa-solid fa-minus add-and-subtract-Icon"></i></button>
+                                : null
+                        }
                     </div>
-                }
-                <button type="submit" className="SubmitButtonEdit">
+
+                </div>
+                {instructionInputArr.map((item, i) => {
+                    return (
+                        <div key={i} className="Global-Input-Container">
+                            <div> {i + 1}.</div>
+                            <input
+                                onChange={handleInstructionChange}
+                                value={item.value}
+                                id={i}
+                                required
+                                type="text"
+                                placeholder="Instruction"
+                                className="Global-Input-Text"
+                            />
+                        </div>
+                    );
+                })}
+                <button type="submit" className="Global-SubmitButton">
                     Submit
                 </button>
             </form>

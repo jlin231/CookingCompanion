@@ -31,11 +31,19 @@ i14 = Ingredient(
 i15 = Ingredient(
     name='ketchup', quantity=0.25, unit='cup', recipe_id=2)
 
+
+
+
 def seed_ingredients():
 
     db.session.add_all([i11, i12, i13, i14, i15])
     db.session.add_all([i1, i2, i3, i4, i5])
     db.session.add_all([i6, i7, i8, i9, i10])
+
+    db.session.add_all([    Ingredient(name='beef shank', quantity=2, unit='pounds', recipe_id=4),    Ingredient(name='beef bones', quantity=1, unit='pound', recipe_id=4),    Ingredient(name='ginger', quantity=2, unit='inches', recipe_id=4),    Ingredient(name='garlic', quantity=6, unit='cloves', recipe_id=4),    Ingredient(name='star anise', quantity=3, unit='pieces', recipe_id=4),    Ingredient(name='cinnamon stick', quantity=1, unit='piece', recipe_id=4),    Ingredient(name='soy sauce', quantity=0.25, unit='cup', recipe_id=4),    Ingredient(name='rice wine', quantity=0.25, unit='cup', recipe_id=4),    Ingredient(name='rock sugar', quantity=2, unit='ounces', recipe_id=4),    Ingredient(name='beef broth', quantity=8, unit='cups', recipe_id=4),    Ingredient(name='dried Chinese noodles', quantity=1, unit='pound', recipe_id=4),    Ingredient(name='bok choy', quantity=4, unit='ounces', recipe_id=4),    Ingredient(name='green onions', quantity=4, unit='stalks', recipe_id=4),    Ingredient(name='cilantro', quantity=0.25, unit='cup', recipe_id=4),    Ingredient(name='lime', quantity=1, unit='piece', recipe_id=4)]
+)
+
+
     db.session.commit()
 
 
