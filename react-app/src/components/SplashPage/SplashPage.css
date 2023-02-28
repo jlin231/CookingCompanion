@@ -1,6 +1,6 @@
 .SplashPage-Container {
     width: 100%;
-
+    background-color: rgb(242, 243, 239);
 }
 
 .lowerDiv {
@@ -90,5 +90,3 @@
     text-decoration: none;
     color: black;
 }
-
-.authorCardDiv {}
