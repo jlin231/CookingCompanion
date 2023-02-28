@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import "./SingleRecipePage.css";
 import { useEffect, useState } from "react";
 import { NavLink, useHistory, useParams } from "react-router-dom";
-import { thunkDeleteRecipe, thunkGetSingleRecipe } from "../../store/recipe";
+import { thunkDeleteRecipe, thunkGetAllRecipe, thunkGetSingleRecipe } from "../../store/recipe";
 
 const SingleRecipePage = () => {
     const sessionUser = useSelector((state) => state.session.user);
@@ -31,8 +31,11 @@ const SingleRecipePage = () => {
     }
 
     const handleDelete = () => {
-        dispatch(thunkDeleteRecipe(recipeId))
-        history.push('/recipes')
+        dispatch(thunkDeleteRecipe(recipeId)).then(() => {
+            dispatch(thunkGetAllRecipe)
+        }).then(() => {
+            history.push('/recipes')
+        })
     }
 
     const handleAddIngredients = () => {
@@ -40,6 +43,7 @@ const SingleRecipePage = () => {
     }
 
     const handleEditDeleteIngredients = () => {
+
         history.push(`/recipes/${recipeId}/ingredients/edit`)
     }
 
