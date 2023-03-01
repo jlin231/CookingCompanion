@@ -105,6 +105,9 @@
     margin-right: 10px;
     cursor: pointer;
     border-radius: 5px;
+    font-size: 18px;
+    font-family: serif;
+    border: transparent;
 }
 
 .Top-Info-Container3 {

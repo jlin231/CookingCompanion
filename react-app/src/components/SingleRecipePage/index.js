@@ -3,6 +3,8 @@ import "./SingleRecipePage.css";
 import { useEffect, useState } from "react";
 import { NavLink, useHistory, useParams } from "react-router-dom";
 import { thunkDeleteRecipe, thunkGetAllRecipe, thunkGetSingleRecipe } from "../../store/recipe";
+import OpenModalButton from "../OpenModalButton";
+import ConfirmDeleteRecipeModal from "./ConfirmDeleteRecipeModal";
 
 const SingleRecipePage = () => {
     const sessionUser = useSelector((state) => state.session.user);
@@ -79,7 +81,11 @@ const SingleRecipePage = () => {
                         {(sessionUser && singleRecipe.author_id === sessionUser.id) ?
                             <>
                                 <div className="updateButton" onClick={handleEdit}>Edit Recipe</div>
-                                <div className="updateButton" onClick={handleDelete}>Delete Recipe</div>
+                                <OpenModalButton
+                                    buttonText={"Delete Recipe"}
+                                    className="updateButton"
+                                    modalComponent={<ConfirmDeleteRecipeModal recipeId={recipeId}/>}
+                                />
                             </> : null
                         }
                     </div>
