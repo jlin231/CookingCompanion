@@ -8,6 +8,12 @@ https://cookingcompanion.onrender.com
 
 ## Photos
 
+![addIngredientsPage](https://user-images.githubusercontent.com/108918692/222290115-2309ca39-d6a3-4d1a-8c5e-3d52c4a23acd.png)
+![createRecipePage](https://user-images.githubusercontent.com/108918692/222290119-10784b69-8b42-4273-9dab-2967b92a5c28.png)
+![editDeleteIngredientsPage](https://user-images.githubusercontent.com/108918692/222290135-e3e49cc0-edb6-420c-b9f0-406dfe9be63e.png)
+![explorePage](https://user-images.githubusercontent.com/108918692/222290162-e6b5c21c-38bd-40ad-9af4-60f072c22fd5.png)
+![singleRecipePage](https://user-images.githubusercontent.com/108918692/222290187-3aa6c624-2d00-4cf9-81cd-26e9b48ebc88.png)
+![splashPage](https://user-images.githubusercontent.com/108918692/222290209-5f264382-2f35-43b5-bf24-63a422a0e262.png)
 
 
 ## Wiki Link
