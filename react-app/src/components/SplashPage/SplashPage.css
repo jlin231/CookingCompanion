@@ -1,6 +1,6 @@
 .SplashPage-Container {
     width: 100%;
-
+    background-color: rgb(242, 243, 239);
 }
 
 .lowerDiv {
@@ -82,13 +82,11 @@
 }
 
 .titleCardDiv {
-    font-size: 24px;
-    font-weight: 400;
+    font-size: 25px;
+    font-weight: 600;
 }
 
 .splashNavLink {
     text-decoration: none;
     color: black;
 }
-
-.authorCardDiv {}

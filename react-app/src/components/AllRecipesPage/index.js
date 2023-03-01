@@ -26,8 +26,6 @@ const AllRecipePage = () => {
         recipeArray.push(recipeValues.slice(i, i + 4))
     }
 
-    console.log(recipeArray)
-
     return (
         <div className="outerMostDiv">
             {
@@ -38,7 +36,11 @@ const AllRecipePage = () => {
                                 return (
                                     <NavLink exact to={`/recipes/${recipe.id}`} key={recipe.id} className="navLinkRecipeCard">
                                         <div className="recipeCardDiv">
-                                            <img src={recipe.previewImage} alt="" className="recipeCardImg" />
+                                            <img src={recipe.previewImage} alt="" className="recipeCardImg"
+                                                onError={({ currentTarget }) => {
+                                                    currentTarget.onerror = null; // prevents looping
+                                                    currentTarget.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Image_not_available.png/640px-Image_not_available.png";
+                                                }} />
                                             <div className="textContainer">
                                                 <div className="recipeCardTextDivUpper">
                                                     <div className="cardTextTitle">{recipe.title}</div>

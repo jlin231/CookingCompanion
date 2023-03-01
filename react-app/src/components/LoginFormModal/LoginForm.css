@@ -8,6 +8,7 @@
     align-items: center;
     color: red;
     flex-direction: column;
+    list-style: none;
 }
 
 .Global-Modal-Image-Container {
@@ -35,7 +36,7 @@
 }
 
 .Global-SubmitButton {
-    background-color: rgb(255,49,49);
+    background-color: rgb(255, 49, 49);
     color: white;
     border-color: transparent;
     border-radius: 3px;
@@ -50,10 +51,13 @@
     padding: 13px;
     margin-bottom: 10px;
     width: 100%;
+    font-size: 25px;
 }
 
 .Global-Modal-Header {
-    margin: 0px 0px; 
+    margin: 0px 0px;
+    font-size: 40px;
+    margin-bottom: 15px;
 }
 
 .Global-Modal-Label {
@@ -63,7 +67,7 @@
 
 .Login-Demo {
     padding-top: 19px;
-    font-size: 14px;
+    font-size: 25px;
     cursor: pointer;
-    color: rgb(255,49,49);
+    color: rgb(255, 49, 49);
 }

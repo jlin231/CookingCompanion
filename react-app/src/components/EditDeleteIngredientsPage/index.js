@@ -17,6 +17,7 @@ const EditDeleteIngredientsPage = () => {
             unit: ""
         }
     ];
+
     const [ingredientInputArr, setIngredientInputArr] = useState(initArr)
 
     useEffect(() => {
@@ -111,7 +112,7 @@ const EditDeleteIngredientsPage = () => {
                                     type="text"
                                     className="Global-Input-Text"
                                 />
-                                <input
+                                {/* <input
                                     onChange={(e) => handleIngredientChange(index, e)}
                                     value={item.unit}
                                     id={index}
@@ -120,7 +121,7 @@ const EditDeleteIngredientsPage = () => {
                                     name="unit"
                                     type="text"
                                     className="Global-Input-Text unit"
-                                />
+                                /> */}
                                 <input
                                     onChange={(e) => handleIngredientChange(index, e)}
                                     value={item.quantity}
@@ -129,8 +130,37 @@ const EditDeleteIngredientsPage = () => {
                                     required
                                     name="quantity"
                                     type="number"
-                                    className="Global-Input-Text"
+                                    className="Global-Input-Text  unit"
                                 />
+                                <select
+                                    onChange={(e) => handleIngredientChange(index, e)}
+                                    value={item.unit}
+                                    id={index}
+                                    placeholder="Unit"
+                                    required
+                                    name="unit"
+                                    type="text"
+                                    className="Global-Input-Text"
+                                >
+                                    <option value="mL">milliliter</option>
+                                    <option value="L">liter</option>
+                                    <option value="tsp">teaspoon</option>
+                                    <option value="tbsp">tablespoon</option>
+                                    <option value="tsp">teaspoon</option>
+                                    <option value="fluid ounce">fl oz</option>
+                                    <option value="cup">cup</option>
+                                    <option value="pint">pint</option>
+                                    <option value="g">gram</option>
+                                    <option value="kg">kilogram</option>
+                                    <option value="lb">pound</option>
+                                    <option value="oz">ounce</option>
+                                    <option value="inch">inch</option>
+                                    <option value="clove">clove</option>
+                                    <option value="stalk">stalk</option>
+                                    <option value="can">can</option>
+                                    <option value="piece">piece</option>
+                                    <option value="slice">slice</option>
+                                </select>
                                 <button onClick={(e) => removeInput(e, index)} className="Global-Ingredient-Add-Button"><i class="fa-solid fa-minus add-and-subtract-Icon"></i></button>
                             </div>
 

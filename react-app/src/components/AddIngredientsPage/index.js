@@ -88,22 +88,22 @@ const AddIngredientsPage = () => {
     return (
         <div>
             <form onSubmit={handleSubmit} className="Global-Form-Container">
-                <ul className="Global-Errors-UL">
-                    {errors.map((error, idx) => (
-                        <li key={idx} className="Global-Errors-LI">
-                            {error}
-                        </li>
-                    ))}
-                </ul>
                 <div className="instructionFormDiv">
                     <div className="Global-Form-Button-Holder">
                         <div className="Global-Form-Button-Header">Add Ingredients</div>
                         <button onClick={(e) => addInput(e)} className="Global-Ingredient-Add-Button"><i class="fa-solid fa-plus add-and-subtract-Icon"></i></button>
                         {
-                            (ingredientInputArr.length !== 1) ? <button onClick={(e) => removeInput(e)}className="Global-Ingredient-Add-Button"><i class="fa-solid fa-minus add-and-subtract-Icon"></i></button>
+                            (ingredientInputArr.length !== 1) ? <button onClick={(e) => removeInput(e)} className="Global-Ingredient-Add-Button"><i class="fa-solid fa-minus add-and-subtract-Icon"></i></button>
                                 : null
                         }
                     </div>
+                    <ul className="Global-Errors-UL">
+                        {errors.map((error, idx) => (
+                            <li key={idx} className="Global-Errors-LI">
+                                {error}
+                            </li>
+                        ))}
+                    </ul>
                     {ingredientInputArr.map((item, index) => {
                         return (
                             <div key={index} className="Global-Input-Container">
@@ -119,16 +119,6 @@ const AddIngredientsPage = () => {
                                 />
                                 <input
                                     onChange={(e) => handleIngredientChange(index, e)}
-                                    value={item.unit}
-                                    id={index}
-                                    placeholder="Unit"
-                                    required
-                                    name="unit"
-                                    type="text"
-                                    className="Global-Input-Text unit"
-                                />
-                                <input
-                                    onChange={(e) => handleIngredientChange(index, e)}
                                     value={item.quantity}
                                     placeholder="Quantity"
                                     id={index}
@@ -137,6 +127,35 @@ const AddIngredientsPage = () => {
                                     type="number"
                                     className="Global-Input-Text"
                                 />
+                                <select
+                                    onChange={(e) => handleIngredientChange(index, e)}
+                                    value={item.unit}
+                                    id={index}
+                                    placeholder="Unit"
+                                    required
+                                    name="unit"
+                                    type="text"
+                                    className="Global-Input-Text"
+                                >
+                                    <option value="mL">milliliter</option>
+                                    <option value="L">liter</option>
+                                    <option value="tsp">teaspoon</option>
+                                    <option value="tbsp">tablespoon</option>
+                                    <option value="tsp">teaspoon</option>
+                                    <option value="fluid ounce">fl oz</option>
+                                    <option value="cup">cup</option>
+                                    <option value="pint">pint</option>
+                                    <option value="g">gram</option>
+                                    <option value="kg">kilogram</option>
+                                    <option value="lb">pound</option>
+                                    <option value="oz">ounce</option>
+                                    <option value="inch">inch</option>
+                                    <option value="clove">clove</option>
+                                    <option value="stalk">stalk</option>
+                                    <option value="can">can</option>
+                                    <option value="piece">piece</option>
+                                    <option value="slice">slice</option>
+                                </select>
                             </div>
 
                         );

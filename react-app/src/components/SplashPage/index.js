@@ -12,6 +12,8 @@ const SplashPage = () => {
     const history = useHistory();
     const [loadedPage, setLoadedPage] = useState(false);
 
+    const [imgSrc, setImgSrc] = useState("https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Image_not_available.png/640px-Image_not_available.png")
+
     useEffect(() => {
         dispatch(thunkGetAllRecipe()).then(() => setLoadedPage(true));
     }, [dispatch]);
@@ -28,10 +30,18 @@ const SplashPage = () => {
         recipeArray.push(recipeValues.slice(i, i + 2))
     }
 
+    const onImageError = (e) => {
+        e.target.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Image_not_available.png/640px-Image_not_available.png";
+    }
+
     return (
         <>
             <div className="SplashPage-Container">
-                <img className="splashImage" src="https://burst.shopifycdn.com/photos/flatlay-iron-skillet-with-meat-and-other-food.jpg?width=1200&format=pjpg&exif=1&iptc=1" alt="" />
+                <img className="splashImage" src="https://burst.shopifycdn.com/photos/flatlay-iron-skillet-with-meat-and-other-food.jpg?width=1200&format=pjpg&exif=1&iptc=1" alt=""
+                    onError={({ currentTarget }) => {
+                        currentTarget.onerror = null; // prevents looping
+                        currentTarget.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Image_not_available.png/640px-Image_not_available.png";
+                    }} />
             </div>
             <div className="lowerDiv">
                 <div className="navLinkContainer">
@@ -48,7 +58,14 @@ const SplashPage = () => {
                                     <NavLink exact to={`/recipes/${recipe.id}`} key={recipe.id} className="splashNavLink">
                                         <div className="splashRecipeCard">
                                             <div className="recipeCardImageContainer">
-                                                <img className="splashRecipeCardImage" src={recipe.previewImage} />
+                                                <img className="splashRecipeCardImage"
+                                                    alt="Loading"
+                                                    src={recipe.previewImage}
+                                                    onError={({ currentTarget }) => {
+                                                        console.log('check')
+                                                        currentTarget.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Image_not_available.png/640px-Image_not_available.png";
+                                                        currentTarget.onerror = null; // prevents looping
+                                                    }} />
                                             </div>
                                             <div className="recipeCardText">
                                                 <div className="titleCardDiv">{recipe.title}</div>
