@@ -151,7 +151,11 @@ const CreateRecipePage = () => {
                     <div className="instructionFormDiv">
                         <div className="Global-Form-Button-Holder">
                             <div className="Global-Form-Button-Header">Add Instructions</div>
-                            <button onClick={(e) => addInput(e)} className="Global-Ingredient-Add-Button"><i class="fa-solid fa-plus add-and-subtract-Icon"></i></button>
+                            {
+                                (instructionInputArr.length < 20) ? <button onClick={(e) => addInput(e)} className="Global-Ingredient-Add-Button"><i class="fa-solid fa-plus add-and-subtract-Icon"></i></button>
+                                    : <div className="subHeading">Max Number of Instructions Reached</div>
+                            }
+
                             {
                                 (instructionInputArr.length !== 1) ? <button onClick={(e) => removeInput(e)} className="Global-Ingredient-Add-Button"><i class="fa-solid fa-minus add-and-subtract-Icon"></i></button>
                                     : null

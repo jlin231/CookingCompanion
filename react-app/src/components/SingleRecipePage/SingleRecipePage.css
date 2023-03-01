@@ -151,6 +151,7 @@
     font-size: 19px;
     font-weight: 400;
     margin-bottom: 20px;
+    overflow-wrap: break-word;
 }
 
 .ingredient {

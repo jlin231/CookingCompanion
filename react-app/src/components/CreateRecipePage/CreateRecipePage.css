@@ -18,7 +18,7 @@
     color: red;
     flex-direction: column;
     margin: 0px 0px;
-    font-size: 25px; 
+    font-size: 25px;
     margin-bottom: 15px;
 }
 
@@ -85,8 +85,7 @@
     width: 100%;
     margin-top: 10px;
     margin-bottom: 10px;
-
-
+    font-size: 25px;
 }
 
 .Global-Ingredient-Add-Button {
@@ -105,7 +104,7 @@
 }
 
 .Global-Form-Button-Header {
-    font-size: 30px;
+    font-size: 40px;
     font-weight: 600;
     margin-top: 15px;
     margin-bottom: 15px;
@@ -143,4 +142,10 @@
     height: 35px;
     font-family: Arial, Helvetica, sans-serif;
     line-height: 18px;
+}
+
+.subHeading {
+    font-size: 20px;
+    margin-left: 10px;
+    font-family: Arial, Helvetica, sans-serif;
 }

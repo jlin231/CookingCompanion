@@ -55,7 +55,11 @@ const SingleRecipePage = () => {
                     <div className="authorSingleRecipe">Recipe from {singleRecipe.author.username}</div>
                 </div>
                 <div className="right-Info-Container " >
-                    <img className="splashImageSingle" src={`${singleRecipe.previewImage}`} alt="" />
+                    <img className="splashImageSingle" src={`${singleRecipe.previewImage}`} alt=""
+                        onError={({ currentTarget }) => {
+                            currentTarget.onerror = null; // prevents looping
+                            currentTarget.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Image_not_available.png/640px-Image_not_available.png";
+                        }} />
                 </div>
             </div>
             <div className="Info-Container2">
@@ -74,7 +78,7 @@ const SingleRecipePage = () => {
                     <div className="buttonContainer">
                         {(sessionUser && singleRecipe.author_id === sessionUser.id) ?
                             <>
-                                <div className="updateButton" onClick={handleEdit}>Update Recipe</div>
+                                <div className="updateButton" onClick={handleEdit}>Edit Recipe</div>
                                 <div className="updateButton" onClick={handleDelete}>Delete Recipe</div>
                             </> : null
                         }
@@ -112,7 +116,7 @@ const SingleRecipePage = () => {
                             return (
                                 <div key={index}>
                                     <div className="step">Step {index + 1}</div>
-                                    <div className="instruction">{`${instruction}`}</div>
+                                    <div className="instruction">{instruction}</div>
                                 </div>
                             )
                         })
