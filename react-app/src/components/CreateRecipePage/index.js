@@ -17,7 +17,6 @@ const CreateRecipePage = () => {
     ];
 
     const [instructionInputArr, setInstructionInputArr] = useState(initArr)
-
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [timeToComplete, setTimeToComplete] = useState("");
@@ -165,15 +164,14 @@ const CreateRecipePage = () => {
                             return (
                                 <div key={i} className="Global-Input-Container">
                                     <div className="index"> {i + 1}.</div>
-                                    <input
-                                        onChange={handleInstructionChange}
+                                    <textarea onChange={handleInstructionChange}
                                         value={item.value}
                                         id={i}
                                         required
                                         type="text"
                                         placeholder="Instruction"
-                                        className="Global-Input-Text"
-                                    />
+                                        className="Global-Form-Text-Area-Instruction"> 
+                                    </textarea>
                                 </div>
 
                             );

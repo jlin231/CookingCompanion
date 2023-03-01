@@ -67,6 +67,16 @@
     border-top-right-radius: 10px;
 }
 
+.splashRecipeCardImage-overlay{
+    width: 100%;
+    height: 100%; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px; 
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 .recipeCardImageContainer {
     width: 100%;
     height: 80%;
@@ -89,4 +99,10 @@
 .splashNavLink {
     text-decoration: none;
     color: black;
+}
+
+.Loading-Image{
+    object-fit: contain;
+    height: 100%;
+    width: 100%; 
 }

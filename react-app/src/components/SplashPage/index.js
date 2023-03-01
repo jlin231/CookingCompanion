@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import * as sessionActions from "../../store/session";
 import { NavLink, useHistory } from "react-router-dom";
 import { thunkGetAllRecipe } from "../../store/recipe";
+import SplashRecipeCard from "./SplashRecipeCard";
 
 const SplashPage = () => {
     const sessionUser = useSelector((state) => state.session.user);
@@ -56,22 +57,7 @@ const SplashPage = () => {
                             {array.map((recipe) => {
                                 return (
                                     <NavLink exact to={`/recipes/${recipe.id}`} key={recipe.id} className="splashNavLink">
-                                        <div className="splashRecipeCard">
-                                            <div className="recipeCardImageContainer">
-                                                <img className="splashRecipeCardImage"
-                                                    alt="Loading"
-                                                    src={recipe.previewImage}
-                                                    onError={({ currentTarget }) => {
-                                                        console.log('check')
-                                                        currentTarget.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Image_not_available.png/640px-Image_not_available.png";
-                                                        currentTarget.onerror = null; // prevents looping
-                                                    }} />
-                                            </div>
-                                            <div className="recipeCardText">
-                                                <div className="titleCardDiv">{recipe.title}</div>
-                                                <div className="authorCardDiv">By {recipe.author.username}</div>
-                                            </div>
-                                        </div>
+                                        <SplashRecipeCard recipe={recipe} />
                                     </NavLink>
                                 )
                             })}

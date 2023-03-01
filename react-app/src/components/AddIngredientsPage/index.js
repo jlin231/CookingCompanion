@@ -14,7 +14,7 @@ const AddIngredientsPage = () => {
         {
             name: "",
             quantity: "",
-            unit: ""
+            unit: "mL"
         }
     ];
     const [ingredientInputArr, setIngredientInputArr] = useState(initArr)
@@ -43,7 +43,7 @@ const AddIngredientsPage = () => {
                 {
                     name: "",
                     quantity: "",
-                    unit: ""
+                    unit: "mL"
                 }
             ]
         })
@@ -125,7 +125,7 @@ const AddIngredientsPage = () => {
                                     required
                                     name="quantity"
                                     type="number"
-                                    className="Global-Input-Text"
+                                    className="Global-Input-Text unit"
                                 />
                                 <select
                                     onChange={(e) => handleIngredientChange(index, e)}
