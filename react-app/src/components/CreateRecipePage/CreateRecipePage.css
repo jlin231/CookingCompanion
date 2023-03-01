@@ -18,6 +18,8 @@
     color: red;
     flex-direction: column;
     margin: 0px 0px;
+    font-size: 25px; 
+    margin-bottom: 15px;
 }
 
 .Global-Form-Image-Container {
@@ -41,7 +43,7 @@
     background-color: rgb(255, 49, 49);
     color: white;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 20px;
+    font-size: 25px;
     border-color: transparent;
     border-radius: 3px;
     width: 100%;
@@ -72,13 +74,6 @@
     max-width: 900px
 }
 
-.Login-Demo {
-    padding-top: 19px;
-    font-size: 14px;
-    cursor: pointer;
-    color: rgb(255, 49, 49);
-}
-
 .Global-Form-Button-Holder {
     display: flex;
     flex-direction: row;
@@ -106,6 +101,7 @@
     align-items: center;
     display: flex;
     padding: 10px;
+    cursor: pointer;
 }
 
 .Global-Form-Button-Header {

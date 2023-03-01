@@ -31,18 +31,20 @@ function LoginFormModal() {
   };
 
 
+
   return (
     <>
       <h1 className="Global-Modal-Header">Log In</h1>
       <form onSubmit={handleSubmit} className="Global-ModalForm-Container">
-        <ul className="Global-Errors-UL">
-          {errors.map((error, idx) => (
-            <li key={idx} className="Global-Errors-LI">{error}</li>
-          ))}
+        <ul className="Global-Errors-UL ">
+          {errors.map((error, idx) => {
+            error = error.split(':')[1]
+            return <li key={idx} className="Global-Errors-LI">{error}</li>
+          })}
         </ul>
         <label className="Global-Modal-Label">
           <input
-            type="text"
+            type="email"
             value={email}
             className="Global-Modal-input"
             onChange={(e) => setEmail(e.target.value)}

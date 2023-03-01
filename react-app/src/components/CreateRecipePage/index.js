@@ -133,7 +133,7 @@ const CreateRecipePage = () => {
                         value={timeToComplete}
                         onChange={(e) => setTimeToComplete(e.target.value)}
                         required
-                        placeholder="timeToComplete"
+                        placeholder="Minutes to Complete"
                         className="Global-Form-input"
                     />
                 </label>
@@ -143,7 +143,7 @@ const CreateRecipePage = () => {
                         value={previewImage}
                         onChange={(e) => setPreviewImage(e.target.value)}
                         required
-                        placeholder="previewImage"
+                        placeholder="Preview Image URL"
                         className="Global-Form-input"
                     />
                 </label>

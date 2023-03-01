@@ -17,6 +17,7 @@ const EditDeleteIngredientsPage = () => {
             unit: ""
         }
     ];
+    
     const [ingredientInputArr, setIngredientInputArr] = useState(initArr)
 
     useEffect(() => {

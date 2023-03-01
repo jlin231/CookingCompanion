@@ -26,8 +26,6 @@ const AllRecipePage = () => {
         recipeArray.push(recipeValues.slice(i, i + 4))
     }
 
-    console.log(recipeArray)
-
     return (
         <div className="outerMostDiv">
             {
