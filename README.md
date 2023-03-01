@@ -1,43 +1,23 @@
-# Flask React Project
+# Cooking Companion
 
-This is the starter for the Flask React project.
+This is the readme for Cooking Companion. This is a platform for creating recipes and ingredients as well as view the recipes created by other users. 
 
-## Getting started
-1. Clone this repository (only this branch)
+## Live Server Link
 
-2. Install dependencies
+https://cookingcompanion.onrender.com
 
-      ```bash
-      pipenv install -r requirements.txt
-      ```
+## Photos
 
-3. Create a **.env** file based on the example with proper settings for your
-   development environment
 
-4. Make sure the SQLite3 database connection URL is in the **.env** file
 
-5. This starter organizes all tables inside the `flask_schema` schema, defined
-   by the `SCHEMA` environment variable.  Replace the value for
-   `SCHEMA` with a unique name, **making sure you use the snake_case
-   convention**.
+## Wiki Link
 
-6. Get into your pipenv, migrate your database, seed your database, and run your Flask app
+* [Database Schema](https://github.com/jlin231/CookingCompanion/wiki/Database-Schema#backend-routes)
+* [API Backend Routes](https://github.com/jlin231/CookingCompanion/wiki/Database-Schema#backend-routes)
+* [Wireframe](https://github.com/jlin231/CookingCompanion/wiki/Wireframe)
+* [User Stories](https://github.com/jlin231/CookingCompanion/wiki/User-Stories)
+* [MVP Features](https://github.com/jlin231/CookingCompanion/wiki/MVP-Features)
 
-   ```bash
-   pipenv shell
-   ```
-
-   ```bash
-   flask db upgrade
-   ```
-
-   ```bash
-   flask seed all
-   ```
-
-   ```bash
-   flask run
-   ```
 
 7. To run the React App in development, checkout the [README](./react-app/README.md) inside the `react-app` directory.
 
