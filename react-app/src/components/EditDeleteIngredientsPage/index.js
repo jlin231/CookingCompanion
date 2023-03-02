@@ -87,18 +87,17 @@ const EditDeleteIngredientsPage = () => {
     return (
         <div>
             <form onSubmit={handleSubmit} className="Global-Form-Container">
-                <ul className="Global-Errors-UL">
-                    {errors.map((error, idx) => (
-                        <li key={idx} className="Global-Errors-LI">
-                            {error}
-                        </li>
-                    ))}
-                </ul>
                 <div className="instructionFormDiv">
                     <div className="Global-Form-Button-Holder">
                         <div className="Global-Form-Button-Header">Edit/Delete Ingredients</div>
-
                     </div>
+                    <ul className="Global-Errors-UL">
+                        {errors.map((error, idx) => (
+                            <li key={idx} className="Global-Errors-LI">
+                                {error}
+                            </li>
+                        ))}
+                    </ul>
                     {ingredientInputArr.map((item, index) => {
                         return (
                             <div key={index} className="Global-Input-Container">
