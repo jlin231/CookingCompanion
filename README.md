@@ -37,8 +37,6 @@ https://cookingcompanion.onrender.com
 * [MVP Features](https://github.com/jlin231/CookingCompanion/wiki/MVP-Features)
 
 
-7. To run the React App in development, checkout the [README](./react-app/README.md) inside the `react-app` directory.
-
 ## Tech Stack
 
 * Frameworks, Platforms, and Libraries:
