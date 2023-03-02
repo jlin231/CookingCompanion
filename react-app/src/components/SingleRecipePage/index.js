@@ -63,7 +63,7 @@ const SingleRecipePage = () => {
                     {
                         !imgLoaded &&
                         <div className="splashImageSingle">
-                            <img className='Loading-Image' src="http://simpleicon.com/wp-content/uploads/loading.png" />
+                            <img className='Loading-Image' src="https://media.istockphoto.com/id/1335247217/vector/loading-icon-vector-illustration.jpg?s=612x612&w=0&k=20&c=jARr4Alv-d5U3bCa8eixuX2593e1rDiiWnvJLgHCkQM=" />
                         </div>
                     }
                     <img className="splashImageSingle"
