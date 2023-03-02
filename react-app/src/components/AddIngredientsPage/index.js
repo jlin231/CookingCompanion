@@ -125,6 +125,7 @@ const AddIngredientsPage = () => {
                                     required
                                     name="quantity"
                                     type="number"
+                                    min={1}
                                     className="Global-Input-Text unit"
                                 />
                                 <select

@@ -162,6 +162,7 @@ const EditRecipePage = () => {
                         required
                         placeholder="Minutes to Complete"
                         className="Global-Form-input"
+                        min={1}
                     />
                 </label>
                 <label for="previewImage" className="Global-Form-Label">
@@ -200,6 +201,7 @@ const EditRecipePage = () => {
                                 required
                                 type="text"
                                 placeholder="Instruction"
+
                                 className="Global-Input-Text Global-Form-Text-Area-Instruction">
                             </textarea>
                         </div>
