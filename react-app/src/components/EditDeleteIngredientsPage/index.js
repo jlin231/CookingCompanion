@@ -121,7 +121,6 @@ const EditDeleteIngredientsPage = () => {
                                     name="quantity"
                                     type="number"
                                     className="Global-Input-Text  unit"
-                                    min={1}
                                 />
                                 <select
                                     onChange={(e) => handleIngredientChange(index, e)}
