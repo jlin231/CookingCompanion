@@ -36,6 +36,24 @@ https://cookingcompanion.onrender.com
 * [User Stories](https://github.com/jlin231/CookingCompanion/wiki/User-Stories)
 * [MVP Features](https://github.com/jlin231/CookingCompanion/wiki/MVP-Features)
 
+## MVP Features
+
+## 1. New account creation, log in, log out, and guest/demo login
+* Users can sign up, log in and log out.
+* Users can use a demo login to try the site.
+* Users can't use certain features without logging in
+* Logged in users are directed to their home feed where posts made by other users are shown.
+* Logged out users are directed to a splash page asking them to login again. 
+
+## 2. Recipes
+* Users can create recipes including instructions 
+* Users can see all the recipes on the site
+* Owners of a recipe can update and delete their recipes
+
+## 3. Ingredients
+* Users can add ingredients to a recipe
+* Users can remove ingredients from a recipe
+* Users can update a recipe's ingredient's quantities and units 
 
 ## Tech Stack
 
