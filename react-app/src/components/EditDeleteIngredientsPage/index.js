@@ -112,16 +112,6 @@ const EditDeleteIngredientsPage = () => {
                                     type="text"
                                     className="Global-Input-Text"
                                 />
-                                {/* <input
-                                    onChange={(e) => handleIngredientChange(index, e)}
-                                    value={item.unit}
-                                    id={index}
-                                    placeholder="Unit"
-                                    required
-                                    name="unit"
-                                    type="text"
-                                    className="Global-Input-Text unit"
-                                /> */}
                                 <input
                                     onChange={(e) => handleIngredientChange(index, e)}
                                     value={item.quantity}
@@ -131,6 +121,7 @@ const EditDeleteIngredientsPage = () => {
                                     name="quantity"
                                     type="number"
                                     className="Global-Input-Text  unit"
+                                    min={1}
                                 />
                                 <select
                                     onChange={(e) => handleIngredientChange(index, e)}

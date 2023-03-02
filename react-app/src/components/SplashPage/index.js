@@ -7,13 +7,12 @@ import { thunkGetAllRecipe } from "../../store/recipe";
 import SplashRecipeCard from "./SplashRecipeCard";
 
 const SplashPage = () => {
-    const sessionUser = useSelector((state) => state.session.user);
     const allRecipes = useSelector((state) => state.recipes.allRecipes)
     const dispatch = useDispatch();
     const history = useHistory();
     const [loadedPage, setLoadedPage] = useState(false);
 
-    const [imgSrc, setImgSrc] = useState("https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Image_not_available.png/640px-Image_not_available.png")
+
 
     useEffect(() => {
         dispatch(thunkGetAllRecipe()).then(() => setLoadedPage(true));
@@ -31,10 +30,6 @@ const SplashPage = () => {
         recipeArray.push(recipeValues.slice(i, i + 2))
     }
 
-    const onImageError = (e) => {
-        e.target.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Image_not_available.png/640px-Image_not_available.png";
-    }
-
     return (
         <>
             <div className="SplashPage-Container">
@@ -50,7 +45,6 @@ const SplashPage = () => {
                         <div className="whatToCookText">What to Cook This Week</div>
                     </NavLink>
                 </div>
-
                 {
                     recipeArray.map((array) => {
                         return (<div className="splashRecipeContainer">

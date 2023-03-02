@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import "./SingleRecipePage.css";
 import { useEffect, useState } from "react";
-import { NavLink, useHistory, useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { thunkDeleteRecipe, thunkGetAllRecipe, thunkGetSingleRecipe } from "../../store/recipe";
 import OpenModalButton from "../OpenModalButton";
 import ConfirmDeleteRecipeModal from "./ConfirmDeleteRecipeModal";
@@ -12,6 +12,9 @@ const SingleRecipePage = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const [loadedPage, setLoadedPage] = useState(false);
+    const [imgLoaded, setImgLoaded] = useState(false);
+    const [imgError, setImgError] = useState(false);
+
 
     let { recipeId } = useParams()
 
@@ -57,11 +60,18 @@ const SingleRecipePage = () => {
                     <div className="authorSingleRecipe">Recipe from {singleRecipe.author.username}</div>
                 </div>
                 <div className="right-Info-Container " >
-                    <img className="splashImageSingle" src={`${singleRecipe.previewImage}`} alt=""
-                        onError={({ currentTarget }) => {
-                            currentTarget.onerror = null; // prevents looping
-                            currentTarget.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Image_not_available.png/640px-Image_not_available.png";
-                        }} />
+                    {
+                        !imgLoaded &&
+                        <div className="splashImageSingle">
+                            <img className='Loading-Image' src="http://simpleicon.com/wp-content/uploads/loading.png" />
+                        </div>
+                    }
+                    <img className="splashImageSingle"
+                        alt="loading"
+                        src={(!imgError) ? singleRecipe.previewImage : "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Image_not_available.png/640px-Image_not_available.png"}
+                        onLoad={() => { setImgLoaded(true) }}
+                        onError={() => { setImgError(true) }}
+                        style={imgLoaded ? { display: "block" } : { display: "none" }} />
                 </div>
             </div>
             <div className="Info-Container2">
@@ -69,12 +79,9 @@ const SingleRecipePage = () => {
                     <div className="left-Info-left-Div">
                         <div className="left-Info-left-left-Div">
                             <div className="textSingleRecipeLower">Time </div>
-                            {/* <div className="textSingleRecipeLower">Rating</div> */}
                         </div>
                         <div className="left-Info-left-right-Div">
                             <div className="textSingleRecipeLower">{singleRecipe.timeToComplete} minutes</div>
-                            {/* <div>Rating to Come</div> */}
-
                         </div>
                     </div>
                     <div className="buttonContainer">
@@ -84,7 +91,7 @@ const SingleRecipePage = () => {
                                 <OpenModalButton
                                     buttonText={"Delete Recipe"}
                                     className="updateButton"
-                                    modalComponent={<ConfirmDeleteRecipeModal recipeId={recipeId}/>}
+                                    modalComponent={<ConfirmDeleteRecipeModal recipeId={recipeId} />}
                                 />
                             </> : null
                         }
