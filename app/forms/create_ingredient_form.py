@@ -9,7 +9,7 @@ def name_validator(form, field):
         raise ValidationError('Name must be between 3 and 100 characters long')
 
 def quantity_validator(form, field):
-    if field.data < 0:
+    if field.data <= 0:
         raise ValidationError('Quantity must be greater than 0')
 
 def instruction_validator(form, field):
