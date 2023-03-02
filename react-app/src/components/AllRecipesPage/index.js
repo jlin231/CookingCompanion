@@ -1,8 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import "./AllRecipesPage.css";
 import { useEffect, useState } from "react";
-import { NavLink, useHistory, useParams } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { thunkGetAllRecipe } from "../../store/recipe";
+import AllRecipeCard from "./AllRecipeCard";
 
 const AllRecipePage = () => {
     const sessionUser = useSelector((state) => state.session.user);
@@ -35,22 +36,7 @@ const AllRecipePage = () => {
                             {recipes.map((recipe) => {
                                 return (
                                     <NavLink exact to={`/recipes/${recipe.id}`} key={recipe.id} className="navLinkRecipeCard">
-                                        <div className="recipeCardDiv">
-                                            <img src={recipe.previewImage} alt="" className="recipeCardImg"
-                                                onError={({ currentTarget }) => {
-                                                    currentTarget.onerror = null; // prevents looping
-                                                    currentTarget.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Image_not_available.png/640px-Image_not_available.png";
-                                                }} />
-                                            <div className="textContainer">
-                                                <div className="recipeCardTextDivUpper">
-                                                    <div className="cardTextTitle">{recipe.title}</div>
-                                                    <div className="cardTextAuthor">{recipe.author.username}</div>
-                                                </div>
-                                                <div className="recipeCardTextDivLower">
-                                                    <div className="cardTextTime">{recipe.timeToComplete} minutes</div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <AllRecipeCard recipe={recipe} />
                                     </NavLink>
                                 )
                             })}

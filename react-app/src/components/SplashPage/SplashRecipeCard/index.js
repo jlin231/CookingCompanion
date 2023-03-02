@@ -6,15 +6,6 @@ function SplashRecipeCard({ recipe }) {
     const [imgLoaded, setImgLoaded] = useState(false);
     const [imgError, setImgError] = useState(false);
 
-
-    const onImageLoaded = () => {
-        setImgLoaded(true);
-    }
-
-    const onImageError = () => {
-        setImgError(true);
-    }
-
     return (
         <div className="splashRecipeCard">
             <div className="recipeCardImageContainer">
@@ -27,8 +18,8 @@ function SplashRecipeCard({ recipe }) {
                 <img className="splashRecipeCardImage"
                     alt="loading"
                     src={(!imgError) ? recipe.previewImage : "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Image_not_available.png/640px-Image_not_available.png"}
-                    onLoad={()=>{setImgLoaded(true)}}
-                    onError={()=>{setImgError(true)}}
+                    onLoad={() => { setImgLoaded(true) }}
+                    onError={() => { setImgError(true) }}
                     style={imgLoaded ? { display: "block" } : { display: "none" }} />
             </div>
             <div className="recipeCardText">
