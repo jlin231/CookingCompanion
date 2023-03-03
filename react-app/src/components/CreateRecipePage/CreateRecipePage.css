@@ -155,3 +155,7 @@
     margin-left: 10px;
     font-family: Arial, Helvetica, sans-serif;
 }
+
+div {
+    word-wrap: break-word;
+}

@@ -23,11 +23,12 @@ function Navigation({ isLoaded }) {
 						<img src={process.env.PUBLIC_URL + "/cookingCompanion.png"} className="homeImg" />
 					</NavLink>
 				</div>
-				<div className="ExploreButton-Holder">
+
+				{location.pathname !== '/' && <div className="ExploreButton-Holder">
 					<NavLink exact to="/recipes/explore" className="navLinkExplore">
 						<div>Explore</div>
 					</NavLink>
-				</div>
+				</div>}
 			</div>
 			<div className="rightNav">
 				{isLoaded && sessionUser.user && (

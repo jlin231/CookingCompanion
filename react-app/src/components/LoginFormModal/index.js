@@ -27,7 +27,7 @@ function LoginFormModal() {
   const demoLogin = () => {
     dispatch(login("demo@aa.io", "password"));
     closeModal();
-    return history.push("/recipes/explore");
+    return history.push("/recipes");
   };
 
 
