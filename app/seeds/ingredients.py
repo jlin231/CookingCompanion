@@ -137,7 +137,14 @@ def seed_ingredients():
         Ingredient(name='beef bones', quantity=1.5, unit='kg', recipe_id=14),
         Ingredient(name='star anise', quantity=4, unit='piece', recipe_id=14),
         Ingredient(name='cinnamon stick', quantity=1, unit='piece', recipe_id=14),
-        Ingredient(name='ginger', quantity=30, unit='g', recipe_id=14),
+        Ingredient(name='fresh ginger', quantity=30, unit='in', recipe_id=14),
+        Ingredient(name='coriander seeds', quantity=1, unit='tbsp', recipe_id=14),
+        Ingredient(name='fennel seeds', quantity=1, unit='tbsp', recipe_id=14),
+        Ingredient(name='whole cloves', quantity=6, unit='piece', recipe_id=14),
+        Ingredient(name='salt', quantity=1.5, unit='tbsp', recipe_id=14),
+        Ingredient(name='fish sauce', quantity=0.25, unit='cup', recipe_id=14),
+        Ingredient(name='yellow rock sugar', quantity=1, unit='in', recipe_id=14),
+        Ingredient(name='yellow onion', quantity=2, unit='piece', recipe_id=14),
     ])
 
     db.session.commit()
