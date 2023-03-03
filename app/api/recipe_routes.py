@@ -1,9 +1,10 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import db, Recipe, Ingredient
+from app.models import db, Recipe, Ingredient, Comment
 from .auth_routes import validation_errors_to_error_messages
 from ..forms.create_recipe_form import CreateRecipeForm, EditRecipeForm
 from ..forms.create_ingredient_form import EditIngredientForm
+from ..forms.comment_form import CommentForm
 
 recipe_routes = Blueprint('album', __name__)
 
@@ -298,25 +299,9 @@ def update_ingredient_list(recipeId):
     db.session.commit()
 
 
-
-    # for ingredient in data["Ingredients"]:
-        
-    #     edit_ingredient = db.session.query(Ingredient).get(int(ingredient.id))
-
-
-    #     edit_ingredient.name = ingredient["name"] 
-    #     edit_ingredient.quantity = ingredient["quantity"] 
-    #     edit_ingredient.unit = ingredient["unit"] 
-    #     print(edit_ingredient.to_dict())
-    #     db.session.commit()
-
-
     return {
         "message": "successfully edited"
     }
-    #Error handling
-    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
-
 
 #Delete ingredient from recipe
 @recipe_routes.route('/<int:recipeId>/ingredients/<int:ingredientId>', methods=['DELETE'])
@@ -344,3 +329,42 @@ def delete_ingredient(recipeId, ingredientId):
         "message": "Successfully deleted",
         "statusCode": 200
     }, 200
+
+#Comment routes, 
+
+#Adding a comment to a recipe
+@recipe_routes.route('/<int:recipeId>/comments', methods=['POST'])
+@login_required
+def add_comment(recipeId):
+    
+    form = CommentForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    recipe = db.session.query(Recipe).get(int(recipeId))
+
+
+    if form.validate_on_submit():
+        data = form.data    
+
+        # Create an comment, adding userId and recipeId
+        newComment = Comment(
+            comment=data["comment"],
+            recipe_id=recipeId,
+            author_id=current_user.id
+        )
+        # Add comment to the recipe
+        
+        
+        db.session.add(newComment)
+        recipe.comments.append(newComment)
+        db.session.commit()
+
+        return newComment.to_dict()
+
+
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+
+#Removing a comment
+
+#Editing a comment
