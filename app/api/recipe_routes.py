@@ -177,7 +177,7 @@ def add_ingredient(recipeId):
             print('======================>',ingredient["name"])
             if("Name must be between 3 and 100 characters long" not in errors):
                 errors.append("Name must be between 3 and 100 characters long")
-        if(ingredient["quantity"] < 0):
+        if(ingredient["quantity"] <= 0):
             if("Quantity must be greater than 0" not in errors):
                 errors.append("Quantity must be greater than 0")
         if(len(ingredient["unit"]) == 0):

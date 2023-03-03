@@ -12,6 +12,7 @@ import EditRecipePage from "./components/EditRecipePage";
 import AllRecipePage from "./components/AllRecipesPage";
 import AddIngredientsPage from "./components/AddIngredientsPage";
 import EditDeleteIngredientsPage from "./components/EditDeleteIngredientsPage";
+import FirstSplashPage from "./components/FirstSplashPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -50,8 +51,11 @@ function App() {
           <Route path="/signup">
             <SignupFormPage />
           </Route>
-          <Route path="/">
+          <Route path="/recipes">
             <SplashPage />
+          </Route>
+          <Route path="/">
+            <FirstSplashPage />
           </Route>
         </Switch>
       )}
