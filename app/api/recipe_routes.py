@@ -41,6 +41,11 @@ def get_single_recipe(recipeId):
     #pull author info
     tempAuthor = single_recipe.author.to_dict() 
     print("===========================>", tempAuthor)
+    
+    commentInfo = []
+    for comment in single_recipe.comments:
+        tempComment = comment.to_dict()
+        commentInfo.append(tempComment)
 
     return {
         "id": single_recipe.id,
@@ -52,7 +57,8 @@ def get_single_recipe(recipeId):
         "instructions": single_recipe.instructions,
         "createdAt": single_recipe.createdAt,
         "author": tempAuthor,        
-        "ingredients": ingredientInfo
+        "ingredients": ingredientInfo,
+        "comments": commentInfo
     }
 
 #Create a recipe
@@ -330,7 +336,7 @@ def delete_ingredient(recipeId, ingredientId):
         "statusCode": 200
     }, 200
 
-#Comment routes, 
+#Comment routes
 
 #Adding a comment to a recipe
 @recipe_routes.route('/<int:recipeId>/comments', methods=['POST'])
@@ -342,7 +348,6 @@ def add_comment(recipeId):
 
     recipe = db.session.query(Recipe).get(int(recipeId))
 
-
     if form.validate_on_submit():
         data = form.data    
 
@@ -352,19 +357,48 @@ def add_comment(recipeId):
             recipe_id=recipeId,
             author_id=current_user.id
         )
+
         # Add comment to the recipe
-        
-        
         db.session.add(newComment)
         recipe.comments.append(newComment)
         db.session.commit()
 
         return newComment.to_dict()
 
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+#Editing a comment
+@recipe_routes.route('/<int:recipeId>/comments/<int:commentId>', methods=['PUT'])
+@login_required
+def edit_comment(recipeId, commentId):
+    
+    form = CommentForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    recipe = db.session.query(Recipe).get(int(recipeId))
+    edit_Comment = db.session.query(Comment).get(int(commentId))
+
+    if(not edit_Comment):
+        return {"message": "Comment could not be found"}, 404
+
+    if(recipe.author_id != edit_Comment.author_id):
+        return {"message": "Recipe does not have specified comment"}, 404
+
+    if(current_user.id != edit_Comment.author_id):
+        return {'errors': ['Unauthorized']}, 401
+
+
+    if form.validate_on_submit():
+        data = form.data    
+        # edit the comment
+        edit_Comment.comment = data["comment"]
+
+        # Add comment to the recipe
+        db.session.commit()
+
+        return edit_Comment.to_dict()
 
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
 #Removing a comment
-
-#Editing a comment

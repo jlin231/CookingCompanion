@@ -19,6 +19,7 @@ class Comment(db.Model):
     def to_dict(self):
         return {
             'id': self.id,
-            'name': self.comment
+            'comment': self.comment,
+            'author': self.author.to_dict()
         }
     
