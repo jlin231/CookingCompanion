@@ -5,6 +5,9 @@ const EDIT_SINGLE_RECIPE = "recipe/EDIT_SINGLE_RECIPE";
 const DELETE_SINGLE_RECIPE = "recipe/DELETE_SINGLE_RECIPE";
 const ADD_INGREDIENTS = "ingredient/ADD_INGREDIENTS";
 const EDIT_DELETE_INGREDIENTS = "ingredient/EDIT_DELETE_INGREDIENTS"
+const ADD_COMMENT_TO_RECIPE = "recipe/ADD_COMMENT_TO_RECIPE"
+const EDIT_COMMENT_TO_RECIPE = "recipe/EDIT_COMMENT_TO_RECIPE"
+const DELETE_COMMENT_TO_RECIPE = "recipe/DELETE_COMMENT_TO_RECIPE"
 
 const getAllRecipes = (data) => ({
     type: GET_ALL_RECIPES,
@@ -39,6 +42,21 @@ const addIngredientToRecipe = (data) => ({
 const editDeleteIngredientsToRecipe = (data) => ({
     type: EDIT_DELETE_INGREDIENTS,
     payload: data
+})
+
+const addCommentToRecipe = (data) => ({
+    type: ADD_COMMENT_TO_RECIPE,
+    payload: data
+})
+
+const editCommentOfRecipe = (data) => ({
+    type: EDIT_COMMENT_TO_RECIPE,
+    payload: data
+})
+
+const deleteCommentOfRecipe = (commentId) => ({
+    type: DELETE_COMMENT_TO_RECIPE,
+    payload: commentId
 })
 
 const initialState = { singleRecipe: {}, allRecipes: {} };
@@ -184,7 +202,60 @@ export const thunkEditDeleteIngredients = (body, recipeId) => async (dispatch) =
     }
 }
 
+export const thunkAddCommentToRecipe = (body, recipeId) => async (dispatch) => {
+    const response = await fetch(`/api/recipes/${recipeId}/comments`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body)
+    });
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(addCommentToRecipe(data));
+        return data;
+    } else if (response.status < 500) {
+        const data = await response.json();
+        throw new Error(JSON.stringify(data));
+    }
+};
 
+export const thunkEditCommentOfRecipe = (body, commentId, recipeId) => async (dispatch) => {
+
+    const response = await fetch(`/api/recipes/${recipeId}/comments/${commentId}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body)
+    });
+
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(editCommentOfRecipe(data));
+        return data;
+    } else if (response.status < 500) {
+        const data = await response.json();
+        throw new Error(JSON.stringify(data));
+    }
+};
+
+export const thunkDeleteCommentRecipe = (commentId, recipeId) => async (dispatch) => {
+    const response = await fetch(`/api/recipes/${recipeId}/comments/${commentId}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+        }
+    });
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(deleteCommentOfRecipe(commentId));
+        return data;
+    } else if (response.status < 500) {
+        const data = await response.json();
+        throw new Error(JSON.stringify(data));
+    }
+};
 
 export default function recipeReducer(state = initialState, action) {
     let newState;
@@ -218,6 +289,32 @@ export default function recipeReducer(state = initialState, action) {
             return newState;
         case EDIT_DELETE_INGREDIENTS:
             newState = Object.assign({}, state);
+            return newState;
+        case ADD_COMMENT_TO_RECIPE:
+            newState = Object.assign({}, state);
+            newState = { allRecipes: { ...newState.allRecipes }, singleRecipe: { ...newState.singleRecipe, comments: [...newState.singleRecipe.comments, action.payload] } };
+            return newState;
+        case EDIT_COMMENT_TO_RECIPE:
+            newState = Object.assign({}, state);
+            //search through comments array, find comment by id, and replace comment
+            for (let i = 0; i < newState.singleRecipe.comments.length; i++) {
+                const comment = newState.singleRecipe.comments[i]
+                if (comment.id === action.payload.id) {
+                    newState.singleRecipe.comments[i] = action.payload
+                }
+            }
+            newState = { allRecipes: { ...newState.allRecipes }, singleRecipe: { ...newState.singleRecipe, comments: [...newState.singleRecipe.comments] } };
+            return newState;
+        case DELETE_COMMENT_TO_RECIPE:
+            console.log('reducer hit')
+            newState = Object.assign({}, state);
+            for (let i = 0; i < newState.singleRecipe.comments.length; i++) {
+                const comment = newState.singleRecipe.comments[i]
+                if (comment.id === action.payload) {
+                    newState.singleRecipe.comments.splice(i, 1);
+                }
+            }
+            newState = { allRecipes: { ...newState.allRecipes }, singleRecipe: { ...newState.singleRecipe, comments: [...newState.singleRecipe.comments] } };
             return newState;
         default:
             return state;

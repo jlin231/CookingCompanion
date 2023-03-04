@@ -2,9 +2,10 @@ import { useDispatch, useSelector } from "react-redux";
 import "./SingleRecipePage.css";
 import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { thunkDeleteRecipe, thunkGetAllRecipe, thunkGetSingleRecipe } from "../../store/recipe";
+import { thunkGetSingleRecipe, thunkAddCommentToRecipe, thunkDeleteCommentRecipe } from "../../store/recipe";
 import OpenModalButton from "../OpenModalButton";
 import ConfirmDeleteRecipeModal from "./ConfirmDeleteRecipeModal";
+import CommentCard from "./EditCommentCard";
 
 const SingleRecipePage = () => {
     const sessionUser = useSelector((state) => state.session.user);
@@ -14,6 +15,8 @@ const SingleRecipePage = () => {
     const [loadedPage, setLoadedPage] = useState(false);
     const [imgLoaded, setImgLoaded] = useState(false);
     const [imgError, setImgError] = useState(false);
+    const [errors, setErrors] = useState([]);
+    const [comment, setComment] = useState("");
 
 
     let { recipeId } = useParams()
@@ -35,14 +38,6 @@ const SingleRecipePage = () => {
         history.push(`/recipes/${recipeId}/edit`)
     }
 
-    const handleDelete = () => {
-        dispatch(thunkDeleteRecipe(recipeId)).then(() => {
-            dispatch(thunkGetAllRecipe)
-        }).then(() => {
-            history.push('/recipes')
-        })
-    }
-
     const handleAddIngredients = () => {
         history.push(`/recipes/${recipeId}/ingredients`)
     }
@@ -50,6 +45,40 @@ const SingleRecipePage = () => {
     const handleEditDeleteIngredients = () => {
 
         history.push(`/recipes/${recipeId}/ingredients/edit`)
+    }
+
+    const deleteComment = async (e, commentId) => {
+        e.preventDefault();
+        
+        try {
+            const res = await dispatch(thunkDeleteCommentRecipe(commentId, recipeId))
+        } catch (error) {
+            let errorObject = JSON.parse(error.message);
+            console.log(errorObject, 'errorObject')
+            // const result = errorObject.errors.map((error) => {
+            //     return error.split(": ")[1];
+            // });
+            // if (errorObject) setErrors(result);
+        }
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setErrors([]);
+        try {
+            const res = await dispatch(thunkAddCommentToRecipe({
+                comment: comment
+            }, recipeId))
+                .then(() => {
+                    setComment("");
+                })
+        } catch (error) {
+            let errorObject = JSON.parse(error.message);
+            const result = errorObject.errors.map((error) => {
+                return error.split(": ")[1];
+            });
+            if (errorObject) setErrors(result);
+        }
     }
 
     return (
@@ -130,6 +159,41 @@ const SingleRecipePage = () => {
                                 <div key={index}>
                                     <div className="step">Step {index + 1}</div>
                                     <div className="instruction">{instruction}</div>
+                                </div>
+                            )
+                        })
+                    }
+                    <div className="commentHeading">Comments</div>
+                    {sessionUser && <form onSubmit={handleSubmit}>
+                        <ul>
+                            {errors.map((error, idx) => (
+                                <li key={idx}>{error}</li>
+                            ))}
+                        </ul>
+                        <label>
+                            <textarea
+                                type="comment"
+                                value={comment}
+                                onChange={(e) => setComment(e.target.value)}
+                                required>
+                            </textarea>
+                        </label>
+                        <button type="submit">Add Comment</button>
+                    </form>}
+                    {
+                        singleRecipe.comments.map((comment, index) => {
+                            return (
+                                <div key={index}>
+                                    <div className="instruction">By {comment.author.username}</div>
+                                    <div className="instruction">{comment.comment}</div>
+                                    {
+                                        (sessionUser && (sessionUser.id === comment.author.id)) &&
+                                        <div>
+
+                                            <CommentCard comment={comment} recipeId={singleRecipe.id} />
+                                            <div onClick={(e) => deleteComment(e, comment.id)}><i class="fa-regular fa-trash-can"></i></div>
+                                        </div>
+                                    }
                                 </div>
                             )
                         })

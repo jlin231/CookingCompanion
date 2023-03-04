@@ -342,11 +342,13 @@ def delete_ingredient(recipeId, ingredientId):
 @recipe_routes.route('/<int:recipeId>/comments', methods=['POST'])
 @login_required
 def add_comment(recipeId):
-    
+    print('route hit')
     form = CommentForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
     recipe = db.session.query(Recipe).get(int(recipeId))
+
+    print('recipe found')
 
     if form.validate_on_submit():
         data = form.data    
@@ -371,23 +373,17 @@ def add_comment(recipeId):
 @recipe_routes.route('/<int:recipeId>/comments/<int:commentId>', methods=['PUT'])
 @login_required
 def edit_comment(recipeId, commentId):
-    
     form = CommentForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
-    recipe = db.session.query(Recipe).get(int(recipeId))
     edit_Comment = db.session.query(Comment).get(int(commentId))
 
     if(not edit_Comment):
         return {"message": "Comment could not be found"}, 404
-
-    if(recipe.author_id != edit_Comment.author_id):
-        return {"message": "Recipe does not have specified comment"}, 404
-
+    
     if(current_user.id != edit_Comment.author_id):
         return {'errors': ['Unauthorized']}, 401
-
-
+    print('form is checked')
     if form.validate_on_submit():
         data = form.data    
         # edit the comment
@@ -397,8 +393,30 @@ def edit_comment(recipeId, commentId):
         db.session.commit()
 
         return edit_Comment.to_dict()
-
+    print(validation_errors_to_error_messages(form.errors))
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
 #Removing a comment
+@recipe_routes.route('/<int:recipeId>/comments/<int:commentId>', methods=['DELETE'])
+@login_required
+def delete_comment(recipeId, commentId):
+    recipe = db.session.query(Recipe).get(int(recipeId))
+    delete_Comment = db.session.query(Comment).get(int(commentId))
+
+    if not recipe:
+        return {"message": "Recipe couldn't be found"}, 404
+
+    if not delete_Comment:
+        return {"message": "Comment couldn't be found"}, 404
+ 
+    if delete_Comment.author_id != current_user.id:
+        return {'errors': ['Unauthorized']}, 401
+
+    db.session.delete(delete_Comment)    
+    db.session.commit()
+
+    return {
+        "message": "Successfully deleted",
+        "statusCode": 200
+    }, 200

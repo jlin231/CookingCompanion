@@ -1,6 +1,8 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
+from datetime import datetime
 
+today = datetime.now()
 
 class Comment(db.Model):
     __tablename__ = 'comments'
@@ -12,7 +14,8 @@ class Comment(db.Model):
     comment = db.Column(db.String(100), nullable=False)
     recipe_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("recipes.id")), nullable=False)
     author_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
-
+    createdAt = db.Column(db.DateTime, nullable=False, default=today)
+    
     recipe = db.relationship("Recipe", back_populates="comments")
     author = db.relationship("User", back_populates="comments")
 
@@ -20,6 +23,7 @@ class Comment(db.Model):
         return {
             'id': self.id,
             'comment': self.comment,
-            'author': self.author.to_dict()
+            'author': self.author.to_dict(), 
+            'createdAt': self.createdAt
         }
     
