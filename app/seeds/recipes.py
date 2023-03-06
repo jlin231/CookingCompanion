@@ -9,7 +9,7 @@ authors= [1,2,3]
 def seed_recipes():
     r1 = Recipe(
         title="Pad Krow Pow", 
-        description="As dynamic as it is speedy, this ground chicken and green bean recipe from “Night + Market” (Clarkson Potter, 2017) by Kris Yenbamroong and Garrett Snyder, delivers a wallop of flavor with punchy ingredients that stir-fry in just 15 minutes. While this popular Thai street food can be whipped up using a range of proteins, Mr. Yenbamroong refers to his riff as “low-rent” because it’s prepared with ground chicken rather than pricier slices of meat. It’s piled with basil; Thai basil or holy basil provide more assertive licorice notes, but sweet basil adds herbal bursts of brightness. Spiked with Thai seasoning (see Tip), the chicken mixture is salty on its own, but it’s inextricably linked with rice, and imparts the right amount of salinity when dispersed.", 
+        description="As dynamic as it is speedy, this ground chicken and green bean recipe from “Night + Market” (Clarkson Potter, 2017) by Kris Yenbamroong and Garrett Snyder, delivers a wallop of flavor with punchy ingredients that stir-fry in just 15 minutes. While this popular Thai street food can be whipped up using a range of proteins, Mr. Yenbamroong refers to his riff as “low-rent” because it is prepared with ground chicken rather than pricier slices of meat. It’s piled with basil; Thai basil or holy basil provide more assertive licorice notes, but sweet basil adds herbal bursts of brightness. Spiked with Thai seasoning (see Tip), the chicken mixture is salty on its own, but it is inextricably linked with rice, and imparts the right amount of salinity when dispersed.", 
         author_id=1,
         timeToComplete=30,
         previewImage="https://static01.nyt.com/images/2022/08/29/dining/aw-pad-grapow-gai-1/merlin_212088519_ef79d3f5-7496-448a-8cf4-009939701ed4-master768.jpg?w=1280&q=75",
@@ -26,8 +26,8 @@ def seed_recipes():
     )
 
     r3 = Recipe(
-        title="S'mores Cookies", 
-        description="This copycat recipe for Girl Scout S'mores Cookies can be frosted in different ways - try covering them with chocolate or marshmallow icing, or half and half, or just leave them plain.", 
+        title="Smores Cookies", 
+        description="This copycat recipe for Girl Scout Smores Cookies can be frosted in different ways - try covering them with chocolate or marshmallow icing, or half and half, or just leave them plain.", 
         author_id=3,
         timeToComplete=35,
         previewImage="https://res.cloudinary.com/hksqkdlah/image/upload/ar_1:1,c_fill,dpr_2.0,f_auto,fl_lossy.progressive.strip_profile,g_faces:auto,q_auto:low,w_344/SFS_SmoresBars-53_ayn9r6",
@@ -40,7 +40,7 @@ def seed_recipes():
         author_id= random.choice(authors),
         timeToComplete=90,
         previewImage="https://thewoksoflife.com/wp-content/uploads/2018/03/taiwanese-beef-noodle-soup-instant-pot-15.jpg",
-        instructions="Boil enough water in a pot to boil all of your beef. Once the water is boiling, add the beef. Let it come back up to a boil, and boil for 1 minute. Strain in a colander and rinse thoroughly with fresh water to remove any impurities.;Next, in your instant pot, turn on the saute setting. Add the oil, crushed ginger, garlic, scallions, and onions in that order. Stir to lightly caramelize. Let the onion turn translucent. Add the tomato and dried chilies.;Next, add the meat to the pot. Then add the tomato paste, spicy bean paste, sugar, soy sauce, and Shaoxing wine, and mix thoroughly.;Pour 8 cups of water into the instant pot. Add the spice packet. The instant pot should be filled to the 10-cup line; it shouldn’t be more than ⅔ of the way full per safety instructions. Our instant pot is the largest size (8 quarts); if yours is smaller, you can halve the recipe accordingly.;Close the lid of the instant pot, and make sure you have your vent set so it is not venting. Cook for 100 minutes on the Meat/Stew setting. If you don’t have an instant pot, you can use a regular pot on the stove, but instead, cook the soup on a low simmer for 3-4 hours.;When the instant pot timer is up, carefully release the pressure valve (wear an oven mitt, so you don’t scald yourself!). Boil some noodles per package instructions, and in the last minute or two of the noodles cooking, throw your bok choy in and blanch until just tender.;Serve each bowl of Taiwanese beef noodle soup with a serving of noodles, a few stalks of bok choy, and generous sprinklings of finely minced cilantro, scallions, and Chinese pickled mustard greens. Pro tip, buy the pre-seasoned spicy mustard greens and you can use them straight out of the package. If you are using the non-spicy version (from a can, for example), chop and saute with a little oil, a few chopped dried red chilies, and a pinch of sugar.;"
+        instructions="Boil enough water in a pot to boil all of your beef. Once the water is boiling, add the beef. Let it come back up to a boil, and boil for 1 minute. Strain in a colander and rinse thoroughly with fresh water to remove any impurities.;Next, in your instant pot, turn on the saute setting. Add the oil, crushed ginger, garlic, scallions, and onions in that order. Stir to lightly caramelize. Let the onion turn translucent. Add the tomato and dried chilies.;Next, add the meat to the pot. Then add the tomato paste, spicy bean paste, sugar, soy sauce, and Shaoxing wine, and mix thoroughly.;Pour 8 cups of water into the instant pot. Add the spice packet. The instant pot should be filled to the 10-cup line; it should not be more than ⅔ of the way full per safety instructions. Our instant pot is the largest size (8 quarts); if yours is smaller, you can halve the recipe accordingly.;Close the lid of the instant pot, and make sure you have your vent set so it is not venting. Cook for 100 minutes on the Meat/Stew setting. If you don’t have an instant pot, you can use a regular pot on the stove, but instead, cook the soup on a low simmer for 3-4 hours.;When the instant pot timer is up, carefully release the pressure valve (wear an oven mitt, so you don’t scald yourself!). Boil some noodles per package instructions, and in the last minute or two of the noodles cooking, throw your bok choy in and blanch until just tender.;Serve each bowl of Taiwanese beef noodle soup with a serving of noodles, a few stalks of bok choy, and generous sprinklings of finely minced cilantro, scallions, and Chinese pickled mustard greens. Pro tip, buy the pre-seasoned spicy mustard greens and you can use them straight out of the package. If you are using the non-spicy version (from a can, for example), chop and saute with a little oil, a few chopped dried red chilies, and a pinch of sugar.;"
     )
 
     r5 = Recipe(
@@ -76,7 +76,7 @@ def seed_recipes():
         author_id=random.choice(authors),
         timeToComplete=random.choice(timeToCompleteValues),
         previewImage="https://storcpdkenticomedia.blob.core.windows.net/media/recipemanagementsystem/media/recipe-media-files/recipes/retail/desktopimages/2018_grilled-peanut-butter-and-jelly_20336_600x600.jpg?ext=.jpg",
-        instructions="Gather the ingredients.;Prepare peanut butter sandwich using desired jelly or jam. Make sure it isn't too runny because the sandwich will be heated and jam could leak out.;Heat a frying pan to melt 1 tablespoon of butter. Tilt pan so butter covers pan evenly. This is key to get a perfectly crispy crust on the bread.;Butter one side of sandwich. Place buttered-side down in the pan. If possible, place a steak weight or bacon press on sandwich so it cooks evenly. When one side is golden brown, butter other side. Turn sandwich over and place weight back on sandwich. The second side will cook faster because sandwich is already heated.;Remove sandwich from pan, cut diagonally and serve immediately.;"
+        instructions="Gather the ingredients.;Prepare peanut butter sandwich using desired jelly or jam. Make sure it is not too runny because the sandwich will be heated and jam could leak out.;Heat a frying pan to melt 1 tablespoon of butter. Tilt pan so butter covers pan evenly. This is key to get a perfectly crispy crust on the bread.;Butter one side of sandwich. Place buttered-side down in the pan. If possible, place a steak weight or bacon press on sandwich so it cooks evenly. When one side is golden brown, butter other side. Turn sandwich over and place weight back on sandwich. The second side will cook faster because sandwich is already heated.;Remove sandwich from pan, cut diagonally and serve immediately.;"
     )
 
     r9 = Recipe(
@@ -103,7 +103,7 @@ def seed_recipes():
         author_id=random.choice(authors),
         timeToComplete=random.choice(timeToCompleteValues),
         previewImage="https://hot-thai-kitchen.com/wp-content/uploads/2022/05/green-curry-new-sq-2.jpg",
-        instructions="Heat oil in a heavy based skillet or pot over medium high heat.;Add curry paste (and garlic, ginger and lemongrass Extras, if using) and cook for 2 to 3 minutes until it mostly dries out. Don't breath in the fumes!!;Add chicken broth and coconut milk, mix to dissolve paste.;Curry in a jar seasonings: Add 1 tsp fish sauce, 1 tsp sugar, no salt.;Homemade curry paste seasonings: Add 3 tsp fish sauce, 3 tsp sugar, 1/8 tsp salt.;Add kaffir lime leaves. Mix then bring to simmer.;Add chicken, stir then lower heat to medium so it's bubbling gently. Cook 7 minutes.;Add eggplants, cook 5 minutes until soft.;Taste sauce. Add fish sauce or salt for more saltiness, sugar for sweetness.;Add snow peas, cook 2 minutes until a bit softened, then stir through basil and lime juice. Sauce should have reduced but will still be a be on the thin side, not thick - that's how it's should be. DO NOT keep simmering - sauce will darken.;Serve curry over jasmine rice with garnishes of choice.;"
+        instructions="Heat oil in a heavy based skillet or pot over medium high heat.;Add curry paste (and garlic, ginger and lemongrass Extras, if using) and cook for 2 to 3 minutes until it mostly dries out. Do not breath in the fumes!!;Add chicken broth and coconut milk, mix to dissolve paste.;Curry in a jar seasonings: Add 1 tsp fish sauce, 1 tsp sugar, no salt.;Homemade curry paste seasonings: Add 3 tsp fish sauce, 3 tsp sugar, 1/8 tsp salt.;Add kaffir lime leaves. Mix then bring to simmer.;Add chicken, stir then lower heat to medium so it is bubbling gently. Cook 7 minutes.;Add eggplants, cook 5 minutes until soft.;Taste sauce. Add fish sauce or salt for more saltiness, sugar for sweetness.;Add snow peas, cook 2 minutes until a bit softened, then stir through basil and lime juice. Sauce should have reduced but will still be a be on the thin side, not thick - that is how it is should be. DO NOT keep simmering - sauce will darken.;Serve curry over jasmine rice with garnishes of choice.;"
     )
 
     r12 = Recipe(
@@ -112,7 +112,7 @@ def seed_recipes():
         author_id=random.choice(authors),
         timeToComplete=random.choice(timeToCompleteValues),
         previewImage="https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Dolsot-bibimbap.jpg/1600px-Dolsot-bibimbap.jpg",
-        instructions="Gather the ingredients.;To begin, you'll need to cook the rice in a rice cooker or on the stove. If you don't want to use Korean or Japanese rice or are being health conscious, you can try brown rice instead. This will affect the flavor, of course.;Cook rice on stove in a pot;Next, give the cucumber strips a salt water bath for 20 minutes.;Add cucumber strips to salt water;Drain the cucumber strips using a sieve.;Drain cucumber strips;Then, season spinach with 2 teaspoons sesame oil, 1 teaspoon of the salt, and 1 dash of the sesame seeds.;Season spinach with sesame oil, salt, and sesame seeds;Season bean sprouts with 2 teaspoons sesame oil, remaining 1 teaspoon salt, and the remaining dash of sesame seeds.;Season bean sprouts with sesame oil, salt, and a dash of sesame seeds;You will then need to sauté the carrots with a dash of salt.;Sauté carrots with salt;Next, sauté the mushrooms with a dash of salt.;Sauté mushrooms with salt After that, sauté the zucchini with a dash of salt.;Sauté zucchini with salt Then, place the cooked rice in a large bowl and arrange vegetables on top.;Place the cooked rice in a large bowl and arrange vegetables on top If desired, meat, egg, or both can be placed in the center.;Add egg to the bibimbap in the bowl Serve each helping with small bowls of gochujang and remaining sesame oil.;"
+        instructions="Gather the ingredients.;To begin, you will need to cook the rice in a rice cooker or on the stove. If you do not want to use Korean or Japanese rice or are being health conscious, you can try brown rice instead. This will affect the flavor, of course.;Cook rice on stove in a pot;Next, give the cucumber strips a salt water bath for 20 minutes.;Add cucumber strips to salt water;Drain the cucumber strips using a sieve.;Drain cucumber strips;Then, season spinach with 2 teaspoons sesame oil, 1 teaspoon of the salt, and 1 dash of the sesame seeds.;Season spinach with sesame oil, salt, and sesame seeds;Season bean sprouts with 2 teaspoons sesame oil, remaining 1 teaspoon salt, and the remaining dash of sesame seeds.;Season bean sprouts with sesame oil, salt, and a dash of sesame seeds;You will then need to sauté the carrots with a dash of salt.;Sauté carrots with salt;Next, sauté the mushrooms with a dash of salt.;Sauté mushrooms with salt After that, sauté the zucchini with a dash of salt.;Sauté zucchini with salt Then, place the cooked rice in a large bowl and arrange vegetables on top.;Place the cooked rice in a large bowl and arrange vegetables on top If desired, meat, egg, or both can be placed in the center.;Add egg to the bibimbap in the bowl Serve each helping with small bowls of gochujang and remaining sesame oil.;"
     )
 
     r13 = Recipe(
@@ -152,15 +152,15 @@ def seed_recipes():
     # )
 
     db.session.add(r1)
-    db.session.add(r2)
-    db.session.add(r3)
-    db.session.add(r4)
-    db.session.add(r5)
-    db.session.add(r6)
-    db.session.add(r7)
-    db.session.add(r8)
-    db.session.add(r9)
-    db.session.add_all([r10, r11, r12, r13, r14])
+    # db.session.add(r2)
+    # db.session.add(r3)
+    # db.session.add(r4)
+    # db.session.add(r5)
+    # db.session.add(r6)
+    # db.session.add(r7)
+    # db.session.add(r8)
+    # db.session.add(r9)
+    # db.session.add_all([r10, r11, r12, r13, r14])
     db.session.commit()
 
 
