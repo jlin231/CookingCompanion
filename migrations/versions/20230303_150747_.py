@@ -55,7 +55,7 @@ def upgrade():
 
     op.create_table('comments',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('comment', sa.String(length=100), nullable=False),
+    sa.Column('comment', sa.String(length=1000), nullable=False),
     sa.Column('recipe_id', sa.Integer(), nullable=False),
     sa.Column('author_id', sa.Integer(), nullable=False),
     sa.Column('createdAt', sa.DateTime(), nullable=False),

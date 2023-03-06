@@ -49,7 +49,7 @@ const SingleRecipePage = () => {
 
     const deleteComment = async (e, commentId) => {
         e.preventDefault();
-        
+
         try {
             const res = await dispatch(thunkDeleteCommentRecipe(commentId, recipeId))
         } catch (error) {
@@ -163,8 +163,9 @@ const SingleRecipePage = () => {
                             )
                         })
                     }
-                    <div className="commentHeading">Comments</div>
-                    {sessionUser && <form onSubmit={handleSubmit}>
+                    <div className="commentHeading">Cooking Notes</div>
+                    {sessionUser && <form onSubmit={handleSubmit} className="addCommentForm">
+                        <label >Add Note</label>
                         <ul>
                             {errors.map((error, idx) => (
                                 <li key={idx}>{error}</li>
@@ -175,17 +176,20 @@ const SingleRecipePage = () => {
                                 type="comment"
                                 value={comment}
                                 onChange={(e) => setComment(e.target.value)}
-                                required>
+                                required
+                                className="addCommentTextArea">
                             </textarea>
                         </label>
-                        <button type="submit">Add Comment</button>
+                        <div className="addCommentDiv">
+                            <button type="submit" className="addCommentButton">Add Comment</button>
+                        </div>
                     </form>}
                     {
                         singleRecipe.comments.map((comment, index) => {
                             return (
-                                <div key={index}>
-                                    <div className="instruction">By {comment.author.username}</div>
-                                    <div className="instruction">{comment.comment}</div>
+                                <div key={index} className="commentContainer">
+                                    <div className="leftCommentContainer">{comment.author.username}</div>
+                                    <div className="rightCommentContainer">{comment.comment}</div>
                                     {
                                         (sessionUser && (sessionUser.id === comment.author.id)) &&
                                         <div>

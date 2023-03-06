@@ -5,8 +5,8 @@ StringField, SubmitField, IntegerField,
 from wtforms.validators import DataRequired, ValidationError, NumberRange
 
 def comment_validator(form, field):
-    if len(field.data) < 3 or len(field.data) > 50 :
-        raise ValidationError('Comment must be between 3 and 100 characters long')
+    if len(field.data) < 3 or len(field.data) > 1000 :
+        raise ValidationError('Comment must be between 3 and 1000 characters long')
 
 
 class CommentForm(FlaskForm):

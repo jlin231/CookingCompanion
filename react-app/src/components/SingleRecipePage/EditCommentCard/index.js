@@ -35,9 +35,6 @@ function CommentCard({ comment, recipeId }) {
         }
     }
 
-
-
-
     return (
         <>
             <div onClick={(e) => setShowEditField(!showEditField)}><i class="fa-regular fa-pen-to-square"></i></div>
