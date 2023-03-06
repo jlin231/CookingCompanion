@@ -61,6 +61,33 @@ const FirstSplashPage = () => {
 
                 </div>
             </div>
+            <div className="footer">
+                Created By: Jonathan Lin
+                <div>
+                    <a
+                        class='githubIcon'
+                        href="https://github.com/jlin231/CookingCompanion"
+                        target='_blank'
+                        rel="noopener"
+                        aria-label='Github'
+                    >
+                        <i class="fa-brands fa-github gitHubFontAwesome"></i>
+                        Github
+                    </a>
+                </div>
+                <div>
+                    <a
+                        class='linkedInIcon'
+                        href="https://www.linkedin.com/in/jonathan-lin-a71088158/"
+                        target='_blank'
+                        rel="noopener"
+                        aria-label='Github'
+                    >
+                        <i class="fa-brands fa-linkedin gitHubFontAwesome"></i>
+                        LinkedIn
+                    </a>
+                </div>
+            </div>
         </>
     )
 }
