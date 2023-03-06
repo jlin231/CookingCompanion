@@ -119,5 +119,12 @@ https://cookingcompanion.onrender.com
    npm start
    ```
 
+## Future Goals
+
+* Comments
+* Collections
+* Reviews
+* Grocery List to purchase
+
 [Render.com]: https://render.com/
 [Dashboard]: https://dashboard.render.com/
