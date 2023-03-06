@@ -152,8 +152,8 @@ def seed_recipes():
     # )
 
     db.session.add(r1)
-    # db.session.add(r2)
-    # db.session.add(r3)
+    db.session.add(r2)
+    db.session.add(r3)
     # db.session.add(r4)
     # db.session.add(r5)
     # db.session.add(r6)
