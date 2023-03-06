@@ -40,112 +40,109 @@ def seed_ingredients():
     db.session.add_all([i1, i2, i3, i4, i5])
     db.session.add_all([i6, i7, i8, i9, i10])
 
-    # db.session.add_all([    Ingredient(name='beef shank', quantity=2, unit='lb', recipe_id=4),    Ingredient(name='beef bones', quantity=1, unit='lb', recipe_id=4),    Ingredient(name='ginger', quantity=2, unit='inch', recipe_id=4),    Ingredient(name='garlic', quantity=6, unit='clove', recipe_id=4),    Ingredient(name='star anise', quantity=3, unit='piece', recipe_id=4),    Ingredient(name='cinnamon stick', quantity=1, unit='piece', recipe_id=4),    Ingredient(name='soy sauce', quantity=0.25, unit='cup', recipe_id=4),    Ingredient(name='rice wine', quantity=0.25, unit='cup', recipe_id=4),    Ingredient(name='rock sugar', quantity=2, unit='oz', recipe_id=4),    Ingredient(name='beef broth', quantity=8, unit='cup', recipe_id=4),    Ingredient(name='dried Chinese noodles', quantity=1, unit='lb', recipe_id=4),    Ingredient(name='bok choy', quantity=4, unit='oz', recipe_id=4),    Ingredient(name='green onions', quantity=4, unit='stalks', recipe_id=4),    Ingredient(name='cilantro', quantity=0.25, unit='cup', recipe_id=4),    Ingredient(name='lime', quantity=1, unit='piece', recipe_id=4)]); 
+    db.session.add_all([    Ingredient(name='beef shank', quantity=2, unit='lb', recipe_id=4),    Ingredient(name='beef bones', quantity=1, unit='lb', recipe_id=4),    Ingredient(name='ginger', quantity=2, unit='inch', recipe_id=4),    Ingredient(name='garlic', quantity=6, unit='clove', recipe_id=4),    Ingredient(name='star anise', quantity=3, unit='piece', recipe_id=4),    Ingredient(name='cinnamon stick', quantity=1, unit='piece', recipe_id=4),    Ingredient(name='soy sauce', quantity=0.25, unit='cup', recipe_id=4),    Ingredient(name='rice wine', quantity=0.25, unit='cup', recipe_id=4),    Ingredient(name='rock sugar', quantity=2, unit='oz', recipe_id=4),    Ingredient(name='beef broth', quantity=8, unit='cup', recipe_id=4),    Ingredient(name='dried Chinese noodles', quantity=1, unit='lb', recipe_id=4),    Ingredient(name='bok choy', quantity=4, unit='oz', recipe_id=4),    Ingredient(name='green onions', quantity=4, unit='stalks', recipe_id=4),    Ingredient(name='cilantro', quantity=0.25, unit='cup', recipe_id=4),    Ingredient(name='lime', quantity=1, unit='piece', recipe_id=4)]); 
 
-    # db.session.add_all([
-    #     Ingredient(name='broccoli', quantity=1, unit='head', recipe_id=5),
-    #     Ingredient(name='carrots', quantity=3, unit='piece', recipe_id=5),
-    #     Ingredient(name='red bell pepper', quantity=1, unit='piece', recipe_id=5),
-    #     Ingredient(name='olive oil', quantity=2, unit='tbsp', recipe_id=5),
-    #     Ingredient(name='garlic', quantity=3, unit='clove', recipe_id=5),
-    #     Ingredient(name='soy sauce', quantity=1, unit='tbsp', recipe_id=5),
-    #     Ingredient(name='honey', quantity=1, unit='tbsp', recipe_id=5),
-    # ])
+    db.session.add_all([
+        Ingredient(name='broccoli', quantity=1, unit='head', recipe_id=5),
+        Ingredient(name='carrots', quantity=3, unit='piece', recipe_id=5),
+        Ingredient(name='red bell pepper', quantity=1, unit='piece', recipe_id=5),
+        Ingredient(name='olive oil', quantity=2, unit='tbsp', recipe_id=5),
+        Ingredient(name='garlic', quantity=3, unit='clove', recipe_id=5),
+        Ingredient(name='soy sauce', quantity=1, unit='tbsp', recipe_id=5),
+        Ingredient(name='honey', quantity=1, unit='tbsp', recipe_id=5),
+    ])
 
-    # db.session.add_all([
-    #     Ingredient(name='all-purpose flour', quantity=2, unit='cup', recipe_id=6),
-    #     Ingredient(name='baking powder', quantity=2, unit='tsp', recipe_id=6),
-    #     Ingredient(name='baking soda', quantity=1, unit='tsp', recipe_id=6),
-    #     Ingredient(name='salt', quantity=0.5, unit='tsp', recipe_id=6),
-    #     Ingredient(name='unsalted butter', quantity=0.5, unit='cup', recipe_id=6),
-    #     Ingredient(name='granulated sugar', quantity=1, unit='cup', recipe_id=6),
-    #     Ingredient(name='large egg', quantity=2, unit='piece', recipe_id=6),
-    #     Ingredient(name='plain Greek yogurt', quantity=1, unit='cup', recipe_id=6),
-    #     Ingredient(name='vanilla extract', quantity=1, unit='tsp', recipe_id=6),
-    #     Ingredient(name='fresh blueberries', quantity=1, unit='cup', recipe_id=6),
-    # ])
+    db.session.add_all([
+        Ingredient(name='all-purpose flour', quantity=2, unit='cup', recipe_id=6),
+        Ingredient(name='baking powder', quantity=2, unit='tsp', recipe_id=6),
+        Ingredient(name='baking soda', quantity=1, unit='tsp', recipe_id=6),
+        Ingredient(name='salt', quantity=0.5, unit='tsp', recipe_id=6),
+        Ingredient(name='unsalted butter', quantity=0.5, unit='cup', recipe_id=6),
+        Ingredient(name='granulated sugar', quantity=1, unit='cup', recipe_id=6),
+        Ingredient(name='large egg', quantity=2, unit='piece', recipe_id=6),
+        Ingredient(name='plain Greek yogurt', quantity=1, unit='cup', recipe_id=6),
+        Ingredient(name='vanilla extract', quantity=1, unit='tsp', recipe_id=6),
+        Ingredient(name='fresh blueberries', quantity=1, unit='cup', recipe_id=6),
+    ])
 
-    # db.session.add_all([
-    #     Ingredient(name='tortilla chips', quantity=8, unit='oz', recipe_id=7),
-    #     Ingredient(name='ground beef', quantity=0.5, unit='lb', recipe_id=7),
-    #     Ingredient(name='taco seasoning', quantity=2, unit='tbsp', recipe_id=7),
-    #     Ingredient(name='shredded cheddar cheese', quantity=1, unit='cup', recipe_id=7),
-    #     Ingredient(name='diced tomatoes', quantity=0.5, unit='cup', recipe_id=7),
-    #     Ingredient(name='sliced jalapenos', quantity=1/4, unit='cup', recipe_id=7),
-    #     Ingredient(name='sour cream', quantity=1/4, unit='cup', recipe_id=7),
-    #     Ingredient(name='sliced black olives', quantity=1/4, unit='cup', recipe_id=7),
-    # ])
+    db.session.add_all([
+        Ingredient(name='tortilla chips', quantity=8, unit='oz', recipe_id=7),
+        Ingredient(name='ground beef', quantity=0.5, unit='lb', recipe_id=7),
+        Ingredient(name='taco seasoning', quantity=2, unit='tbsp', recipe_id=7),
+        Ingredient(name='shredded cheddar cheese', quantity=1, unit='cup', recipe_id=7),
+        Ingredient(name='diced tomatoes', quantity=0.5, unit='cup', recipe_id=7),
+        Ingredient(name='sliced jalapenos', quantity=1/4, unit='cup', recipe_id=7),
+        Ingredient(name='sour cream', quantity=1/4, unit='cup', recipe_id=7),
+        Ingredient(name='sliced black olives', quantity=1/4, unit='cup', recipe_id=7),
+    ])
 
-    # db.session.add_all([
-    #     Ingredient(name='bread slice', quantity=2, unit='piece', recipe_id=8),
-    #     Ingredient(name='peanut butter', quantity=2, unit='tbsp', recipe_id=8),
-    #     Ingredient(name='jelly or jam', quantity=2, unit='tbsp', recipe_id=8),
-    # ])
+    db.session.add_all([
+        Ingredient(name='bread slice', quantity=2, unit='piece', recipe_id=8),
+        Ingredient(name='peanut butter', quantity=2, unit='tbsp', recipe_id=8),
+        Ingredient(name='jelly or jam', quantity=2, unit='tbsp', recipe_id=8),
+    ])
 
-    # db.session.add_all([
-    #     Ingredient(name='spaghetti', quantity=1, unit='lb', recipe_id=9),
-    #     Ingredient(name='ground beef', quantity=1, unit='lb', recipe_id=9),
-    #     Ingredient(name='breadcrumbs', quantity=1/2, unit='cup', recipe_id=9),
-    #     Ingredient(name='grated Parmesan cheese', quantity=1/2, unit='cup', recipe_id=9),
-    #     Ingredient(name='egg', quantity=1, unit='piece', recipe_id=9),
-    #     Ingredient(name='chopped parsley', quantity=2, unit='tbsp', recipe_id=9),
-    #     Ingredient(name='garlic', quantity=2, unit='clove', recipe_id=9),
-    #     Ingredient(name='salt', quantity=1/2, unit='tsp', recipe_id=9),
-    #     Ingredient(name='black pepper', quantity=1/4, unit='tsp', recipe_id=9),
-    #     Ingredient(name='olive oil', quantity=2, unit='tbsp', recipe_id=9),
-    #     Ingredient(name='canned tomatoes', quantity=28, unit='oz', recipe_id=9),
-    #     Ingredient(name='fresh basil leaves', quantity=5, unit='piece', recipe_id=9),
-    # ])
+    db.session.add_all([
+        Ingredient(name='spaghetti', quantity=1, unit='lb', recipe_id=9),
+        Ingredient(name='ground beef', quantity=1, unit='lb', recipe_id=9),
+        Ingredient(name='breadcrumbs', quantity=1/2, unit='cup', recipe_id=9),
+        Ingredient(name='grated Parmesan cheese', quantity=1/2, unit='cup', recipe_id=9),
+        Ingredient(name='egg', quantity=1, unit='piece', recipe_id=9),
+        Ingredient(name='chopped parsley', quantity=2, unit='tbsp', recipe_id=9),
+        Ingredient(name='garlic', quantity=2, unit='clove', recipe_id=9),
+        Ingredient(name='salt', quantity=1/2, unit='tsp', recipe_id=9),
+        Ingredient(name='black pepper', quantity=1/4, unit='tsp', recipe_id=9),
+        Ingredient(name='olive oil', quantity=2, unit='tbsp', recipe_id=9),
+        Ingredient(name='canned tomatoes', quantity=28, unit='oz', recipe_id=9),
+        Ingredient(name='fresh basil leaves', quantity=5, unit='piece', recipe_id=9),
+    ])
 
-    # db.session.add_all([  # Recipe 1: Japanese Miso Soup
-    #     Ingredient(name='miso paste', quantity=2, unit='tbsp', recipe_id=10),
-    #     Ingredient(name='dashi stock', quantity=4, unit='cup', recipe_id=10),
-    #     Ingredient(name='tofu', quantity=200, unit='g', recipe_id=10),
-    #     Ingredient(name='wakame seaweed', quantity=30, unit='g', recipe_id=10),
-    #     Ingredient(name='spring onion', quantity=2, unit='stalk', recipe_id=10),
-    #     Ingredient(name='enoki mushrooms', quantity=100, unit='g', recipe_id=10),
-    #     Ingredient(name='mirin', quantity=1, unit='tbsp', recipe_id=10),
+    db.session.add_all([ 
+        Ingredient(name='miso paste', quantity=2, unit='tbsp', recipe_id=10),
+        Ingredient(name='dashi stock', quantity=4, unit='cup', recipe_id=10),
+        Ingredient(name='tofu', quantity=200, unit='g', recipe_id=10),
+        Ingredient(name='wakame seaweed', quantity=30, unit='g', recipe_id=10),
+        Ingredient(name='spring onion', quantity=2, unit='stalk', recipe_id=10),
+        Ingredient(name='enoki mushrooms', quantity=100, unit='g', recipe_id=10),
+        Ingredient(name='mirin', quantity=1, unit='tbsp', recipe_id=10),
         
-    #     # Recipe 2: Thai Green Curry
-    #     Ingredient(name='green curry paste', quantity=2, unit='tbsp', recipe_id=11),
-    #     Ingredient(name='coconut milk', quantity=400, unit='ml', recipe_id=11),
-    #     Ingredient(name='chicken breast', quantity=400, unit='g', recipe_id=11),
-    #     Ingredient(name='bamboo shoots', quantity=100, unit='g', recipe_id=11),
-    #     Ingredient(name='Thai basil', quantity=1, unit='cup', recipe_id=11),
-    #     Ingredient(name='sugar', quantity=2, unit='tsp', recipe_id=11),
-    #     Ingredient(name='fish sauce', quantity=1, unit='tbsp', recipe_id=11),
+
+        Ingredient(name='green curry paste', quantity=2, unit='tbsp', recipe_id=11),
+        Ingredient(name='coconut milk', quantity=400, unit='ml', recipe_id=11),
+        Ingredient(name='chicken breast', quantity=400, unit='g', recipe_id=11),
+        Ingredient(name='bamboo shoots', quantity=100, unit='g', recipe_id=11),
+        Ingredient(name='Thai basil', quantity=1, unit='cup', recipe_id=11),
+        Ingredient(name='sugar', quantity=2, unit='tsp', recipe_id=11),
+        Ingredient(name='fish sauce', quantity=1, unit='tbsp', recipe_id=11),
         
-    #     # Recipe 3: Korean Bibimbap
-    #     Ingredient(name='rice', quantity=2, unit='cup', recipe_id=12),
-    #     Ingredient(name='beef sirloin', quantity=250, unit='g', recipe_id=12),
-    #     Ingredient(name='carrots', quantity=1, unit='medium', recipe_id=12),
-    #     Ingredient(name='spinach', quantity=100, unit='g', recipe_id=12),
-    #     Ingredient(name='shiitake mushrooms', quantity=100, unit='g', recipe_id=12),
-    #     Ingredient(name='zucchini', quantity=1, unit='medium', recipe_id=12),
-    #     Ingredient(name='eggs', quantity=2, unit='piece', recipe_id=12),
+
+        Ingredient(name='rice', quantity=2, unit='cup', recipe_id=12),
+        Ingredient(name='beef sirloin', quantity=250, unit='g', recipe_id=12),
+        Ingredient(name='carrots', quantity=1, unit='medium', recipe_id=12),
+        Ingredient(name='spinach', quantity=100, unit='g', recipe_id=12),
+        Ingredient(name='shiitake mushrooms', quantity=100, unit='g', recipe_id=12),
+        Ingredient(name='zucchini', quantity=1, unit='medium', recipe_id=12),
+        Ingredient(name='eggs', quantity=2, unit='piece', recipe_id=12),
         
-    #     # Recipe 4: Chinese Stir-Fried Vegetables
-    #     Ingredient(name='bok choy', quantity=2, unit='stalks', recipe_id=13),
-    #     Ingredient(name='carrots', quantity=1, unit='medium', recipe_id=13),
-    #     Ingredient(name='mushrooms', quantity=100, unit='g', recipe_id=13),
-    #     Ingredient(name='red bell pepper', quantity=1, unit='piece', recipe_id=13),
-    #     Ingredient(name='garlic', quantity=2, unit='clove', recipe_id=13),
-    #     Ingredient(name='soy sauce', quantity=1, unit='tbsp', recipe_id=13),
-    #     Ingredient(name='sesame oil', quantity=1, unit='tbsp', recipe_id=13),
-        
-    #     # Recipe 5: Vietnamese Pho
-    #     Ingredient(name='beef bones', quantity=1.5, unit='kg', recipe_id=14),
-    #     Ingredient(name='star anise', quantity=4, unit='piece', recipe_id=14),
-    #     Ingredient(name='cinnamon stick', quantity=1, unit='piece', recipe_id=14),
-    #     Ingredient(name='fresh ginger', quantity=30, unit='in', recipe_id=14),
-    #     Ingredient(name='coriander seeds', quantity=1, unit='tbsp', recipe_id=14),
-    #     Ingredient(name='fennel seeds', quantity=1, unit='tbsp', recipe_id=14),
-    #     Ingredient(name='whole cloves', quantity=6, unit='piece', recipe_id=14),
-    #     Ingredient(name='salt', quantity=1.5, unit='tbsp', recipe_id=14),
-    #     Ingredient(name='fish sauce', quantity=0.25, unit='cup', recipe_id=14),
-    #     Ingredient(name='yellow rock sugar', quantity=1, unit='in', recipe_id=14),
-    #     Ingredient(name='yellow onion', quantity=2, unit='piece', recipe_id=14),
-    # ])
+        Ingredient(name='bok choy', quantity=2, unit='stalks', recipe_id=13),
+        Ingredient(name='carrots', quantity=1, unit='medium', recipe_id=13),
+        Ingredient(name='mushrooms', quantity=100, unit='g', recipe_id=13),
+        Ingredient(name='red bell pepper', quantity=1, unit='piece', recipe_id=13),
+        Ingredient(name='garlic', quantity=2, unit='clove', recipe_id=13),
+        Ingredient(name='soy sauce', quantity=1, unit='tbsp', recipe_id=13),
+        Ingredient(name='sesame oil', quantity=1, unit='tbsp', recipe_id=13),
+        Ingredient(name='beef bones', quantity=1.5, unit='kg', recipe_id=14),
+        Ingredient(name='star anise', quantity=4, unit='piece', recipe_id=14),
+        Ingredient(name='cinnamon stick', quantity=1, unit='piece', recipe_id=14),
+        Ingredient(name='fresh ginger', quantity=30, unit='in', recipe_id=14),
+        Ingredient(name='coriander seeds', quantity=1, unit='tbsp', recipe_id=14),
+        Ingredient(name='fennel seeds', quantity=1, unit='tbsp', recipe_id=14),
+        Ingredient(name='whole cloves', quantity=6, unit='piece', recipe_id=14),
+        Ingredient(name='salt', quantity=1.5, unit='tbsp', recipe_id=14),
+        Ingredient(name='fish sauce', quantity=0.25, unit='cup', recipe_id=14),
+        Ingredient(name='yellow rock sugar', quantity=1, unit='in', recipe_id=14),
+        Ingredient(name='yellow onion', quantity=2, unit='piece', recipe_id=14),
+    ])
 
     db.session.commit()
 
