@@ -160,7 +160,7 @@ def seed_recipes():
     db.session.add(r7)
     db.session.add(r8)
     db.session.add(r9)
-    db.session.add_all([r10, r11, r12, r13, r14])
+    # db.session.add_all([r10, r11, r12, r13, r14])
     db.session.commit()
 
 
