@@ -40,12 +40,12 @@ def seed_recipes():
         author_id= random.choice(authors),
         timeToComplete=90,
         previewImage="https://thewoksoflife.com/wp-content/uploads/2018/03/taiwanese-beef-noodle-soup-instant-pot-15.jpg",
-        instructions="Boil enough water in a pot to boil all of your beef. Once the water is boiling, add the beef. Let it come back up to a boil, and boil for 1 minute. Strain in a colander and rinse thoroughly with fresh water to remove any impurities.;Next, in your instant pot, turn on the saute setting. Add the oil, crushed ginger, garlic, scallions, and onions in that order. Stir to lightly caramelize. Let the onion turn translucent. Add the tomato and dried chilies.;Next, add the meat to the pot. Then add the tomato paste, spicy bean paste, sugar, soy sauce, and Shaoxing wine, and mix thoroughly.;Pour 8 cups of water into the instant pot. Add the spice packet. The instant pot should be filled to the 10-cup line; it should not be more than ⅔ of the way full per safety instructions. Our instant pot is the largest size (8 quarts); if yours is smaller, you can halve the recipe accordingly.;Close the lid of the instant pot, and make sure you have your vent set so it is not venting. Cook for 100 minutes on the Meat/Stew setting. If you don’t have an instant pot, you can use a regular pot on the stove, but instead, cook the soup on a low simmer for 3-4 hours.;When the instant pot timer is up, carefully release the pressure valve (wear an oven mitt, so you don’t scald yourself!). Boil some noodles per package instructions, and in the last minute or two of the noodles cooking, throw your bok choy in and blanch until just tender.;Serve each bowl of Taiwanese beef noodle soup with a serving of noodles, a few stalks of bok choy, and generous sprinklings of finely minced cilantro, scallions, and Chinese pickled mustard greens. Pro tip, buy the pre-seasoned spicy mustard greens and you can use them straight out of the package. If you are using the non-spicy version (from a can, for example), chop and saute with a little oil, a few chopped dried red chilies, and a pinch of sugar.;"
+        instructions="Boil enough water in a pot to boil all of your beef. Once the water is boiling, add the beef. Let it come back up to a boil, and boil for 1 minute. Strain in a colander and rinse thoroughly with fresh water to remove any impurities.;Next, in your instant pot, turn on the saute setting. Add the oil, crushed ginger, garlic, scallions, and onions in that order. Stir to lightly caramelize. Let the onion turn translucent. Add the tomato and dried chilies.;Next, add the meat to the pot. Then add the tomato paste, spicy bean paste, sugar, soy sauce, and Shaoxing wine, and mix thoroughly.;Pour 8 cups of water into the instant pot. Add the spice packet. The instant pot should be filled to the 10-cup line; it should not be more than ⅔ of the way full per safety instructions. Our instant pot is the largest size (8 quarts); if yours is smaller, you can halve the recipe accordingly.;Close the lid of the instant pot, and make sure you have your vent set so it is not venting. Cook for 100 minutes on the Meat/Stew setting. If you do not have an instant pot, you can use a regular pot on the stove, but instead, cook the soup on a low simmer for 3-4 hours.;When the instant pot timer is up, carefully release the pressure valve (wear an oven mitt, so you don’t scald yourself!). Boil some noodles per package instructions, and in the last minute or two of the noodles cooking, throw your bok choy in and blanch until just tender.;Serve each bowl of Taiwanese beef noodle soup with a serving of noodles, a few stalks of bok choy, and generous sprinklings of finely minced cilantro, scallions, and Chinese pickled mustard greens. Pro tip, buy the pre-seasoned spicy mustard greens and you can use them straight out of the package. If you are using the non-spicy version (from a can, for example), chop and saute with a little oil, a few chopped dried red chilies, and a pinch of sugar.;"
     )
 
     r5 = Recipe(
         title="Sauteed Vegetables", 
-        description="This sautéed vegetable recipe is a delicious mix of zucchini, bell peppers, garlic, and jalapeño lightly pan-fried in butter and olive oil.", 
+        description="This sautéed vegetable recipe is a delicious mix of zucchini, bell peppers, garlic, and jalapeno lightly pan-fried in butter and olive oil.", 
         author_id=random.choice(authors),
         timeToComplete=random.choice(timeToCompleteValues),
         previewImage="https://www.cookingclassy.com/wp-content/uploads/2021/07/sauteed-vegetables-12-768x1152.jpg",
@@ -67,7 +67,7 @@ def seed_recipes():
         author_id=random.choice(authors),
         timeToComplete=random.choice(timeToCompleteValues),
         previewImage="https://losfoodiesmagazine.com/wp-content/uploads/2021/10/Nachos-Supreme-500x500.jpg",
-        instructions="Preheat oven to 425 F and line a large baking sheet with foil. In a large skillet over medium heat, heat oil. Add onion and cook until soft, 5 minutes, then add ground beef and cook until no longer pink, 6 minutes more. Drain fat.;Add garlic and taco seasoning and season with salt. Cook until meat is well browned and slightly crispy, 5 minutes more. Add refried beans and water to skillet and stir until combined. ;Add half the tortilla chips and top with beef-bean mixture, half the cheese, half the black beans, and half the pickled jalapeños. Repeat one more layer.;Bake until cheese is melty, 15 minutes.;Scatter with tomato, avocado, green onions, and cilantro. Drizzle with sour cream and hot sauce and serve immediately.;"
+        instructions="Preheat oven to 425 F and line a large baking sheet with foil. In a large skillet over medium heat, heat oil. Add onion and cook until soft, 5 minutes, then add ground beef and cook until no longer pink, 6 minutes more. Drain fat.;Add garlic and taco seasoning and season with salt. Cook until meat is well browned and slightly crispy, 5 minutes more. Add refried beans and water to skillet and stir until combined. ;Add half the tortilla chips and top with beef-bean mixture, half the cheese, half the black beans, and half the pickled jalapenos. Repeat one more layer.;Bake until cheese is melty, 15 minutes.;Scatter with tomato, avocado, green onions, and cilantro. Drizzle with sour cream and hot sauce and serve immediately.;"
     )
 
     r8 = Recipe(
@@ -154,12 +154,12 @@ def seed_recipes():
     db.session.add(r1)
     db.session.add(r2)
     db.session.add(r3)
-    # db.session.add(r4)
-    # db.session.add(r5)
-    # db.session.add(r6)
-    # db.session.add(r7)
-    # db.session.add(r8)
-    # db.session.add(r9)
+    db.session.add(r4)
+    db.session.add(r5)
+    db.session.add(r6)
+    db.session.add(r7)
+    db.session.add(r8)
+    db.session.add(r9)
     # db.session.add_all([r10, r11, r12, r13, r14])
     db.session.commit()
 
