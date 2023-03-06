@@ -105,3 +105,16 @@
     height: 100%;
     width: 100%;
 }
+
+.footerHomePage{
+    height: 65px;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-color: #202022;
+    font-size: 25px;
+    font-family: Arial, Helvetica, sans-serif;
+}
