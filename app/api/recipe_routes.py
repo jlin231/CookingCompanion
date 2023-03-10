@@ -1,9 +1,10 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import db, Recipe, Ingredient
+from app.models import db, Recipe, Ingredient, Comment
 from .auth_routes import validation_errors_to_error_messages
 from ..forms.create_recipe_form import CreateRecipeForm, EditRecipeForm
 from ..forms.create_ingredient_form import EditIngredientForm
+from ..forms.comment_form import CommentForm
 
 recipe_routes = Blueprint('album', __name__)
 
@@ -40,6 +41,11 @@ def get_single_recipe(recipeId):
     #pull author info
     tempAuthor = single_recipe.author.to_dict() 
     print("===========================>", tempAuthor)
+    
+    commentInfo = []
+    for comment in single_recipe.comments:
+        tempComment = comment.to_dict()
+        commentInfo.append(tempComment)
 
     return {
         "id": single_recipe.id,
@@ -51,7 +57,8 @@ def get_single_recipe(recipeId):
         "instructions": single_recipe.instructions,
         "createdAt": single_recipe.createdAt,
         "author": tempAuthor,        
-        "ingredients": ingredientInfo
+        "ingredients": ingredientInfo,
+        "comments": commentInfo
     }
 
 #Create a recipe
@@ -298,25 +305,9 @@ def update_ingredient_list(recipeId):
     db.session.commit()
 
 
-
-    # for ingredient in data["Ingredients"]:
-        
-    #     edit_ingredient = db.session.query(Ingredient).get(int(ingredient.id))
-
-
-    #     edit_ingredient.name = ingredient["name"] 
-    #     edit_ingredient.quantity = ingredient["quantity"] 
-    #     edit_ingredient.unit = ingredient["unit"] 
-    #     print(edit_ingredient.to_dict())
-    #     db.session.commit()
-
-
     return {
         "message": "successfully edited"
     }
-    #Error handling
-    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
-
 
 #Delete ingredient from recipe
 @recipe_routes.route('/<int:recipeId>/ingredients/<int:ingredientId>', methods=['DELETE'])
@@ -338,6 +329,91 @@ def delete_ingredient(recipeId, ingredientId):
         return {"message": "Ingredient does not belong to that recipe"}, 404
 
     db.session.delete(delete_ingredient)    
+    db.session.commit()
+
+    return {
+        "message": "Successfully deleted",
+        "statusCode": 200
+    }, 200
+
+#Comment routes
+
+#Adding a comment to a recipe
+@recipe_routes.route('/<int:recipeId>/comments', methods=['POST'])
+@login_required
+def add_comment(recipeId):
+    print('route hit')
+    form = CommentForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    recipe = db.session.query(Recipe).get(int(recipeId))
+
+    print('recipe found')
+
+    if form.validate_on_submit():
+        data = form.data    
+
+        # Create an comment, adding userId and recipeId
+        newComment = Comment(
+            comment=data["comment"],
+            recipe_id=recipeId,
+            author_id=current_user.id
+        )
+
+        # Add comment to the recipe
+        db.session.add(newComment)
+        recipe.comments.append(newComment)
+        db.session.commit()
+
+        return newComment.to_dict()
+
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+#Editing a comment
+@recipe_routes.route('/<int:recipeId>/comments/<int:commentId>', methods=['PUT'])
+@login_required
+def edit_comment(recipeId, commentId):
+    form = CommentForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    edit_Comment = db.session.query(Comment).get(int(commentId))
+
+    if(not edit_Comment):
+        return {"message": "Comment could not be found"}, 404
+    
+    if(current_user.id != edit_Comment.author_id):
+        return {'errors': ['Unauthorized']}, 401
+    print('form is checked')
+    if form.validate_on_submit():
+        data = form.data    
+        # edit the comment
+        edit_Comment.comment = data["comment"]
+
+        # Add comment to the recipe
+        db.session.commit()
+
+        return edit_Comment.to_dict()
+    print(validation_errors_to_error_messages(form.errors))
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+
+#Removing a comment
+@recipe_routes.route('/<int:recipeId>/comments/<int:commentId>', methods=['DELETE'])
+@login_required
+def delete_comment(recipeId, commentId):
+    recipe = db.session.query(Recipe).get(int(recipeId))
+    delete_Comment = db.session.query(Comment).get(int(commentId))
+
+    if not recipe:
+        return {"message": "Recipe couldn't be found"}, 404
+
+    if not delete_Comment:
+        return {"message": "Comment couldn't be found"}, 404
+ 
+    if delete_Comment.author_id != current_user.id:
+        return {'errors': ['Unauthorized']}, 401
+
+    db.session.delete(delete_Comment)    
     db.session.commit()
 
     return {

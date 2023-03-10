@@ -21,6 +21,14 @@ class Recipe(db.Model):
 
     author = db.relationship("User", back_populates="recipes")
     ingredients = db.relationship("Ingredient", cascade="all, delete-orphan", back_populates="recipe")
+    comments = db.relationship("Comment", back_populates="recipe")
+
+    #Many-To-Many betweeen Collections and Recipes
+    collections = db.relationship(
+        "Collection",
+        secondary="collection_recipes",
+        back_populates="recipes"
+    )
 
 
     def to_dict(self):
