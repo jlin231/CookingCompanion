@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import "./EditRecipePage.css";
 import { useEffect, useState } from "react";
-import { NavLink, useHistory, useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { thunkEditRecipe, thunkGetSingleRecipe } from "../../store/recipe";
 
 const EditRecipePage = () => {

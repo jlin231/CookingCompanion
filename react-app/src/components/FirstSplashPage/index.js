@@ -1,8 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import "./FirstSplashPage.css";
 import { useEffect, useState } from "react";
-import * as sessionActions from "../../store/session";
-import { NavLink, useHistory, useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { thunkGetAllRecipe } from "../../store/recipe";
 import { login } from "../../store/session";
 import { useModal } from "../../context/Modal";
