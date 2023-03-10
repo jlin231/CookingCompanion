@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import SingleRecipePage from '..';
+import { useDispatch} from 'react-redux';
 import { thunkEditCommentOfRecipe, thunkDeleteCommentRecipe, thunkGetSingleRecipe } from '../../../store/recipe';
 
 function CommentCard({ comment, recipeId }) {
