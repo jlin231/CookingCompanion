@@ -10,6 +10,7 @@ import CommentCard from "./EditCommentCard";
 const SingleRecipePage = () => {
     const sessionUser = useSelector((state) => state.session.user);
     const singleRecipe = useSelector((state) => state.recipes.singleRecipe)
+    const comments = useSelector((state)=>state.recipes.singleRecipe.comments)
     const dispatch = useDispatch();
     const history = useHistory();
     const [loadedPage, setLoadedPage] = useState(false);
@@ -18,6 +19,7 @@ const SingleRecipePage = () => {
     const [errors, setErrors] = useState([]);
     const [comment, setComment] = useState("");
 
+    console.log('comments',comments)
 
     let { recipeId } = useParams()
 
@@ -45,21 +47,6 @@ const SingleRecipePage = () => {
     const handleEditDeleteIngredients = () => {
 
         history.push(`/recipes/${recipeId}/ingredients/edit`)
-    }
-
-    const deleteComment = async (e, commentId) => {
-        e.preventDefault();
-
-        try {
-            const res = await dispatch(thunkDeleteCommentRecipe(commentId, recipeId))
-        } catch (error) {
-            let errorObject = JSON.parse(error.message);
-            console.log(errorObject, 'errorObject')
-            // const result = errorObject.errors.map((error) => {
-            //     return error.split(": ")[1];
-            // });
-            // if (errorObject) setErrors(result);
-        }
     }
 
     const handleSubmit = async (e) => {
@@ -186,17 +173,12 @@ const SingleRecipePage = () => {
                     </form>}
                     {
                         singleRecipe.comments.map((comment, index) => {
+                            console.log('comments renders again in map')
                             return (
                                 <div key={index} className="commentContainer">
-                                    <div className="leftCommentContainer">{comment.author.username}</div>
-                                    <div className="rightCommentContainer">{comment.comment}</div>
                                     {
                                         (sessionUser && (sessionUser.id === comment.author.id)) &&
-                                        <div>
-
                                             <CommentCard comment={comment} recipeId={singleRecipe.id} />
-                                            <div onClick={(e) => deleteComment(e, comment.id)}><i class="fa-regular fa-trash-can"></i></div>
-                                        </div>
                                     }
                                 </div>
                             )

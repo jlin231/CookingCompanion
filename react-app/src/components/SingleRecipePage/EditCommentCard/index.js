@@ -1,13 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { thunkEditCommentOfRecipe } from '../../../store/recipe';
+import { useDispatch, useSelector } from 'react-redux';
+import SingleRecipePage from '..';
+import { thunkEditCommentOfRecipe, thunkDeleteCommentRecipe, thunkGetSingleRecipe } from '../../../store/recipe';
 
 function CommentCard({ comment, recipeId }) {
     const dispatch = useDispatch()
     const [errors, setErrors] = useState([]);
     const [editCommentContent, setEditCommentContent] = useState(comment.comment);
     const [showEditField, setShowEditField] = useState(false);
+
+    useEffect(() => {
+        setEditCommentContent(comment.comment)
+    }, [comment])
 
     const handleEditSubmit = async (e) => {
         e.preventDefault()
@@ -35,28 +40,55 @@ function CommentCard({ comment, recipeId }) {
         }
     }
 
+    const deleteComment = async (e, commentId) => {
+        e.preventDefault();
+
+        try {
+            const res = await dispatch(thunkDeleteCommentRecipe(commentId, recipeId))
+        } catch (error) {
+            let errorObject = JSON.parse(error.message);
+            console.log(errorObject, 'errorObject')
+        }
+    }
+
+
     return (
         <>
-            <div onClick={(e) => setShowEditField(!showEditField)}><i class="fa-regular fa-pen-to-square"></i></div>
+            <div className="leftCommentContainer">{comment.author.username}</div>
+
+            {
+                !showEditField && <div className="rightCommentContainer">{comment.comment}</div>}
+
+
             {showEditField &&
-                <>
-                    <ul>
-                        {errors.map((error, idx) => (
-                            <li key={idx}>{error}</li>
-                        ))}
-                    </ul>
-                    <form onSubmit={(e) => handleEditSubmit(e)}>
+                <div className='editDeleteCommentContainer'>
+
+                    <form onSubmit={(e) => handleEditSubmit(e)} className="handleEditForm">
                         <label>
                             <textarea
                                 type="editCommentContent"
                                 value={editCommentContent}
                                 onChange={(e) => setEditCommentContent(e.target.value)}
+                                className="editCommentContainer"
                                 required>
                             </textarea>
                         </label>
-                        <button type="submit">Submit Edit Comment</button>
+                        <ul className='ulEditErrors'>
+                            {errors.map((error, idx) => (
+                                <li key={idx}>{error}</li>
+                            ))}
+                        </ul>
+                        <button type="submit" className='addCommentButton'>Submit Edit Comment</button>
                     </form>
-                </>}
+                </div>
+            }
+            <div onClick={(e) => {
+                setShowEditField(!showEditField)
+                setEditCommentContent(comment.comment)
+                setErrors([])
+            }}><i class="fa-regular fa-pen-to-square"></i></div>
+            <div onClick={(e) => deleteComment(e, comment.id)}><i class="fa-regular fa-trash-can"></i></div>
+
         </>
     )
 }

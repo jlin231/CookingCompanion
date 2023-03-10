@@ -188,6 +188,7 @@
     font-family: Georgia, 'Times New Roman', Times, serif;
     border-top: 6px black solid;
     padding-top: 10px;
+    margin-bottom: 15px;
 }
 
 .commentContainer {
@@ -199,7 +200,6 @@
 }
 
 .addCommentForm {
-    margin-top: 15px;
     margin-bottom: 15px;
 }
 
@@ -236,4 +236,26 @@
     padding: 5px;
     border-radius: 10px;
     border-color: grey;
+}
+
+.editCommentContainer{
+    font-size: 19px;
+    font-weight: 400;
+    width: 100%; 
+}
+
+.editDeleteCommentContainer{
+    display: flex;
+    flex-direction: row;
+    width: 65%;
+}
+
+.handleEditForm{
+    width: 90%;
+}
+
+.ulEditErrors{
+    list-style-type: none;
+    padding: 0px;
+    width: 90%;
 }
