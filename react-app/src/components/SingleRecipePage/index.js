@@ -10,7 +10,6 @@ import CommentCard from "./EditCommentCard";
 const SingleRecipePage = () => {
     const sessionUser = useSelector((state) => state.session.user);
     const singleRecipe = useSelector((state) => state.recipes.singleRecipe)
-    const comments = useSelector((state)=>state.recipes.singleRecipe.comments)
     const dispatch = useDispatch();
     const history = useHistory();
     const [loadedPage, setLoadedPage] = useState(false);
@@ -19,7 +18,6 @@ const SingleRecipePage = () => {
     const [errors, setErrors] = useState([]);
     const [comment, setComment] = useState("");
 
-    console.log('comments',comments)
 
     let { recipeId } = useParams()
 
@@ -178,7 +176,7 @@ const SingleRecipePage = () => {
                                 <div key={index} className="commentContainer">
                                     {
                                         (sessionUser && (sessionUser.id === comment.author.id)) &&
-                                            <CommentCard comment={comment} recipeId={singleRecipe.id} />
+                                        <CommentCard comment={comment} recipeId={singleRecipe.id} />
                                     }
                                 </div>
                             )
