@@ -18,7 +18,7 @@ class User(db.Model, UserMixin):
 
     comments = db.relationship("Comment", back_populates="author")
     
-    # collections = db.relationship("Collection", back_populates="author")
+    collections = db.relationship("Collection", back_populates="author")
 
     @property
     def password(self):
