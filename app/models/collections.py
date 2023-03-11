@@ -12,15 +12,15 @@ class Collection(db.Model):
     description = db.Column(db.String(1000), nullable=False)
     author_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
 
-    # #One-To-Many between Collection and User
-    # author = db.relationship("User", back_populates="collections")
+    #One-To-Many between Collection and User
+    author = db.relationship("User", back_populates="collections")
 
-    # #Many-To-Many betweeen Collections and Recipes
-    # recipes = db.relationship(
-    #     "Recipe",
-    #     secondary="collection_recipes",
-    #     back_populates="collections"
-    # )
+    #Many-To-Many betweeen Collections and Recipes
+    recipes = db.relationship(
+        "Recipe",
+        secondary="collection_recipes",
+        back_populates="collections"
+    )
 
     def to_dict(self):
         return {
