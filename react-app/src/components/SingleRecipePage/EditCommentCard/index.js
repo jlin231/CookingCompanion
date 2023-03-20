@@ -1,17 +1,26 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
-import { useDispatch} from 'react-redux';
+import { useDispatch, useSelector} from 'react-redux';
 import { thunkEditCommentOfRecipe, thunkDeleteCommentRecipe, thunkGetSingleRecipe } from '../../../store/recipe';
 
-function CommentCard({ comment, recipeId }) {
+function CommentCard({ comment, recipeId}) {
     const dispatch = useDispatch()
     const [errors, setErrors] = useState([]);
     const [editCommentContent, setEditCommentContent] = useState(comment.comment);
     const [showEditField, setShowEditField] = useState(false);
+    const sessionUser = useSelector((state) => state.session.user);
 
     useEffect(() => {
         setEditCommentContent(comment.comment)
     }, [comment])
+
+    //convert createdAt date from comment
+    let commentDate = comment.createdAt
+    console.log(commentDate)
+
+    commentDate = new Date(commentDate)
+    console.log(commentDate)
+    
 
     const handleEditSubmit = async (e) => {
         e.preventDefault()
@@ -49,19 +58,15 @@ function CommentCard({ comment, recipeId }) {
             console.log(errorObject, 'errorObject')
         }
     }
-
+    
 
     return (
         <>
             <div className="leftCommentContainer">{comment.author.username}</div>
-
             {
                 !showEditField && <div className="rightCommentContainer">{comment.comment}</div>}
-
-
             {showEditField &&
                 <div className='editDeleteCommentContainer'>
-
                     <form onSubmit={(e) => handleEditSubmit(e)} className="handleEditForm">
                         <label>
                             <textarea
@@ -81,12 +86,19 @@ function CommentCard({ comment, recipeId }) {
                     </form>
                 </div>
             }
-            <div onClick={(e) => {
+            {
+                sessionUser && 
+                <>
+                <div onClick={(e) => {
                 setShowEditField(!showEditField)
                 setEditCommentContent(comment.comment)
                 setErrors([])
             }}><i class="fa-regular fa-pen-to-square"></i></div>
             <div onClick={(e) => deleteComment(e, comment.id)}><i class="fa-regular fa-trash-can"></i></div>
+                </>
+            
+            }
+            
 
         </>
     )

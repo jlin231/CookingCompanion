@@ -171,11 +171,10 @@ const SingleRecipePage = () => {
                     </form>}
                     {
                         singleRecipe.comments.map((comment, index) => {
-                            console.log('comments renders again in map')
                             return (
                                 <div key={index} className="commentContainer">
                                     {
-                                        (sessionUser && (sessionUser.id === comment.author.id)) &&
+                                        
                                         <CommentCard comment={comment} recipeId={singleRecipe.id} />
                                     }
                                 </div>
