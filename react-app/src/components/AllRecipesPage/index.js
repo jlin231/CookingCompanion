@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import "./AllRecipesPage.css";
 import { useEffect, useState } from "react";
-import { NavLink, useHistory } from "react-router-dom";
+import { NavLink, useHistory, useLocation } from "react-router-dom";
 import { thunkGetAllRecipe } from "../../store/recipe";
 import AllRecipeCard from "./AllRecipeCard";
 
@@ -11,6 +11,9 @@ const AllRecipePage = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const [loadedPage, setLoadedPage] = useState(false);
+    const location = useLocation()
+
+    console.log(location.query)
 
     useEffect(() => {
         dispatch(thunkGetAllRecipe()).then(() => setLoadedPage(true));
@@ -20,7 +23,20 @@ const AllRecipePage = () => {
     if (!loadedPage || !allRecipes) return null
 
     //split allRecipes into arrays of 4 recipes
-    const recipeValues = Object.values(allRecipes)
+    let recipeValues = Object.values(allRecipes)
+
+    if (location.query) {
+        recipeValues = recipeValues.filter((recipe) => {
+            if ((recipe.description.toLowerCase()).includes(location.query) ||
+                (recipe.title.toLowerCase()).includes(location.query) ||
+                (recipe.instructions.toLowerCase()).includes(location.query)) {
+                    return true
+            }
+            else{
+                return false
+            }
+        })
+    }
 
     let recipeArray = []
     for (let i = 0; i < recipeValues.length; i = i + 4) {
@@ -30,9 +46,9 @@ const AllRecipePage = () => {
     return (
         <div className="outerMostDiv">
             {
-                recipeArray.map((recipes) => {
+                recipeArray.map((recipes, index) => {
                     return (
-                        <div className="rowCardDiv">
+                        <div className="rowCardDiv" key={index}>
                             {recipes.map((recipe) => {
                                 return (
                                     <NavLink exact to={`/recipes/${recipe.id}`} key={recipe.id} className="navLinkRecipeCard">

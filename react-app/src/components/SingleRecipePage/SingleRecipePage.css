@@ -54,12 +54,12 @@
     font-size: 20px;
     font-weight: 300;
     font-family: Georgia, 'Times New Roman', Times, serif;
-    line-height: 28px;
+    line-height: 1.55;
 }
 
 .authorText {
     margin-top: 10px;
-    font-size: 16px;
+    font-size: 19px;
     font-weight: 700;
 }
 
@@ -88,6 +88,7 @@
 
 .textSingleRecipeLower {
     margin-bottom: 30px;
+    font-size: 19px;
 }
 
 .buttonContainer {
@@ -155,11 +156,12 @@
     font-weight: 400;
     margin-bottom: 20px;
     overflow-wrap: break-word;
+    line-height: 1.55;
 }
 
 .ingredient {
     margin-bottom: 20px;
-    font-size: 19px; 
+    font-size: 19px;
 }
 
 .addIngredientsButton {
@@ -195,20 +197,17 @@
 .commentContainer {
     display: flex;
     border-top: 1px solid grey;
-    border-bottom: 1px solid grey;
     padding-top: 25px;
     padding-bottom: 25px;
 }
 
-.addCommentForm {
-    margin-bottom: 15px;
-}
+.addCommentForm {}
 
 .addCommentTextArea {
     width: 100%;
     height: 100px;
     margin-bottom: 10px;
-    font-size: 19px; 
+    font-size: 19px;
 }
 
 .leftCommentContainer {
@@ -223,6 +222,7 @@
     font-weight: 400;
     overflow-wrap: break-word;
     width: 65%;
+    line-height: 1.55;
 }
 
 .addCommentDiv {
@@ -238,35 +238,36 @@
     padding: 5px;
     border-radius: 10px;
     border-color: grey;
+    margin-bottom: 15px;
 }
 
-.editCommentContainer{
+.editCommentContainer {
     font-size: 19px;
     font-weight: 400;
-    width: 100%; 
+    width: 100%;
 }
 
-.editDeleteCommentContainer{
+.editDeleteCommentContainer {
     display: flex;
     flex-direction: row;
     width: 65%;
 }
 
-.handleEditForm{
+.handleEditForm {
     width: 90%;
 }
 
-.ulEditErrors{
+.ulEditErrors {
     list-style-type: none;
     padding: 0px;
     width: 90%;
 }
 
-.commentDate{
-    margin-top: 5px; 
-    color: rgb(139, 134, 134); 
+.commentDate {
+    margin-top: 5px;
+    color: rgb(139, 134, 134);
 }
 
-.addCommentLabel{
-    font-size: 19px; 
+.addCommentLabel {
+    font-size: 19px;
 }

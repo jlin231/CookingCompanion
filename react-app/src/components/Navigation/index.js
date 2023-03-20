@@ -1,5 +1,6 @@
-import React from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useState } from 'react';
+import { NavLink, useLocation, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import './Navigation.css';
@@ -10,9 +11,25 @@ import OpenModalButton from '../OpenModalButton';
 function Navigation({ isLoaded }) {
 	const sessionUser = useSelector(state => state.session);
 	const location = useLocation()
+	const [query, setQuery] = useState("");
+	const history = useHistory()
+
+
 
 	if (!sessionUser) {
 		return null
+	}
+
+
+	const handleSubmit = (e) => {
+		e.preventDefault()
+		console.log('print')
+		history.push({ 
+			pathname: '/recipes/explore',
+			query
+		   })
+		setQuery("")
+
 	}
 
 	return (
@@ -29,6 +46,23 @@ function Navigation({ isLoaded }) {
 						<div>Explore</div>
 					</NavLink>
 				</div>}
+				{location.pathname !== '/' &&
+					<form onSubmit={handleSubmit} className="Search-Form-Container">
+						<div className="Search-Input-Container">
+							<input
+								onChange={(e) => setQuery(e.target.value)}
+								value={query}
+								placeholder=""
+								name="query"
+								type="text"
+								className="Global-Input-Text"
+							/>
+							<button type="submit" className="searchButton">
+								<i class="fas fa-search fa-1x"></i>
+							</button>
+						</div>
+					</form>
+				}
 			</div>
 			<div className="rightNav">
 				{isLoaded && sessionUser.user && (
