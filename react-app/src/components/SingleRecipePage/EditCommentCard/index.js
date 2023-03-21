@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
-import { useDispatch} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { thunkEditCommentOfRecipe, thunkDeleteCommentRecipe, thunkGetSingleRecipe } from '../../../store/recipe';
 
 function CommentCard({ comment, recipeId }) {
@@ -8,10 +8,19 @@ function CommentCard({ comment, recipeId }) {
     const [errors, setErrors] = useState([]);
     const [editCommentContent, setEditCommentContent] = useState(comment.comment);
     const [showEditField, setShowEditField] = useState(false);
+    const sessionUser = useSelector((state) => state.session.user);
 
     useEffect(() => {
         setEditCommentContent(comment.comment)
     }, [comment])
+
+    //convert createdAt date from comment
+    let commentDate = comment.createdAt
+    console.log(commentDate)
+    const month = ["Jan", "Fen", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"]
+    commentDate = new Date(commentDate)
+    commentDate = `${month[commentDate.getMonth()]} ${commentDate.getDate()}, ${commentDate.getFullYear()}`
+
 
     const handleEditSubmit = async (e) => {
         e.preventDefault()
@@ -53,17 +62,20 @@ function CommentCard({ comment, recipeId }) {
 
     return (
         <>
-            <div className="leftCommentContainer">{comment.author.username}</div>
-
+            <div className="leftCommentContainer">
+                <div>
+                    {comment.author.username}
+                </div>
+                <div className="commentDate">
+                    {commentDate}
+                </div>
+            </div>
             {
                 !showEditField && <div className="rightCommentContainer">{comment.comment}</div>}
-
-
             {showEditField &&
                 <div className='editDeleteCommentContainer'>
-
                     <form onSubmit={(e) => handleEditSubmit(e)} className="handleEditForm">
-                        <label>
+                        <label className='addCommentLabel'>
                             <textarea
                                 type="editCommentContent"
                                 value={editCommentContent}
@@ -81,12 +93,19 @@ function CommentCard({ comment, recipeId }) {
                     </form>
                 </div>
             }
-            <div onClick={(e) => {
-                setShowEditField(!showEditField)
-                setEditCommentContent(comment.comment)
-                setErrors([])
-            }}><i class="fa-regular fa-pen-to-square"></i></div>
-            <div onClick={(e) => deleteComment(e, comment.id)}><i class="fa-regular fa-trash-can"></i></div>
+            {
+                sessionUser &&
+                <>
+                    <div onClick={(e) => {
+                        setShowEditField(!showEditField)
+                        setEditCommentContent(comment.comment)
+                        setErrors([])
+                    }}><i class="fa-regular fa-pen-to-square"></i></div>
+                    <div onClick={(e) => deleteComment(e, comment.id)}><i class="fa-regular fa-trash-can"></i></div>
+                </>
+
+            }
+
 
         </>
     )

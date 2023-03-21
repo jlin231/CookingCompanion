@@ -201,7 +201,6 @@ const EditRecipePage = () => {
                                 required
                                 type="text"
                                 placeholder="Instruction"
-
                                 className="Global-Input-Text Global-Form-Text-Area-Instruction">
                             </textarea>
                         </div>
