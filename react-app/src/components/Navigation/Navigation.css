@@ -141,6 +141,7 @@
   font-family: Arial, Helvetica, sans-serif;
   margin-left: 20px;
   width: 100%;
+  z-index: 3;
 }
 
 .searchButton {
@@ -148,6 +149,9 @@
   background-color: transparent;
   border: none;
   margin-right: 20px;
+  color: rgb(102, 102, 102);
+  cursor: pointer;
+  z-index: 3;
 }
 
 .Search-Input-Container {
@@ -155,4 +159,50 @@
   flex-direction: row;
   align-items: center;
   width: 100%;
+}
+
+.search-Container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.searchDropDown {
+  position: absolute;
+  top: 80px;
+  background-color: rgb(248, 248, 245);
+  border: 1px solid black;
+  width: 100%;
+}
+
+.Search-Input-Text {
+  padding: 13px;
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-left: 20px;
+  font-size: 19px;
+  box-sizing: border-box;
+}
+
+.dropDownNavDiv {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+}
+
+.dropDownImage {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  margin: 15px;
+  border-radius: 5px;
+}
+
+.dropDownTitle {
+  color: black;
+  font-size: 19px;
+  font-weight: 600;
 }

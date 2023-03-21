@@ -16,10 +16,11 @@ const AllRecipePage = () => {
     console.log(location.query)
 
     useEffect(() => {
+        console.log("does it break here?")
         dispatch(thunkGetAllRecipe()).then(() => setLoadedPage(true));
     }, [dispatch]);
 
-
+    
     if (!loadedPage || !allRecipes) return null
 
     //split allRecipes into arrays of 4 recipes

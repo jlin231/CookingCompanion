@@ -268,7 +268,7 @@ export default function recipeReducer(state = initialState, action) {
             return { allRecipes: result };
         case GET_SINGLE_RECIPE:
             newState = Object.assign({}, state);
-            newState.singleRecipe = action.payload
+            newState.singleRecipe = {...action.payload}
             return newState;
         case CREATE_SINGLE_RECIPE:
             newState = Object.assign({}, state);
