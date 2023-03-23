@@ -53,8 +53,6 @@ function Navigation({ isLoaded }) {
 	}
 
 	const searchDropDownClassName = "searchDropDown" + ((searchResults.length > 0 && query.length != 0) ? "" : " hidden");
-	console.log("rerender of nav occurs")
-	console.log(searchResults)
 	return (
 		<div className="Navbar">
 			<div className="leftNav">
