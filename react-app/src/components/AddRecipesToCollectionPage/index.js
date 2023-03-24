@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
-import "./singleCollectionPage.css";
+import "./addRecipesToCollection.css";
 import { useEffect, useState } from "react";
 import { NavLink, useHistory, useParams } from "react-router-dom";
 import { thunkGetSingleCollection } from "../../store/collection";
 import AllRecipeCard from "../AllRecipesPage/AllRecipeCard";
 
-const SingleCollectionPage = () => {
+const AddRecipeToCollection = () => {
     const singleCollection = useSelector((state) => state.collections.singleCollection)
     const dispatch = useDispatch();
     const [loadedPage, setLoadedPage] = useState(false);
@@ -14,32 +14,13 @@ const SingleCollectionPage = () => {
 
     useEffect(() => {
         dispatch(thunkGetSingleCollection(collectionId)).then(() => setLoadedPage(true));
-        return () => {
-            setLoadedPage(false);
-        }
     }, [dispatch]);
 
     if (!loadedPage || !singleCollection) {
         return null
     }
 
-    const addRecipesToCollection = (e) => {
-        e.preventDefault()
-        history.push(`/collections/${collectionId}/recipe/edit`)
-    }
-
-    const editCollection = (e) => {
-        e.preventDefault()
-        history.push(`/collections/${collectionId}/edit`)
-    }
-
-    const recipeValues = singleCollection.recipes
-    let recipeArray = []
-    for (let i = 0; i < recipeValues.length; i = i + 4) {
-        recipeArray.push(recipeValues.slice(i, i + 4))
-    }
-
-    console.log(recipeArray, 'recipeArray')
+    let recipeArray = singleCollection.recipes
 
     return (
         <>
@@ -53,37 +34,13 @@ const SingleCollectionPage = () => {
             <div className="lowerDiv">
                 <div className="navLinkContainer">
                     <NavLink exact to='/recipes/explore' className="whatToCookDiv">
-                        <div className="whatToCookText">What to Cook This Week</div>
+                        <div className="whatToCookText">ADD RECIPES TO COLLECTION PAGE</div>
                     </NavLink>
                     {singleCollection.name}
                     {singleCollection.description}
                 </div>
             </div>
-            <div onClick={addRecipesToCollection} className="addIngredientsButton">
-                Add Recipes to Collection
-            </div>
-            <div onClick={editCollection} className="addIngredientsButton">
-                Edit Collection
-            </div>
-            <div className="outerMostDiv">
-                {
-                    recipeArray.map((recipes, index) => {
-                        console.log(recipes)
-                        return (
-                            <div className="rowCardDiv" key={index}>
-                                {recipes.map((recipe) => {
-                                    console.log('recipe', recipe)
-                                    return (
-                                        <NavLink exact to={`/recipes/${recipe.id}`} key={recipe.id} className="navLinkRecipeCard">
-                                            <AllRecipeCard recipe={recipe} />
-                                        </NavLink>
-                                    )
-                                })}
-                            </div>
-                        )
-                    })
-                }
-            </div>
+            
             <div className="footerHomePage">
                 Created By: Jonathan Lin
                 <div>
@@ -115,4 +72,4 @@ const SingleCollectionPage = () => {
     )
 }
 
-export default SingleCollectionPage
+export default AddRecipeToCollection

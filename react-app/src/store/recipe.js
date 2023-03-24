@@ -261,6 +261,7 @@ export default function recipeReducer(state = initialState, action) {
     let newState;
     switch (action.type) {
         case GET_ALL_RECIPES:
+            console.log(action.payload.Recipes)
             let result = {}
             action.payload.Recipes.forEach((recipe) => {
                 result[recipe.id] = recipe;
@@ -268,7 +269,7 @@ export default function recipeReducer(state = initialState, action) {
             return { allRecipes: result };
         case GET_SINGLE_RECIPE:
             newState = Object.assign({}, state);
-            newState.singleRecipe = {...action.payload}
+            newState.singleRecipe = { ...action.payload }
             return newState;
         case CREATE_SINGLE_RECIPE:
             newState = Object.assign({}, state);

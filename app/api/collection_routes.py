@@ -191,7 +191,7 @@ def add_recipe_collection(collectionId):
     db.session.commit()
 
     return {
-            "name": collection.name,
-            "description": collection.description,
-            "recipeIds": [recipe.id for recipe in collection.recipes]
-        }, 200
+        "name": collection.name,
+        "description": collection.description,
+        "recipeIds": [recipe.id for recipe in collection.recipes]
+    }, 200
