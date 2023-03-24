@@ -132,7 +132,6 @@ def seed_recipes():
         instructions="Add beef bones to a large pot that will hold at least 10 quarts. Then, cover bones with cold water. Place pot onto high heat and bring to a boil. Boil for 3 to 5 minutes. During this time, impurities and foam (or scum) will be released and rise to the top. Drain bones, discarding the water. Then, rinse bones with warm water and scrub stockpot to remove any residue that has stuck to the sides. Add the bones back to the stockpot and cover with 6 quarts of cold water.;Meanwhile, move an oven rack to a high position then turn broiler to high. Line a baking sheet with aluminum foil. Place quartered onions and halved ginger onto baking sheet then broil for 10 to 15 minutes, turning onions and ginger occasionally so that they become charred or browned on all sides.;Add cinnamon sticks, coriander seeds, fennel seeds, star anise, cloves and the black cardamom pod to a dry frying pan. Place onto low heat and cook, stirring occasionally until fragrant. About 5 minutes. Place toasted spices into a cotton muslin bag/herb sachet or cheesecloth then tie with butchers twine to seal.;Bring stockpot with parboiled bones and water to a boil then lower to a gentle simmer. Add charred onion and ginger as well as the bag or sachet of toasted spices. Add 1 1/2 tablespoons of salt, a 1/4 cup of fish sauce and the rock sugar. Continue to simmer broth, uncovered, for 3 hours. If at any time foam or scum rises to the surface, use a spoon to remove it.;"
     )
 
-
     db.session.add(r1)
     db.session.add(r2)
     db.session.add(r3)
@@ -165,7 +164,15 @@ def seed_recipes():
         description="Great snack recipes for the weekend",
         author_id = 3
     )
+
+    c5 = Collection(
+        name="Test",
+        description="Great test recipes for the weekend",
+        author_id = 3
+    )
     
+    
+
     c1.recipes.append(r4)
     c1.recipes.append(r9)
     c1.recipes.append(r14)
@@ -203,8 +210,10 @@ def undo_recipes():
 
 def undo_collections():
     if environment == "production":
+        db.session.execute(f"TRUNCATE table {SCHEMA}.collection_recipes RESTART IDENTITY CASCADE;")
         db.session.execute(f"TRUNCATE table {SCHEMA}.collections RESTART IDENTITY CASCADE;")
     else:
+        db.session.execute("DELETE FROM collection_recipes")
         db.session.execute("DELETE FROM collections")
         
     db.session.commit()
