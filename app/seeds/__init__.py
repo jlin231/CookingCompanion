@@ -1,6 +1,6 @@
 from flask.cli import AppGroup
 from .users import seed_users, undo_users
-from .recipes import seed_recipes, undo_recipes
+from .recipes import seed_recipes, undo_recipes, undo_collections
 from .ingredients import seed_ingredients, undo_ingredients
 from app.models.db import db, environment, SCHEMA
 
@@ -29,6 +29,7 @@ def seed():
 # Creates the `flask seed undo` command
 @seed_commands.command('undo')
 def undo():
+    undo_collections()
     undo_ingredients()
     undo_recipes()
     undo_users()

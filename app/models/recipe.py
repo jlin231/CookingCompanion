@@ -44,3 +44,13 @@ class Recipe(db.Model):
             'author': self.author,
             'ingredients': self.ingredients
         }
+    
+    def collection_info(self):
+        return {
+            'id': self.id,
+            'title': self.title,
+            'description': self.description,
+            'timeToComplete': self.timeToComplete,
+            'previewImage': self.previewImage,
+            'author': self.author,
+        }

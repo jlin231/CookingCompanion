@@ -1,0 +1,23 @@
+.outerDivCollectionRecipes {
+    background-color: rgb(242, 243, 239);
+    height: 100%;
+    width: 100%;
+    height: 100%;
+    width: 100vw;
+}
+
+.removeRecipeButton {
+    font-family: 'Times New Roman', Times, serif;
+    display: flex;
+    align-items: center;
+    background-color: red;
+    color: white;
+    padding: 5px 10px;
+    margin-right: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: 200;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
