@@ -2,12 +2,14 @@ import { useDispatch, useSelector } from "react-redux";
 import "./singleCollectionPage.css";
 import { useEffect, useState } from "react";
 import { NavLink, useHistory, useParams } from "react-router-dom";
-import { thunkGetSingleCollection } from "../../store/collection";
+import { thunkGetSingleCollection, thunkDeleteCollection } from "../../store/collection";
 import AllRecipeCard from "../AllRecipesPage/AllRecipeCard";
+
 
 const SingleCollectionPage = () => {
     const singleCollection = useSelector((state) => state.collections.singleCollection)
     const dispatch = useDispatch();
+    const sessionUser = useSelector((state) => state.session.user)
     const [loadedPage, setLoadedPage] = useState(false);
     const history = useHistory()
     const { collectionId } = useParams();
@@ -33,6 +35,17 @@ const SingleCollectionPage = () => {
         history.push(`/collections/${collectionId}/edit`)
     }
 
+    const removeRecipeFromCollection = (recipeId) => {
+        console.log(recipeId)
+
+    }
+
+    const deleteCollection = () => {
+        dispatch(thunkDeleteCollection(collectionId)).then(() => {
+            history.push('/')
+        })
+    }
+
     const recipeValues = singleCollection.recipes
     let recipeArray = []
     for (let i = 0; i < recipeValues.length; i = i + 4) {
@@ -55,34 +68,48 @@ const SingleCollectionPage = () => {
                     <NavLink exact to='/recipes/explore' className="whatToCookDiv">
                         <div className="whatToCookText">What to Cook This Week</div>
                     </NavLink>
-                    {singleCollection.name}
-                    {singleCollection.description}
                 </div>
             </div>
-            <div onClick={addRecipesToCollection} className="addIngredientsButton">
-                Add Recipes to Collection
+            <div>
+                {singleCollection.name}
+                {singleCollection.description}
             </div>
-            <div onClick={editCollection} className="addIngredientsButton">
-                Edit Collection
-            </div>
-            <div className="outerMostDiv">
+            {
+                (sessionUser && sessionUser.id === singleCollection.author.id) &&
+                (
+                    <>
+                        <div onClick={addRecipesToCollection} className="addIngredientsButton">
+                            Add Recipes to Collection
+                        </div>
+                        <div onClick={editCollection} className="addIngredientsButton">
+                            Edit Collection
+                        </div>
+                        <div onClick={deleteCollection} className="addIngredientsButton">
+                            Delete Collection
+                        </div>
+                    </>
+                )
+            }
+            <div className="outerDivCollectionRecipes">
                 {
                     recipeArray.map((recipes, index) => {
-                        console.log(recipes)
                         return (
                             <div className="rowCardDiv" key={index}>
                                 {recipes.map((recipe) => {
-                                    console.log('recipe', recipe)
                                     return (
-                                        <NavLink exact to={`/recipes/${recipe.id}`} key={recipe.id} className="navLinkRecipeCard">
-                                            <AllRecipeCard recipe={recipe} />
-                                        </NavLink>
+                                        <div>
+                                            <NavLink exact to={`/recipes/${recipe.id}`} key={recipe.id} className="navLinkRecipeCard">
+                                                <AllRecipeCard recipe={recipe} />
+                                            </NavLink>
+                                            <div className="removeRecipeButton" onClick={() => removeRecipeFromCollection(recipe.id)}>Remove Recipe from Collection</div>
+                                        </div>
                                     )
                                 })}
                             </div>
                         )
                     })
                 }
+
             </div>
             <div className="footerHomePage">
                 Created By: Jonathan Lin

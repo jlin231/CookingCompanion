@@ -1,6 +1,7 @@
 const GET_ALL_COLLECTION = "recipe/GET_ALL_COLLECTIONS";
 const GET_SINGLE_COLLECTION = "recipe/GET_SINGLE_COLLECTION";
-
+const DELETE_SINGLE_COLLECTION = "recipe/DELETE_SINGLE_COLLECTION";
+const EDIT_SINGLE_COLLECTION = "recipe/EDIT_SINGLE_COLLECTION";
 
 const getAllCollections = (data) => ({
     type: GET_ALL_COLLECTION,
@@ -11,6 +12,16 @@ const getSingleCollections = (data) => ({
     type: GET_SINGLE_COLLECTION,
     payload: data,
 });
+
+const deleteSingleCollection = (collectionId) => ({
+    type: DELETE_SINGLE_COLLECTION,
+    payload: collectionId,
+});
+
+const editSingleCollection = (data) => ({
+    type: EDIT_SINGLE_COLLECTION,
+    payload: data,
+})
 
 const initialState = { singleCollection: {}, allCollections: {} };
 
@@ -55,6 +66,44 @@ export const thunkGetSingleCollection = (collectionId) => async (dispatch) => {
     }
 };
 
+export const thunkEditCollection = (collectionId, body) => async (dispatch) => {
+    console.log('thunk is reached')
+    const response = await fetch(`/api/collections/${collectionId}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            ...body
+        })
+    });
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(editSingleCollection(collectionId));
+        return data;
+    } else if (response.status < 500) {
+        const data = await response.json();
+        throw new Error(JSON.stringify(data));
+    }
+};
+
+export const thunkDeleteCollection = (collectionId) => async (dispatch) => {
+    const response = await fetch(`/api/collections/${collectionId}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(deleteSingleCollection(collectionId));
+        return data;
+    } else if (response.status < 500) {
+        const data = await response.json();
+        throw new Error(JSON.stringify(data));
+    }
+};
+
 export default function collectionReducer(state = initialState, action) {
     let newState;
     switch (action.type) {
@@ -68,6 +117,13 @@ export default function collectionReducer(state = initialState, action) {
         case GET_SINGLE_COLLECTION:
             newState = Object.assign({}, state);
             newState.singleCollection = { ...action.payload }
+            return newState;
+        case EDIT_SINGLE_COLLECTION:
+            newState = Object.assign({}, state);
+            newState.singleCollection = { ...newState.singleCollection, ...action.payload }
+            return newState;
+        case DELETE_SINGLE_COLLECTION:
+            newState = Object.assign({}, state);
             return newState;
         default:
             return state;
