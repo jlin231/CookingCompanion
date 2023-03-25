@@ -151,7 +151,7 @@ def seed_recipes():
     )
     c2 = Collection(
         name="Home Recipes",
-        description="Great home recipes for the weekend or the weekday. ",
+        description="Great home recipes for the weekend or the weekday.",
         author_id = 2
     )
     c3 = Collection(
@@ -172,16 +172,15 @@ def seed_recipes():
     )
     
     
+    c1.recipes.append(r1)
+    c1.recipes.append(r2)
+    c1.recipes.append(r5)
+    c1.recipes.append(r13)
 
-    c1.recipes.append(r4)
-    c1.recipes.append(r9)
-    c1.recipes.append(r14)
+    c2.recipes.append(r4)
+    c2.recipes.append(r9)
+    c2.recipes.append(r14)
     
-    c2.recipes.append(r1)
-    c2.recipes.append(r2)
-    c2.recipes.append(r5)
-    c2.recipes.append(r13)
-
     c3.recipes.append(r3)
     c3.recipes.append(r6)
 
@@ -189,7 +188,7 @@ def seed_recipes():
     c4.recipes.append(r10)
     c4.recipes.append(r12)
 
-    db.session.add_all([c1, c2, c3, c4]);
+    db.session.add_all([c1, c2, c3, c4, c5]);
     db.session.commit()
 
 

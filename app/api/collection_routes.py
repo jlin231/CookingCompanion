@@ -39,13 +39,17 @@ def get_single_collections(collectionId):
     #pull author info
     tempAuthor = single_collection.author.to_dict() 
     print("===========================>", tempAuthor)
-    
+
+    tempCollection = single_collection.to_dict()
+    if(tempCollection["recipes"] and len(tempCollection["recipes"])>0):
+            imageUrl = tempCollection["recipes"][0].previewImage
     return {
         "id": single_collection.id,
         "name" : single_collection.name,
         "description": single_collection.description,
         "author": tempAuthor,        
-        "recipes": recipeInfo
+        "recipes": recipeInfo,
+        "imageUrl": imageUrl
     }
 
 
