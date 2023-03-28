@@ -2,6 +2,7 @@ const GET_ALL_COLLECTION = "recipe/GET_ALL_COLLECTIONS";
 const GET_SINGLE_COLLECTION = "recipe/GET_SINGLE_COLLECTION";
 const DELETE_SINGLE_COLLECTION = "recipe/DELETE_SINGLE_COLLECTION";
 const EDIT_SINGLE_COLLECTION = "recipe/EDIT_SINGLE_COLLECTION";
+const DELETE_RECIPE_FROM_COLLECTION = "recipe/DELETE_RECIPE_FROM_COLLECTION";
 
 const getAllCollections = (data) => ({
     type: GET_ALL_COLLECTION,
@@ -22,6 +23,11 @@ const editSingleCollection = (data) => ({
     type: EDIT_SINGLE_COLLECTION,
     payload: data,
 })
+
+const deleteRecipeFromCollections = (data) => ({
+    type: DELETE_RECIPE_FROM_COLLECTION,
+    payload: data,
+});
 
 const initialState = { singleCollection: {}, allCollections: {} };
 
@@ -87,6 +93,27 @@ export const thunkEditCollection = (collectionId, body) => async (dispatch) => {
     }
 };
 
+export const thunkDeleteRecipeFromCollection = (recipeId, collectionId) => async (dispatch) => {
+    console.log('delete thunk is reached')
+    const response = await fetch(`/api/collections/${collectionId}/recipe/${recipeId}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(deleteRecipeFromCollections({
+            collectionId,
+            recipeId
+        }));
+        return
+    } else if (response.status < 500) {
+        const data = await response.json();
+        throw new Error(JSON.stringify(data));
+    }
+};
+
 export const thunkDeleteCollection = (collectionId) => async (dispatch) => {
     const response = await fetch(`/api/collections/${collectionId}`, {
         method: "DELETE",
@@ -125,6 +152,18 @@ export default function collectionReducer(state = initialState, action) {
         case DELETE_SINGLE_COLLECTION:
             newState = Object.assign({}, state);
             return newState;
+        case DELETE_RECIPE_FROM_COLLECTION:
+            console.log(action.payload, 'payload')
+            newState = Object.assign({}, state);
+            console.log(newState.singleCollection.recipes.length, 'length')
+            for (let i = 0; i < newState.singleCollection.recipes.length; i++) {
+                if (newState.singleCollection.recipes[i].id == action.payload.recipeId) {
+                    newState.singleCollection.recipes.splice(i, 1);
+                    console.log(newState.singleCollection.recipes, 'splice result')
+                    return { ...newState };
+                }
+            }
+            return newState
         default:
             return state;
     }

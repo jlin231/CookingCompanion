@@ -5,7 +5,6 @@ function AllRecipeCard({ recipe }) {
 
     const [imgLoaded, setImgLoaded] = useState(false);
     const [imgError, setImgError] = useState(false);
-    console.log('allrecipe is reached', recipe)
     return (
         <div className="recipeCardDiv">
             {

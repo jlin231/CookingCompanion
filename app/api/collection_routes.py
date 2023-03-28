@@ -40,9 +40,11 @@ def get_single_collections(collectionId):
     tempAuthor = single_collection.author.to_dict() 
     print("===========================>", tempAuthor)
 
+    imageUrl = ""
     tempCollection = single_collection.to_dict()
     if(tempCollection["recipes"] and len(tempCollection["recipes"])>0):
             imageUrl = tempCollection["recipes"][0].previewImage
+
     return {
         "id": single_collection.id,
         "name" : single_collection.name,
@@ -51,7 +53,6 @@ def get_single_collections(collectionId):
         "recipes": recipeInfo,
         "imageUrl": imageUrl
     }
-
 
 #Create a recipe
 @collection_routes.route('/', methods=["POST"])

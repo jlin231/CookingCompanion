@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import "./singleCollectionPage.css";
 import { useEffect, useState } from "react";
 import { NavLink, useHistory, useParams } from "react-router-dom";
-import { thunkGetSingleCollection, thunkDeleteCollection } from "../../store/collection";
+import { thunkGetSingleCollection, thunkDeleteCollection, thunkDeleteRecipeFromCollection } from "../../store/collection";
 import AllRecipeCard from "../AllRecipesPage/AllRecipeCard";
 
 
@@ -13,6 +13,7 @@ const SingleCollectionPage = () => {
     const [loadedPage, setLoadedPage] = useState(false);
     const history = useHistory()
     const { collectionId } = useParams();
+    const recipes = useSelector((state) => state.collections.singleCollection.recipes)
 
     useEffect(() => {
         dispatch(thunkGetSingleCollection(collectionId)).then(() => setLoadedPage(true));
@@ -21,7 +22,7 @@ const SingleCollectionPage = () => {
         }
     }, [dispatch]);
 
-    if (!loadedPage || !singleCollection) {
+    if (!loadedPage || Object.values(singleCollection).length === 0) {
         return null
     }
 
@@ -35,9 +36,11 @@ const SingleCollectionPage = () => {
         history.push(`/collections/${collectionId}/edit`)
     }
 
-    const removeRecipeFromCollection = (recipeId) => {
-        console.log(recipeId)
-
+    const removeRecipeFromCollection = (recipeId, collectionId) => {
+        console.log(recipeId, collectionId)
+        dispatch(thunkDeleteRecipeFromCollection(recipeId, collectionId)).then(() => {
+            dispatch(thunkGetSingleCollection(collectionId))
+        })
     }
 
     const deleteCollection = () => {
@@ -48,16 +51,15 @@ const SingleCollectionPage = () => {
 
     const recipeValues = singleCollection.recipes
     let recipeArray = []
-    for (let i = 0; i < recipeValues.length; i = i + 4) {
-        recipeArray.push(recipeValues.slice(i, i + 4))
+    if (recipeValues) {
+        for (let i = 0; i < recipeValues.length; i = i + 4) {
+            recipeArray.push(recipeValues.slice(i, i + 4))
+        }
     }
-
-    console.log(recipeArray, 'recipeArray')
 
     return (
         <>
             <div className="upperContainer">
-
                 <div className="CollectionUpper-Container">
                     <div className="CollectionUpper-Container-Left">
                         <img className="imageCollection" src={singleCollection.imageUrl} alt=""
@@ -73,7 +75,6 @@ const SingleCollectionPage = () => {
                             <div className="collectionDescription">{singleCollection.description}</div>
                             <div className="collectionAuthor">By {singleCollection.author.username}</div>
                         </div>
-
                         <div className="buttonClass">
                             {
                                 (sessionUser && sessionUser.id === singleCollection.author.id) &&
@@ -96,7 +97,6 @@ const SingleCollectionPage = () => {
 
                 </div>
             </div>
-
             <div className="outerDivCollectionRecipes">
                 {
                     recipeArray.map((recipes, index) => {
@@ -110,7 +110,7 @@ const SingleCollectionPage = () => {
                                             </NavLink>
                                             {
                                                 (sessionUser && sessionUser.id === singleCollection.author.id) &&
-                                                <div className="removeRecipeButton" onClick={() => removeRecipeFromCollection(recipe.id)}>Remove Recipe from Collection</div>
+                                                <div className="removeRecipeButton" onClick={() => removeRecipeFromCollection(recipe.id, singleCollection.id)}>Remove Recipe from Collection</div>
                                             }
                                         </div>
                                     )
@@ -119,7 +119,6 @@ const SingleCollectionPage = () => {
                         )
                     })
                 }
-
             </div>
             <div className="footerHomePage">
                 Created By: Jonathan Lin
