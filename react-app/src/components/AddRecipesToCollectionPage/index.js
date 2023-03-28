@@ -1,75 +1,132 @@
 import { useDispatch, useSelector } from "react-redux";
 import "./addRecipesToCollection.css";
 import { useEffect, useState } from "react";
-import { NavLink, useHistory, useParams } from "react-router-dom";
-import { thunkGetSingleCollection } from "../../store/collection";
-import AllRecipeCard from "../AllRecipesPage/AllRecipeCard";
+import { useHistory, useParams } from "react-router-dom";
+import { thunkGetSingleCollection, thunkEditCollection } from "../../store/collection";
 
-const AddRecipeToCollection = () => {
+const AddRecipesToCollection = () => {
+    const sessionUser = useSelector((state) => state.session.user);
     const singleCollection = useSelector((state) => state.collections.singleCollection)
-    const dispatch = useDispatch();
+    const allRecipes = useSelector((state) => state.recipes.allRecipes)
     const [loadedPage, setLoadedPage] = useState(false);
-    const history = useHistory()
-    const { collectionId } = useParams();
 
+    const [name, setName] = useState("");
+    const [description, setDescription] = useState("");
+    const [errors, setErrors] = useState([]);
+    const [recipesToAddArray, setRecipesToAddArray] = useState([]);
+
+    const dispatch = useDispatch();
+    const history = useHistory();
+
+    const { collectionId } = useParams()
+
+    //load singleCollection
     useEffect(() => {
-        dispatch(thunkGetSingleCollection(collectionId)).then(() => setLoadedPage(true));
-    }, [dispatch]);
+        dispatch(thunkGetSingleCollection(collectionId)).then((res) => {
+            console.log('res', res)
+            setLoadedPage(true)
+            setName(res.name)
+            setDescription(res.description)
+        })
+        return () => {
+            setLoadedPage(false);
+        }
+    }, [dispatch])
 
-    if (!loadedPage || !singleCollection) {
-        return null
+    if (!loadedPage && !singleCollection || !singleCollection.recipes) {
+        console.log("loadedPagecomparater hits")
+        return null;
+    }
+    //filter recipes, make a list which are owned by sessionUser, and not in collection
+
+    const recipesToAdd = Object.values(allRecipes).filter((recipe) => {
+        //check if recipe is inside current collection
+        for (let i = 0; i < singleCollection.recipes.length; i++) {
+            if (singleCollection.recipes[i].id === recipe.id) {
+                return false;
+            }
+        }
+        if (recipe.author_id === sessionUser.id) {
+            return true
+        }
+        else {
+            return false
+        }
+    })
+    let recipeArray = []
+    for (let i = 0; i < recipesToAdd.length; i = i + 3) {
+        recipeArray.push(recipesToAdd.slice(i, i + 3))
     }
 
-    let recipeArray = singleCollection.recipes
+    const toggleAddRecipeClass = (recipe) => {
+        console.log(recipe)
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setErrors([]);
+
+        const body = {
+            name,
+            description
+        };
+    };
 
     return (
-        <>
-            <div className="SplashPage-Container">
-                <img className="splashImage" src="https://burst.shopifycdn.com/photos/flatlay-iron-skillet-with-meat-and-other-food.jpg?width=1200&format=pjpg&exif=1&iptc=1" alt=""
-                    onError={({ currentTarget }) => {
-                        currentTarget.onerror = null; // prevents looping
-                        currentTarget.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Image_not_available.png/640px-Image_not_available.png";
-                    }} />
+        <div className="outerMostDivAddRecipe">
+            <div>
+                {
+                    recipeArray.map((recipes) => {
+                        return (
+                            <div className="AddRecipesRowDiv">
+                                {
+                                    recipes.map((recipe) => {
+                                        return (
+                                            <div className="imageRowDiv" >
+                                                <img src={recipe.previewImage}
+                                                    alt=""
+                                                    className="recipeImg"
+                                                    onClick={(recipe) => toggleAddRecipeClass(recipe)} />
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </div>
+                        )
+                    })
+                }
             </div>
-            <div className="lowerDiv">
-                <div className="navLinkContainer">
-                    <NavLink exact to='/recipes/explore' className="whatToCookDiv">
-                        <div className="whatToCookText">ADD RECIPES TO COLLECTION PAGE</div>
-                    </NavLink>
-                    {singleCollection.name}
-                    {singleCollection.description}
+            <form onSubmit={handleSubmit} className="Global-Form-Container">
+                <div className="Global-Header-Container">
+                    <div className="Global-Form-Button-Header">Add Recipes To Collection</div>
                 </div>
-            </div>
-            
-            <div className="footerHomePage">
-                Created By: Jonathan Lin
-                <div>
-                    <a
-                        class='githubIcon'
-                        href="https://github.com/jlin231/CookingCompanion"
-                        target='_blank'
-                        rel="noopener"
-                        aria-label='Github'
-                    >
-                        <i class="fa-brands fa-github gitHubFontAwesome"></i>
-                        Github
-                    </a>
-                </div>
-                <div>
-                    <a
-                        class='linkedInIcon'
-                        href="https://www.linkedin.com/in/jonathan-lin-a71088158/"
-                        target='_blank'
-                        rel="noopener"
-                        aria-label='Github'
-                    >
-                        <i class="fa-brands fa-linkedin gitHubFontAwesome"></i>
-                        LinkedIn
-                    </a>
-                </div>
-            </div>
-        </>
+                <label for="name" className="Global-Form-Label">
+                    <input
+                        type="text"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        required
+                        placeholder="Name"
+                        className="Global-Form-input"
+                    />
+                </label>
+                <label for="description" className="Global-Form-Label">
+                    <textarea
+                        type="text"
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                        required
+                        placeholder="Description"
+                        className="Global-Form-input Global-Form-Text-Area-Description"
+                    ></textarea>
+                </label>
+                <button type="submit" className="Global-SubmitButton">
+                    Submit
+                </button>
+            </form>
+
+        </div >
     )
 }
 
-export default AddRecipeToCollection
+export default AddRecipesToCollection
