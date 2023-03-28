@@ -1,75 +1,155 @@
 import { useDispatch, useSelector } from "react-redux";
 import "./addRecipesToCollection.css";
 import { useEffect, useState } from "react";
-import { NavLink, useHistory, useParams } from "react-router-dom";
-import { thunkGetSingleCollection } from "../../store/collection";
-import AllRecipeCard from "../AllRecipesPage/AllRecipeCard";
+import { useHistory, useParams } from "react-router-dom";
+import { thunkGetSingleCollection, thunkAddRecipeToCollection } from "../../store/collection";
 
-const AddRecipeToCollection = () => {
+const AddRecipesToCollection = () => {
+    const sessionUser = useSelector((state) => state.session.user);
     const singleCollection = useSelector((state) => state.collections.singleCollection)
-    const dispatch = useDispatch();
+    const allRecipes = useSelector((state) => state.recipes.allRecipes)
     const [loadedPage, setLoadedPage] = useState(false);
-    const history = useHistory()
-    const { collectionId } = useParams();
+
+    const [name, setName] = useState("");
+    const [description, setDescription] = useState("");
+    const [errors, setErrors] = useState([]);
+    const [recipesToAddObject, setRecipesToAddObject] = useState({});
+
+    const dispatch = useDispatch();
+    const history = useHistory();
+
+    const { collectionId } = useParams()
 
     useEffect(() => {
-        dispatch(thunkGetSingleCollection(collectionId)).then(() => setLoadedPage(true));
-    }, [dispatch]);
+        dispatch(thunkGetSingleCollection(collectionId)).then((res) => {
+            console.log('res', res)
+            setLoadedPage(true)
+            setName(res.name)
+            setDescription(res.description)
+        })
+        return () => {
+            setLoadedPage(false);
+        }
+    }, [dispatch])
 
-    if (!loadedPage || !singleCollection) {
-        return null
+    if (!loadedPage && !singleCollection || !singleCollection.recipes) {
+        console.log("loadedPagecomparater hits")
+        return null;
+    }
+    //filter recipes, make a list which are owned by sessionUser, and not in collection
+    const recipesToAdd = Object.values(allRecipes).filter((recipe) => {
+        //check if recipe is inside current collection
+        for (let i = 0; i < singleCollection.recipes.length; i++) {
+            if (singleCollection.recipes[i].id === recipe.id) {
+                return false;
+            }
+        }
+        if (recipe.author_id === sessionUser.id) {
+            return true
+        }
+        else {
+            return false
+        }
+    })
+    let recipeArray = []
+    for (let i = 0; i < recipesToAdd.length; i = i + 3) {
+        recipeArray.push(recipesToAdd.slice(i, i + 3))
     }
 
-    let recipeArray = singleCollection.recipes
+    let currentRecipeArray = []
+    for (let i = 0; i < singleCollection.recipes.length; i = i + 3) {
+        currentRecipeArray.push(singleCollection.recipes.slice(i, i + 3))
+    }
 
+    const toggleAddRecipeClass = (recipeId) => {
+        console.log('function is hit', recipeId)
+        if (!recipesToAddObject[recipeId]) {
+            let tempObject = { ...recipesToAddObject }
+            tempObject[recipeId] = recipeId
+            console.log(tempObject, 'tempObject')
+            setRecipesToAddObject({ ...tempObject })
+        }
+        else {
+            let tempObject = { ...recipesToAddObject }
+            delete tempObject[recipeId]
+            setRecipesToAddObject(tempObject)
+        }
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        console.log(recipesToAddObject)
+        let body = { recipes: [] }
+        for (const i in recipesToAddObject) {
+            body.recipes.push({ "id": i })
+        }
+        dispatch(thunkAddRecipeToCollection(singleCollection.id, body)).then(() => {
+            history.push(`/collections/${singleCollection.id}`)
+        })
+    };
     return (
-        <>
-            <div className="SplashPage-Container">
-                <img className="splashImage" src="https://burst.shopifycdn.com/photos/flatlay-iron-skillet-with-meat-and-other-food.jpg?width=1200&format=pjpg&exif=1&iptc=1" alt=""
-                    onError={({ currentTarget }) => {
-                        currentTarget.onerror = null; // prevents looping
-                        currentTarget.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Image_not_available.png/640px-Image_not_available.png";
-                    }} />
+        <div className="outerMostDivAddRecipe">
+            <div className="Add-Recipe-Header-Container">
+                <div className="Global-Form-Button-Header">Add Recipes To Collection</div>
             </div>
-            <div className="lowerDiv">
-                <div className="navLinkContainer">
-                    <NavLink exact to='/recipes/explore' className="whatToCookDiv">
-                        <div className="whatToCookText">ADD RECIPES TO COLLECTION PAGE</div>
-                    </NavLink>
-                    {singleCollection.name}
-                    {singleCollection.description}
-                </div>
+            <div>
+                {
+                    recipeArray.map((recipes) => {
+                        return (
+                            <div className="AddRecipesRowDiv">
+                                {
+                                    recipes.map((recipe) => {
+                                        let imageClass = "recipeImg"
+                                        if (recipesToAddObject[recipe.id]) {
+                                            imageClass = "recipeImg highLight"
+                                        }
+                                        return (
+                                            <div className="imageRowDiv" >
+                                                <div className={imageClass} onClick={() => toggleAddRecipeClass(recipe.id)}>
+                                                    <img src={recipe.previewImage}
+                                                        alt=""
+                                                        className="recipeImg"
+                                                    />
+                                                </div>
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </div>
+                        )
+                    })
+                }
             </div>
-            
-            <div className="footerHomePage">
-                Created By: Jonathan Lin
-                <div>
-                    <a
-                        class='githubIcon'
-                        href="https://github.com/jlin231/CookingCompanion"
-                        target='_blank'
-                        rel="noopener"
-                        aria-label='Github'
-                    >
-                        <i class="fa-brands fa-github gitHubFontAwesome"></i>
-                        Github
-                    </a>
-                </div>
-                <div>
-                    <a
-                        class='linkedInIcon'
-                        href="https://www.linkedin.com/in/jonathan-lin-a71088158/"
-                        target='_blank'
-                        rel="noopener"
-                        aria-label='Github'
-                    >
-                        <i class="fa-brands fa-linkedin gitHubFontAwesome"></i>
-                        LinkedIn
-                    </a>
-                </div>
+            <button type="submit" className="addRecipeButton" onClick={(e) => handleSubmit(e)}>
+                Submit
+            </button>
+            <div className="Add-Recipe-Header-Container">
+                <div className="Global-Form-Button-Header">Current Recipes in Collection</div>
             </div>
-        </>
+            <div>
+                {
+                    currentRecipeArray.map((recipes) => {
+                        return (
+                            <div className="AddRecipesRowDiv">
+                                {
+                                    recipes.map((recipe) => {
+                                        return (
+                                            <div className="imageRowDiv" >
+                                                <img src={recipe.previewImage}
+                                                    alt=""
+                                                    className="recipeImgNotInCollection"
+                                                />
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </div>
+                        )
+                    })
+                }
+            </div>
+        </div >
     )
 }
 
-export default AddRecipeToCollection
+export default AddRecipesToCollection

@@ -14,8 +14,9 @@ import AddIngredientsPage from "./components/AddIngredientsPage";
 import EditDeleteIngredientsPage from "./components/EditDeleteIngredientsPage";
 import FirstSplashPage from "./components/FirstSplashPage";
 import SingleCollectionPage from "./components/SingleCollectionPage";
-import AddRecipeToCollection from "./components/AddRecipesToCollectionPage";
 import EditCollectionPage from "./components/EditCollectionPage";
+import AddRecipesToCollection from "./components/AddRecipesToCollectionPage";
+import CreateCollectionPage from "./components/CreateCollectionPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -55,10 +56,13 @@ function App() {
             <SignupFormPage />
           </Route>
           <Route path="/collections/:collectionId/recipe/edit">
-            <AddRecipeToCollection />
+            <AddRecipesToCollection />
           </Route>
           <Route path="/collections/:collectionId/edit">
             <EditCollectionPage />
+          </Route>
+          <Route path="/collections/create">
+            <CreateCollectionPage />
           </Route>
           <Route path="/collections/:collectionId">
             <SingleCollectionPage />

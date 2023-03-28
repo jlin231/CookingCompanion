@@ -61,7 +61,6 @@ const deleteCommentOfRecipe = (commentId) => ({
 
 const initialState = { singleRecipe: {}, allRecipes: {} };
 
-
 export const thunkGetAllRecipe = () => async (dispatch) => {
     const response = await fetch("/api/recipes/", {
         method: "GET",

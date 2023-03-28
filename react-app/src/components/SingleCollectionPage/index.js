@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import "./singleCollectionPage.css";
 import { useEffect, useState } from "react";
 import { NavLink, useHistory, useParams } from "react-router-dom";
-import { thunkGetSingleCollection, thunkDeleteCollection } from "../../store/collection";
+import { thunkGetSingleCollection, thunkDeleteCollection, thunkDeleteRecipeFromCollection } from "../../store/collection";
 import AllRecipeCard from "../AllRecipesPage/AllRecipeCard";
 
 
@@ -13,6 +13,7 @@ const SingleCollectionPage = () => {
     const [loadedPage, setLoadedPage] = useState(false);
     const history = useHistory()
     const { collectionId } = useParams();
+    const recipes = useSelector((state) => state.collections.singleCollection.recipes)
 
     useEffect(() => {
         dispatch(thunkGetSingleCollection(collectionId)).then(() => setLoadedPage(true));
@@ -21,7 +22,7 @@ const SingleCollectionPage = () => {
         }
     }, [dispatch]);
 
-    if (!loadedPage || !singleCollection) {
+    if (!loadedPage || Object.values(singleCollection).length === 0) {
         return null
     }
 
@@ -35,9 +36,11 @@ const SingleCollectionPage = () => {
         history.push(`/collections/${collectionId}/edit`)
     }
 
-    const removeRecipeFromCollection = (recipeId) => {
-        console.log(recipeId)
-
+    const removeRecipeFromCollection = (recipeId, collectionId) => {
+        console.log(recipeId, collectionId)
+        dispatch(thunkDeleteRecipeFromCollection(recipeId, collectionId)).then(() => {
+            dispatch(thunkGetSingleCollection(collectionId))
+        })
     }
 
     const deleteCollection = () => {
@@ -48,48 +51,52 @@ const SingleCollectionPage = () => {
 
     const recipeValues = singleCollection.recipes
     let recipeArray = []
-    for (let i = 0; i < recipeValues.length; i = i + 4) {
-        recipeArray.push(recipeValues.slice(i, i + 4))
+    if (recipeValues) {
+        for (let i = 0; i < recipeValues.length; i = i + 4) {
+            recipeArray.push(recipeValues.slice(i, i + 4))
+        }
     }
-
-    console.log(recipeArray, 'recipeArray')
 
     return (
         <>
-            <div className="SplashPage-Container">
-                <img className="splashImage" src="https://burst.shopifycdn.com/photos/flatlay-iron-skillet-with-meat-and-other-food.jpg?width=1200&format=pjpg&exif=1&iptc=1" alt=""
-                    onError={({ currentTarget }) => {
-                        currentTarget.onerror = null; // prevents looping
-                        currentTarget.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Image_not_available.png/640px-Image_not_available.png";
-                    }} />
-            </div>
-            <div className="lowerDiv">
-                <div className="navLinkContainer">
-                    <NavLink exact to='/recipes/explore' className="whatToCookDiv">
-                        <div className="whatToCookText">What to Cook This Week</div>
-                    </NavLink>
+            <div className="upperContainer">
+                <div className="CollectionUpper-Container">
+                    <div className="CollectionUpper-Container-Left">
+                        <img className="imageCollection" src={singleCollection.imageUrl} alt=""
+                            onError={({ currentTarget }) => {
+                                currentTarget.onerror = null; // prevents looping
+                                currentTarget.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Image_not_available.png/640px-Image_not_available.png";
+                            }} />
+                    </div>
+                    <div className="CollectionUpper-Container-Right">
+                        <div className="underRightHeading">
+                            <div className="collectionHeading">Collection</div>
+                            <div className="collectionName">{singleCollection.name}</div>
+                            <div className="collectionDescription">{singleCollection.description}</div>
+                            <div className="collectionAuthor">By {singleCollection.author.username}</div>
+                        </div>
+                        <div className="buttonClass">
+                            {
+                                (sessionUser && sessionUser.id === singleCollection.author.id) &&
+                                (
+                                    <>
+                                        <div onClick={addRecipesToCollection} className="splashButtons">
+                                            Add Recipes to Collection
+                                        </div>
+                                        <div onClick={editCollection} className="splashButtons">
+                                            Edit Collection
+                                        </div>
+                                        <div onClick={deleteCollection} className="splashButtons">
+                                            Delete Collection
+                                        </div>
+                                    </>
+                                )
+                            }
+                        </div>
+                    </div>
+
                 </div>
             </div>
-            <div>
-                {singleCollection.name}
-                {singleCollection.description}
-            </div>
-            {
-                (sessionUser && sessionUser.id === singleCollection.author.id) &&
-                (
-                    <>
-                        <div onClick={addRecipesToCollection} className="addIngredientsButton">
-                            Add Recipes to Collection
-                        </div>
-                        <div onClick={editCollection} className="addIngredientsButton">
-                            Edit Collection
-                        </div>
-                        <div onClick={deleteCollection} className="addIngredientsButton">
-                            Delete Collection
-                        </div>
-                    </>
-                )
-            }
             <div className="outerDivCollectionRecipes">
                 {
                     recipeArray.map((recipes, index) => {
@@ -101,7 +108,10 @@ const SingleCollectionPage = () => {
                                             <NavLink exact to={`/recipes/${recipe.id}`} key={recipe.id} className="navLinkRecipeCard">
                                                 <AllRecipeCard recipe={recipe} />
                                             </NavLink>
-                                            <div className="removeRecipeButton" onClick={() => removeRecipeFromCollection(recipe.id)}>Remove Recipe from Collection</div>
+                                            {
+                                                (sessionUser && sessionUser.id === singleCollection.author.id) &&
+                                                <div className="removeRecipeButton" onClick={() => removeRecipeFromCollection(recipe.id, singleCollection.id)}>Remove Recipe from Collection</div>
+                                            }
                                         </div>
                                     )
                                 })}
@@ -109,7 +119,6 @@ const SingleCollectionPage = () => {
                         )
                     })
                 }
-
             </div>
             <div className="footerHomePage">
                 Created By: Jonathan Lin
