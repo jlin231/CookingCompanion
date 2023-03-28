@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import "./addRecipesToCollection.css";
 import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { thunkGetSingleCollection, thunkEditCollection } from "../../store/collection";
+import { thunkGetSingleCollection, thunkAddRecipeToCollection } from "../../store/collection";
 
 const AddRecipesToCollection = () => {
     const sessionUser = useSelector((state) => state.session.user);
@@ -13,14 +13,13 @@ const AddRecipesToCollection = () => {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [errors, setErrors] = useState([]);
-    const [recipesToAddArray, setRecipesToAddArray] = useState([]);
+    const [recipesToAddObject, setRecipesToAddObject] = useState({});
 
     const dispatch = useDispatch();
     const history = useHistory();
 
     const { collectionId } = useParams()
 
-    //load singleCollection
     useEffect(() => {
         dispatch(thunkGetSingleCollection(collectionId)).then((res) => {
             console.log('res', res)
@@ -38,7 +37,6 @@ const AddRecipesToCollection = () => {
         return null;
     }
     //filter recipes, make a list which are owned by sessionUser, and not in collection
-
     const recipesToAdd = Object.values(allRecipes).filter((recipe) => {
         //check if recipe is inside current collection
         for (let i = 0; i < singleCollection.recipes.length; i++) {
@@ -58,22 +56,42 @@ const AddRecipesToCollection = () => {
         recipeArray.push(recipesToAdd.slice(i, i + 3))
     }
 
-    const toggleAddRecipeClass = (recipe) => {
-        console.log(recipe)
+    let currentRecipeArray = []
+    for (let i = 0; i < singleCollection.recipes.length; i = i + 3) {
+        currentRecipeArray.push(singleCollection.recipes.slice(i, i + 3))
+    }
+
+    const toggleAddRecipeClass = (recipeId) => {
+        console.log('function is hit', recipeId)
+        if (!recipesToAddObject[recipeId]) {
+            let tempObject = { ...recipesToAddObject }
+            tempObject[recipeId] = recipeId
+            console.log(tempObject, 'tempObject')
+            setRecipesToAddObject({ ...tempObject })
+        }
+        else {
+            let tempObject = { ...recipesToAddObject }
+            delete tempObject[recipeId]
+            setRecipesToAddObject(tempObject)
+        }
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setErrors([]);
-
-        const body = {
-            name,
-            description
-        };
+        console.log(recipesToAddObject)
+        let body = { recipes: [] }
+        for (const i in recipesToAddObject) {
+            body.recipes.push({ "id": i })
+        }
+        dispatch(thunkAddRecipeToCollection(singleCollection.id, body)).then(() => {
+            history.push(`/collections/${singleCollection.id}`)
+        })
     };
-
     return (
         <div className="outerMostDivAddRecipe">
+            <div className="Add-Recipe-Header-Container">
+                <div className="Global-Form-Button-Header">Add Recipes To Collection</div>
+            </div>
             <div>
                 {
                     recipeArray.map((recipes) => {
@@ -81,12 +99,18 @@ const AddRecipesToCollection = () => {
                             <div className="AddRecipesRowDiv">
                                 {
                                     recipes.map((recipe) => {
+                                        let imageClass = "recipeImg"
+                                        if (recipesToAddObject[recipe.id]) {
+                                            imageClass = "recipeImg highLight"
+                                        }
                                         return (
                                             <div className="imageRowDiv" >
-                                                <img src={recipe.previewImage}
-                                                    alt=""
-                                                    className="recipeImg"
-                                                    onClick={(recipe) => toggleAddRecipeClass(recipe)} />
+                                                <div className={imageClass} onClick={() => toggleAddRecipeClass(recipe.id)}>
+                                                    <img src={recipe.previewImage}
+                                                        alt=""
+                                                        className="recipeImg"
+                                                    />
+                                                </div>
                                             </div>
                                         )
                                     })
@@ -96,35 +120,34 @@ const AddRecipesToCollection = () => {
                     })
                 }
             </div>
-            <form onSubmit={handleSubmit} className="Global-Form-Container">
-                <div className="Global-Header-Container">
-                    <div className="Global-Form-Button-Header">Add Recipes To Collection</div>
-                </div>
-                <label for="name" className="Global-Form-Label">
-                    <input
-                        type="text"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        required
-                        placeholder="Name"
-                        className="Global-Form-input"
-                    />
-                </label>
-                <label for="description" className="Global-Form-Label">
-                    <textarea
-                        type="text"
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                        required
-                        placeholder="Description"
-                        className="Global-Form-input Global-Form-Text-Area-Description"
-                    ></textarea>
-                </label>
-                <button type="submit" className="Global-SubmitButton">
-                    Submit
-                </button>
-            </form>
-
+            <button type="submit" className="addRecipeButton" onClick={(e) => handleSubmit(e)}>
+                Submit
+            </button>
+            <div className="Add-Recipe-Header-Container">
+                <div className="Global-Form-Button-Header">Current Recipes in Collection</div>
+            </div>
+            <div>
+                {
+                    currentRecipeArray.map((recipes) => {
+                        return (
+                            <div className="AddRecipesRowDiv">
+                                {
+                                    recipes.map((recipe) => {
+                                        return (
+                                            <div className="imageRowDiv" >
+                                                <img src={recipe.previewImage}
+                                                    alt=""
+                                                    className="recipeImgNotInCollection"
+                                                />
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </div>
+                        )
+                    })
+                }
+            </div>
         </div >
     )
 }

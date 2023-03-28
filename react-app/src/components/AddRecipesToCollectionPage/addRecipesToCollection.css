@@ -3,6 +3,7 @@
     flex-direction: row;
     width: 50vw;
     height: 17vw;
+    justify-content: center;
 }
 
 .outerMostDivAddRecipe {
@@ -19,9 +20,48 @@
     object-fit: cover;
     border-radius: 10px;
     border: transparent;
+    cursor: pointer;
+}
+
+.recipeImgNotInCollection {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    border: transparent;
 }
 
 .imageRowDiv {
     width: 33%;
-    margin: 10px;
+    margin: 5px;
+}
+
+.addRecipeButton {
+    background-color: rgb(255, 49, 49);
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    border-color: transparent;
+    border-radius: 3px;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    width: 50vw;
+    min-width: 600px;
+    margin-top: 15px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.highLight {
+    border: 3px red solid;
+}
+
+.Add-Recipe-Header-Container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 50vw;
+    min-width: 600px;
 }

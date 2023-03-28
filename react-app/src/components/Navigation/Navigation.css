@@ -22,7 +22,7 @@
   background-color: transparent;
   border: none;
   cursor: pointer;
-
+  margin-right: 15px;
 }
 
 .Navbar {
@@ -79,7 +79,9 @@
   text-decoration: none;
   font-size: 25px;
   color: rgb(102, 102, 102);
-  min-width: 181px;
+  /* min-width: 181px; */
+  text-align: center;
+  max-width: 152px;
 }
 
 .Login-Signup-Holder {

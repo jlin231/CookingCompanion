@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import "./CreateRecipePage.css";
-import { useEffect, useState } from "react";
-import { NavLink, useHistory, useParams } from "react-router-dom";
-import { thunkCreateRecipe, thunkGetSingleRecipe } from "../../store/recipe";
+import { useState } from "react";
+import { useHistory, } from "react-router-dom";
+import { thunkCreateRecipe } from "../../store/recipe";
 
 const CreateRecipePage = () => {
     const sessionUser = useSelector((state) => state.session.user);
