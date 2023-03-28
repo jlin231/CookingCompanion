@@ -92,7 +92,6 @@ export const thunkAddRecipeToCollection = (collectionId, body) => async (dispatc
     }
 };
 
-
 export const thunkGetSingleCollection = (collectionId) => async (dispatch) => {
     const response = await fetch(`/api/collections/${collectionId}`, {
         method: "GET",
@@ -132,7 +131,6 @@ export const thunkCreateCollection = (body) => async (dispatch) => {
         throw new Error(JSON.stringify(data));
     }
 };
-
 
 export const thunkEditCollection = (collectionId, body) => async (dispatch) => {
     console.log('thunk is reached')
