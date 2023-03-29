@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import "./SplashPage.css";
 import { useEffect, useState } from "react";
-import { NavLink, useHistory } from "react-router-dom";
+import { NavLink,} from "react-router-dom";
 import { thunkGetAllRecipe } from "../../store/recipe";
 import SplashRecipeCard from "./SplashRecipeCard";
 import SplashCollectionCard from "./SplashCollectionCard";
