@@ -10,9 +10,6 @@ const AddRecipesToCollection = () => {
     const allRecipes = useSelector((state) => state.recipes.allRecipes)
     const [loadedPage, setLoadedPage] = useState(false);
 
-    const [name, setName] = useState("");
-    const [description, setDescription] = useState("");
-    const [errors, setErrors] = useState([]);
     const [recipesToAddObject, setRecipesToAddObject] = useState({});
 
     const dispatch = useDispatch();
@@ -22,10 +19,7 @@ const AddRecipesToCollection = () => {
 
     useEffect(() => {
         dispatch(thunkGetSingleCollection(collectionId)).then((res) => {
-            console.log('res', res)
             setLoadedPage(true)
-            setName(res.name)
-            setDescription(res.description)
         })
         return () => {
             setLoadedPage(false);

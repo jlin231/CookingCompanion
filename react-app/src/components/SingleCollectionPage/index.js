@@ -13,7 +13,6 @@ const SingleCollectionPage = () => {
     const [loadedPage, setLoadedPage] = useState(false);
     const history = useHistory()
     const { collectionId } = useParams();
-    const recipes = useSelector((state) => state.collections.singleCollection.recipes)
 
     useEffect(() => {
         dispatch(thunkGetSingleCollection(collectionId)).then(() => setLoadedPage(true));

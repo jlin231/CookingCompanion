@@ -6,21 +6,17 @@ import { thunkGetAllRecipe } from "../../store/recipe";
 import AllRecipeCard from "./AllRecipeCard";
 
 const AllRecipePage = () => {
-    const sessionUser = useSelector((state) => state.session.user);
     const allRecipes = useSelector((state) => state.recipes.allRecipes)
     const dispatch = useDispatch();
-    const history = useHistory();
     const [loadedPage, setLoadedPage] = useState(false);
     const location = useLocation()
-
-    console.log(location.query)
 
     useEffect(() => {
         console.log("does it break here?")
         dispatch(thunkGetAllRecipe()).then(() => setLoadedPage(true));
     }, [dispatch]);
 
-    
+
     if (!loadedPage || !allRecipes) return null
 
     //split allRecipes into arrays of 4 recipes
@@ -31,9 +27,9 @@ const AllRecipePage = () => {
             if ((recipe.description.toLowerCase()).includes(location.query) ||
                 (recipe.title.toLowerCase()).includes(location.query) ||
                 (recipe.instructions.toLowerCase()).includes(location.query)) {
-                    return true
+                return true
             }
-            else{
+            else {
                 return false
             }
         })
