@@ -52,7 +52,7 @@ const AllRecipePage = () => {
     }
 
     let collectionArray = []
-    for (let i = 0; i < 4; i = i + 4) {
+    for (let i = 0; i < collectionValues.length; i = i + 4) {
         collectionArray.push(collectionValues.slice(i, i + 4))
     }
     console.log('collection', collectionArray)
