@@ -1,4 +1,5 @@
-from app.models import db, Recipe, environment, SCHEMA, Collection
+from app.models import db, Recipe, environment, SCHEMA, Collection, Comment
+
 import random
 
 timeToCompleteValues = [15,30,45,200,100,150]; 
@@ -164,12 +165,6 @@ def seed_recipes():
         description="Great snack recipes for the weekend",
         author_id = 3
     )
-
-    c5 = Collection(
-        name="Test",
-        description="Great test recipes for the weekend",
-        author_id = 3
-    )
     
     
     c1.recipes.append(r1)
@@ -188,9 +183,25 @@ def seed_recipes():
     c4.recipes.append(r10)
     c4.recipes.append(r12)
 
-    db.session.add_all([c1, c2, c3, c4, c5]);
+    db.session.add_all([c1, c2, c3, c4]);
     db.session.commit()
 
+    # com1 = Comment(
+    #     comment='What a great Recipe!', recipe_id=2, author_id=1)
+    # com2 = Comment(
+    #     comment='Amazing Recipe!', recipe_id=2, author_id=1)
+    # com3 = Comment(
+    #     comment='I really enjoyed working with this recipe and I will definetly try it again.', recipe_id=2, author_id=1)
+    # com4 = Comment(
+    #     comment='I would replace this with less salt but otherwise a great recipe.', recipe_id=2, author_id=1)
+    # com5 = Comment(
+    #     comment='Not my favorite recipe, but the website works great!', recipe_id=2, author_id=1)
+    # com6 = Comment(
+    #     comment='Thank you for the time you took to write this recipe!', recipe_id=2, author_id=1)
+
+    # db.session.add([com1, com2, com3, com4, com5, com6])
+    # r2.comments.extend([com1, com2, com3, com4, com5, com6])
+    db.session.commit()
 
 
 # Uses a raw SQL query to TRUNCATE or DELETE the users table. SQLAlchemy doesn't

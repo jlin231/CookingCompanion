@@ -47,6 +47,16 @@ const AllRecipePage = () => {
     }
 
     let recipeArray = []
+    let resultsValues = collectionValues.concat(recipeValues)
+    console.log('collection', resultsValues)
+
+
+    let resultsArray = []
+    for (let i = 0; i < resultsValues.length; i = i + 4) {
+        resultsArray.push(resultsValues.slice(i, i + 4))
+    }
+    console.log('resultsArray', resultsArray)
+
     for (let i = 0; i < recipeValues.length; i = i + 4) {
         recipeArray.push(recipeValues.slice(i, i + 4))
     }
@@ -55,37 +65,28 @@ const AllRecipePage = () => {
     for (let i = 0; i < collectionValues.length; i = i + 4) {
         collectionArray.push(collectionValues.slice(i, i + 4))
     }
-    console.log('collection', collectionArray)
     return (
         <>
             <div className="outerAllRecipeDiv">
                 {
-                    collectionArray.map((collections, index) => {
+                    resultsArray.map((results, index) => {
                         return (
                             <div className="rowCardDiv" key={index}>
-                                {collections.map((collection) => {
-                                    return (
-                                        <NavLink exact to={`/collections/${collection.id}`} key={collection.id} className="navLinkRecipeCard">
-                                            <AllCollectionCard collection={collection} />
-                                        </NavLink>
-                                    )
-                                })}
-                            </div>
-                        )
-                    })
-                }
-            </div>
-            <div className="outerAllRecipeDiv">
-                {
-                    recipeArray.map((recipes, index) => {
-                        return (
-                            <div className="rowCardDiv" key={index}>
-                                {recipes.map((recipe) => {
-                                    return (
-                                        <NavLink exact to={`/recipes/${recipe.id}`} key={recipe.id} className="navLinkRecipeCard">
-                                            <AllRecipeCard recipe={recipe} />
-                                        </NavLink>
-                                    )
+                                {results.map((result) => {
+                                    if (!result.createdAt) {
+                                        return (
+                                            <NavLink exact to={`/collections/${result.id}`} key={result.id} className="navLinkRecipeCard">
+                                                <AllCollectionCard collection={result} />
+                                            </NavLink>
+                                        )
+                                    }
+                                    else {
+                                        return (
+                                            <NavLink exact to={`/recipes/${result.id}`} key={result.id} className="navLinkRecipeCard">
+                                                <AllRecipeCard recipe={result} />
+                                            </NavLink>
+                                        )
+                                    }
                                 })}
                             </div>
                         )
