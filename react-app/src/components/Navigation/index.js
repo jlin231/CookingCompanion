@@ -22,6 +22,11 @@ function Navigation({ isLoaded }) {
 		setQuery("");
 		setSearchResults([]);
 		dispatch(thunkGetAllRecipe());
+
+		return () => {
+			setQuery("")
+			setSearchResults([])
+		}
 	}, [dispatch]);
 
 	if (!sessionUser || !allRecipes) {

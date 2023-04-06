@@ -2,6 +2,7 @@ from flask.cli import AppGroup
 from .users import seed_users, undo_users
 from .recipes import seed_recipes, undo_recipes, undo_collections
 from .ingredients import seed_ingredients, undo_ingredients
+from .comments import seed_comments, undo_comments
 from app.models.db import db, environment, SCHEMA
 
 # Creates a seed group to hold our commands
@@ -17,18 +18,21 @@ def seed():
         # command, which will  truncate all tables prefixed with 
         # the schema name (see comment in users.py undo_users function).
         # Make sure to add all your other model's undo functions below
+        undo_comments()
         undo_ingredients()
         undo_recipes()
         undo_users()
     seed_users()
     seed_recipes()
     seed_ingredients()
+    seed_comments()
     # Add other seed functions here
 
 
 # Creates the `flask seed undo` command
 @seed_commands.command('undo')
 def undo():
+    undo_comments()
     undo_collections()
     undo_ingredients()
     undo_recipes()
