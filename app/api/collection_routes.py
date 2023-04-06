@@ -19,6 +19,7 @@ def get_all_collections():
         tempCollection["author"] = tempCollection["author"].to_dict()
         if(tempCollection["recipes"] and len(tempCollection["recipes"])>0):
             tempCollection["imageUrl"] = tempCollection["recipes"][0].previewImage
+        tempCollection["recipeNumber"]=(len(tempCollection["recipes"]))
         tempCollection.pop("recipes")
         output["Collection"].append(tempCollection)
 
