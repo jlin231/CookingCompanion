@@ -36,7 +36,6 @@ const SingleCollectionPage = () => {
     }
 
     const removeRecipeFromCollection = (recipeId, collectionId) => {
-        console.log(recipeId, collectionId)
         dispatch(thunkDeleteRecipeFromCollection(recipeId, collectionId)).then(() => {
             dispatch(thunkGetSingleCollection(collectionId))
         })

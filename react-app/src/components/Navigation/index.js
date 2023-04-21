@@ -30,7 +30,6 @@ function Navigation({ isLoaded }) {
 	}, [dispatch]);
 
 	if (!sessionUser || !allRecipes) {
-		console.log("nothing on initial render")
 		return null
 	}
 
@@ -38,7 +37,6 @@ function Navigation({ isLoaded }) {
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		console.log('print')
 		history.push({
 			pathname: '/recipes/explore',
 			query
