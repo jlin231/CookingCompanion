@@ -21,7 +21,6 @@ function CommentCard({ comment, recipeId}) {
     commentDate = new Date(commentDate)
     console.log(commentDate)
     
-
     const handleEditSubmit = async (e) => {
         e.preventDefault()
         setErrors([])
@@ -30,6 +29,7 @@ function CommentCard({ comment, recipeId}) {
                 {
                     comment: editCommentContent
                 },
+                
                 comment.id,
                 recipeId)).then(() => {
                     setShowEditField(false)
