@@ -26,10 +26,9 @@ class Collection(db.Model):
         return {
             'id': self.id,
             'name': self.name,
-            'quantity': self.quantity,
-            'unit': self.unit,
-            'recipe_id': self.recipe_id,
-            'recipe': self.recipe
+            'description': self.description,
+            'recipes': self.recipes,
+            'author': self.author
         }
     
 collection_recipes = db.Table(

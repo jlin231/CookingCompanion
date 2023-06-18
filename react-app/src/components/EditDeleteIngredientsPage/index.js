@@ -22,7 +22,6 @@ const EditDeleteIngredientsPage = () => {
 
     useEffect(() => {
         dispatch(thunkGetSingleRecipe(recipeId)).then((res) => {
-            console.log('res', res.ingredients)
             let output = []
             res.ingredients.forEach((ingredient) => {
                 output.push({
@@ -32,7 +31,6 @@ const EditDeleteIngredientsPage = () => {
                     unit: ingredient.unit
                 })
             })
-            console.log('res', output)
             setIngredientInputArr(output)
         })
     }, [dispatch])
@@ -45,7 +43,6 @@ const EditDeleteIngredientsPage = () => {
 
         newFormValues[index][e.target["name"]] = e.target.value;
         setIngredientInputArr(newFormValues);
-        console.log(ingredientInputArr)
     }
 
     const removeInput = (e, index) => {
@@ -74,7 +71,6 @@ const EditDeleteIngredientsPage = () => {
 
         try {
             const res = await dispatch(thunkEditDeleteIngredients(body, recipeId))
-            console.log('res=================<', res)
 
             history.push(`/recipes/${recipeId}`)
 

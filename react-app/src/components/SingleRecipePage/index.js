@@ -23,7 +23,12 @@ const SingleRecipePage = () => {
 
     useEffect(() => {
         dispatch(thunkGetSingleRecipe(recipeId)).then(() => setLoadedPage(true));
-    }, [dispatch]);
+
+        return () => {
+            setLoadedPage(false);
+        }
+
+    }, [dispatch, recipeId]);
 
     if (!loadedPage || !singleRecipe) {
         return null
@@ -174,7 +179,7 @@ const SingleRecipePage = () => {
                             return (
                                 <div key={index} className="commentContainer">
                                     {
-                                        
+
                                         <CommentCard comment={comment} recipeId={singleRecipe.id} />
                                     }
                                 </div>

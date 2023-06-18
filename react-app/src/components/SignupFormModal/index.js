@@ -37,7 +37,6 @@ function SignupFormModal() {
 				errorArray.push('Password must be 5 characters or greater.')
 			}
 		}
-		console.log(errorArray, 'errorArray')
 		if (errorArray.length > 0) {
 			setErrors(errorArray)
 		}

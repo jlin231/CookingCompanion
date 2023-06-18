@@ -61,7 +61,6 @@ const deleteCommentOfRecipe = (commentId) => ({
 
 const initialState = { singleRecipe: {}, allRecipes: {} };
 
-
 export const thunkGetAllRecipe = () => async (dispatch) => {
     const response = await fetch("/api/recipes/", {
         method: "GET",
@@ -159,7 +158,6 @@ export const thunkDeleteRecipe = (recipeId) => async (dispatch) => {
 
 
 export const thunkAddIngredients = (body, recipeId) => async (dispatch) => {
-    console.log(body, "body")
 
     const response = await fetch(`/api/recipes/${recipeId}/ingredients`, {
         method: "POST",
@@ -181,7 +179,6 @@ export const thunkAddIngredients = (body, recipeId) => async (dispatch) => {
 }
 
 export const thunkEditDeleteIngredients = (body, recipeId) => async (dispatch) => {
-    console.log(body, "body")
 
     const response = await fetch(`/api/recipes/${recipeId}/ingredients`, {
         method: "PUT",
@@ -268,13 +265,13 @@ export default function recipeReducer(state = initialState, action) {
             return { allRecipes: result };
         case GET_SINGLE_RECIPE:
             newState = Object.assign({}, state);
-            newState.singleRecipe = action.payload
+            newState.singleRecipe = { ...action.payload }
             return newState;
         case CREATE_SINGLE_RECIPE:
             newState = Object.assign({}, state);
-            console.log(newState)
+
             newState.allRecipes[action.payload.id] = action.payload;
-            console.log(newState)
+
             return newState;
         case EDIT_SINGLE_RECIPE:
             newState = Object.assign({}, state);
@@ -306,7 +303,7 @@ export default function recipeReducer(state = initialState, action) {
             newState = { allRecipes: { ...newState.allRecipes }, singleRecipe: { ...newState.singleRecipe, comments: [...newState.singleRecipe.comments] } };
             return newState;
         case DELETE_COMMENT_TO_RECIPE:
-            console.log('reducer hit')
+
             newState = Object.assign({}, state);
             for (let i = 0; i < newState.singleRecipe.comments.length; i++) {
                 const comment = newState.singleRecipe.comments[i]
