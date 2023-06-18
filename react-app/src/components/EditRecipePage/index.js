@@ -27,7 +27,6 @@ const EditRecipePage = () => {
         dispatch(thunkGetSingleRecipe(recipeId)).then((res) => {
             setLoadedPage(true)
             let result = []
-            console.log(res.instructions)
             const splitInstruc = res.instructions.split(';')
             splitInstruc.pop();
             splitInstruc.forEach((instruction, index) => {
@@ -48,7 +47,6 @@ const EditRecipePage = () => {
     }, [dispatch])
 
     if (!loadedPage && !singleRecipe) {
-        console.log("loadedPagecomparater hits")
         return null;
     }
 
@@ -61,7 +59,6 @@ const EditRecipePage = () => {
             newArr[index].value = e.target.value;
             return newArr;
         })
-        console.log(instructionInputArr)
     }
 
     const addInput = (e) => {
@@ -83,7 +80,6 @@ const EditRecipePage = () => {
         setInstructionInputArr(s => {
             let newS = [...s];
             newS.pop()
-            console.log(newS)
             return newS;
         })
     }

@@ -27,7 +27,6 @@ const AddRecipesToCollection = () => {
     }, [dispatch])
 
     if (!loadedPage && !singleCollection || !singleCollection.recipes) {
-        console.log("loadedPagecomparater hits")
         return null;
     }
     //filter recipes, make a list which are owned by sessionUser, and not in collection
@@ -56,11 +55,9 @@ const AddRecipesToCollection = () => {
     }
 
     const toggleAddRecipeClass = (recipeId) => {
-        console.log('function is hit', recipeId)
         if (!recipesToAddObject[recipeId]) {
             let tempObject = { ...recipesToAddObject }
             tempObject[recipeId] = recipeId
-            console.log(tempObject, 'tempObject')
             setRecipesToAddObject({ ...tempObject })
         }
         else {
@@ -72,7 +69,6 @@ const AddRecipesToCollection = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(recipesToAddObject)
         let body = { recipes: [] }
         for (const i in recipesToAddObject) {
             body.recipes.push({ "id": i })

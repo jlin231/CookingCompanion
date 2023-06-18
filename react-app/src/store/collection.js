@@ -46,17 +46,14 @@ const deleteRecipeFromCollections = (data) => ({
 const initialState = { singleCollection: {}, allCollections: {} };
 
 export const thunkGetAllCollections = () => async (dispatch) => {
-    console.log("thunk is hit")
     const response = await fetch("/api/collections/", {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
         }
     });
-    console.log("fetch is finished")
     if (response.ok) {
         const data = await response.json();
-        console.log('collection action is dispatched')
         dispatch(getAllCollections(data));
         return null;
     } else if (response.status < 500) {
@@ -68,7 +65,6 @@ export const thunkGetAllCollections = () => async (dispatch) => {
 };
 
 export const thunkAddRecipeToCollection = (collectionId, body) => async (dispatch) => {
-    console.log("Add recipe thunk is hit")
     const response = await fetch(`/api/collections/${collectionId}/recipe`, {
         method: "POST",
         headers: {
@@ -78,7 +74,6 @@ export const thunkAddRecipeToCollection = (collectionId, body) => async (dispatc
             ...body
         })
     });
-    console.log("fetch is finished")
     if (response.ok) {
         const data = await response.json();
         console.log('collection action is dispatched')
@@ -112,7 +107,6 @@ export const thunkGetSingleCollection = (collectionId) => async (dispatch) => {
 };
 
 export const thunkCreateCollection = (body) => async (dispatch) => {
-    console.log('thunk is reached')
     const response = await fetch(`/api/collections/`, {
         method: "POST",
         headers: {
@@ -133,7 +127,6 @@ export const thunkCreateCollection = (body) => async (dispatch) => {
 };
 
 export const thunkEditCollection = (collectionId, body) => async (dispatch) => {
-    console.log('thunk is reached')
     const response = await fetch(`/api/collections/${collectionId}`, {
         method: "PUT",
         headers: {
@@ -154,7 +147,6 @@ export const thunkEditCollection = (collectionId, body) => async (dispatch) => {
 };
 
 export const thunkDeleteRecipeFromCollection = (recipeId, collectionId) => async (dispatch) => {
-    console.log('delete thunk is reached')
     const response = await fetch(`/api/collections/${collectionId}/recipe/${recipeId}`, {
         method: "DELETE",
         headers: {
@@ -196,7 +188,6 @@ export default function collectionReducer(state = initialState, action) {
     switch (action.type) {
         case GET_ALL_COLLECTION:
             let result = {}
-            console.log(action.payload)
             action.payload.Collection.forEach((collection) => {
                 result[collection.id] = collection;
             });
@@ -216,13 +207,10 @@ export default function collectionReducer(state = initialState, action) {
             newState = Object.assign({}, state);
             return newState;
         case DELETE_RECIPE_FROM_COLLECTION:
-            console.log(action.payload, 'payload')
             newState = Object.assign({}, state);
-            console.log(newState.singleCollection.recipes.length, 'length')
             for (let i = 0; i < newState.singleCollection.recipes.length; i++) {
                 if (newState.singleCollection.recipes[i].id == action.payload.recipeId) {
                     newState.singleCollection.recipes.splice(i, 1);
-                    console.log(newState.singleCollection.recipes, 'splice result')
                     return { ...newState };
                 }
             }

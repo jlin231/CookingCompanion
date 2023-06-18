@@ -24,10 +24,8 @@ const AddIngredientsPage = () => {
     const handleIngredientChange = (index, e) => {
         e.preventDefault()
 
-        console.log('ingredientARray', ingredientInputArr)
+
         let newFormValues = [...ingredientInputArr];
-        console.log(e, "raw string value")
-        console.log(Number(e.target.value), "int value")
 
         newFormValues[index][e.target["name"]] = e.target.value;
 
@@ -74,7 +72,6 @@ const AddIngredientsPage = () => {
 
         try {
             const res = await dispatch(thunkAddIngredients(body, recipeId))
-            console.log('res=================<', res)
 
             history.push(`/recipes/${recipeId}`)
 

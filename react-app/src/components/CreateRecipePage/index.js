@@ -32,7 +32,6 @@ const CreateRecipePage = () => {
             newArr[index].value = e.target.value;
             return newArr;
         })
-        console.log(instructionInputArr)
     }
 
     const addInput = (e) => {
@@ -54,7 +53,6 @@ const CreateRecipePage = () => {
         setInstructionInputArr(s => {
             let newS = [...s];
             newS.pop()
-            console.log(newS)
             return newS;
         })
     }
@@ -67,7 +65,6 @@ const CreateRecipePage = () => {
         instructionInputArr.forEach((instruction) => {
             instructions = instructions.concat(instruction.value, ";")
         })
-        console.log(instructions)
         const body = {
             title,
             description,
@@ -79,7 +76,6 @@ const CreateRecipePage = () => {
 
         try {
             const res = await dispatch(thunkCreateRecipe(body))
-            console.log('res=================<', res)
 
             history.push(`/recipes/${res.id}`)
 

@@ -32,7 +32,6 @@ const CreateCollectionPage = () => {
 
         try {
             const res = await dispatch(thunkCreateCollection(body))
-            console.log('res=================<', res)
 
             history.push(`/collections/${res.id}`)
 

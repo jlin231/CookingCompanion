@@ -16,11 +16,9 @@ function CommentCard({ comment, recipeId }) {
 
     //convert createdAt date from comment
     let commentDate = comment.createdAt
-    console.log(commentDate)
     const month = ["Jan", "Fen", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"]
     commentDate = new Date(commentDate)
     commentDate = `${month[commentDate.getMonth()]} ${commentDate.getDate()}, ${commentDate.getFullYear()}`
-
 
     const handleEditSubmit = async (e) => {
         e.preventDefault()
@@ -30,6 +28,7 @@ function CommentCard({ comment, recipeId }) {
                 {
                     comment: editCommentContent
                 },
+                
                 comment.id,
                 recipeId)).then(() => {
                     setShowEditField(false)
@@ -43,7 +42,6 @@ function CommentCard({ comment, recipeId }) {
             if (errorObject) {
 
                 setErrors(result)
-                console.log(errors, 'errors')
             };
         }
     }
@@ -55,7 +53,6 @@ function CommentCard({ comment, recipeId }) {
             const res = await dispatch(thunkDeleteCommentRecipe(commentId, recipeId))
         } catch (error) {
             let errorObject = JSON.parse(error.message);
-            console.log(errorObject, 'errorObject')
         }
     }
 

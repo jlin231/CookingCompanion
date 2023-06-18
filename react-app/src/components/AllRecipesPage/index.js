@@ -48,14 +48,12 @@ const AllRecipePage = () => {
 
     let recipeArray = []
     let resultsValues = collectionValues.concat(recipeValues)
-    console.log('collection', resultsValues)
 
 
     let resultsArray = []
     for (let i = 0; i < resultsValues.length; i = i + 4) {
         resultsArray.push(resultsValues.slice(i, i + 4))
     }
-    console.log('resultsArray', resultsArray)
 
     for (let i = 0; i < recipeValues.length; i = i + 4) {
         recipeArray.push(recipeValues.slice(i, i + 4))

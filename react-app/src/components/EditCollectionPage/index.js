@@ -22,7 +22,6 @@ const EditCollectionPage = () => {
     //load singleCollection
     useEffect(() => {
         dispatch(thunkGetSingleCollection(collectionId)).then((res) => {
-            console.log('res', res)
             setLoadedPage(true)
             setName(res.name)
             setDescription(res.description)
@@ -33,7 +32,6 @@ const EditCollectionPage = () => {
     }, [dispatch])
 
     if (!loadedPage && !singleCollection) {
-        console.log("loadedPagecomparater hits")
         return null;
     }
 
