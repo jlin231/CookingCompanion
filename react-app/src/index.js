@@ -10,7 +10,6 @@ import App from "./App";
 
 import "./index.css";
 
-
 const store = configureStore();
 
 
